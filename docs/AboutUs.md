@@ -31,6 +31,15 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 - Role: Developer
 - Responsibilities: Data
 
+### Keng How Chin
+
+<img src="images/kenghow.png" width="200px">
+
+[github](https://github.com/kenghow)
+
+* Role: Developer
+* Responsibilities: Product Scope, Tester
+
 ### Achar Pavithra
 
 <img src="images/pavithra-achar.png" width="200px">
