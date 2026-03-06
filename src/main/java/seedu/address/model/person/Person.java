@@ -123,7 +123,7 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
-                .add("address", studentId)
+                .add("studentId", studentId)
                 .add("roomNumber", roomNumber)
                 .add("emergencyContact", emergencyContact)
                 .add("tags", tags)
