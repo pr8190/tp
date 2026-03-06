@@ -31,7 +31,7 @@ public class StudentIdTest {
         // valid studentIds
         assertTrue(StudentId.isValidStudentId("Blk 456, Den Road, #01-355"));
         assertTrue(StudentId.isValidStudentId("-")); // one character
-        assertTrue(StudentId.isValidStudentId("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long studentId
+        assertTrue(StudentId.isValidStudentId("A1234567"));
     }
 
     @Test
