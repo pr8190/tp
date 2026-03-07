@@ -58,7 +58,7 @@
             <StackPane fx:id="tabSectionPlaceholder" VBox.vgrow="ALWAYS" />
 
             <!-- Right side: person list section -->
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" minWidth="200.0" />
+            <StackPane fx:id="listSectionPlaceholder" VBox.vgrow="ALWAYS" minWidth="200.0" />
           </items>
         </SplitPane>
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../../../../css/Main.css" VBox.vgrow="ALWAYS"
+      xmlns="http://javafx.com/javafx/17">
+    <children>
+        <TabPane fx:id="detailsTabPane" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+            <tabs>
+                <Tab text="Profile">
+                    <graphic>
+                        <FontIcon iconLiteral="dashicons-id" iconSize="16" iconColor="white"/>
+                    </graphic>
+                    <content>
+                        <StackPane fx:id="profilePlaceholder" styleClass="stack-pane"/>
+                    </content>
+                </Tab>
+                <Tab text="CCA Records">
+                    <graphic>
+                    </graphic>
+                    <content>
+                        <StackPane fx:id="ccaRecordsPlaceholder" styleClass="stack-pane"/>
+                    </content>
+                </Tab>
+                <Tab text="Demerit Records">
+                    <graphic>
+                    </graphic>
+                    <content>
+                        <StackPane fx:id="demeritRecordsPlaceholder" styleClass="stack-pane"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="10" VBox.vgrow="ALWAYS" stylesheets="@../css/Main.css"
+      xmlns="http://javafx.com/javafx/17">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"/>
+    </padding>
+    <children>
+        <StackPane fx:id="filterPanelPlaceholder" VBox.vgrow="NEVER"/>
+        <StackPane fx:id="personListPanelPlaceholder" minWidth="200.0" VBox.vgrow="ALWAYS"/>
+    </children>
+</VBox>

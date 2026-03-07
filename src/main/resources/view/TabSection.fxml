@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<TabPane xmlns:fx="http://javafx.com/fxml/1" fx:id="tabPaneRoot" side="LEFT" tabClosingPolicy="UNAVAILABLE"
+         VBox.vgrow="ALWAYS"
+         xmlns="http://javafx.com/javafx/17">
+    <tabs>
+        <Tab fx:id="directoryTab" text="Directory">
+            <graphic>
+                <FontIcon iconLiteral="dashicons-groups" iconSize="20" iconColor="white"/>
+            </graphic>
+            <content>
+                <StackPane fx:id="directoryTabPlaceholder" minHeight="500"/>
+            </content>
+        </Tab>
+        <Tab text="Dashboard">
+            <graphic>
+                <FontIcon iconLiteral="dashicons-dashboard" iconSize="20" iconColor="white"/>
+            </graphic>
+            <content>
+                <StackPane fx:id="dashboardTabPlaceholder" minHeight="500"/>
+            </content>
+        </Tab>
+        <Tab text="Settings">
+            <graphic>
+                <FontIcon iconLiteral="dashicons-admin-settings" iconSize="20" iconColor="white"/>
+            </graphic>
+            <content>
+                <StackPane fx:id="settingsTabPlaceholder" minHeight="500"/>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>
