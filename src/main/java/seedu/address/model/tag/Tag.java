@@ -18,6 +18,7 @@ public class Tag {
     /**
      * Constructs a {@code Tag}.
      *
+     * @param type The type of the tag.
      * @param tagName A valid tag name.
      */
     public Tag(TagType type, String tagName) {
@@ -28,6 +29,11 @@ public class Tag {
         this.type = type;
     }
 
+    /**
+     * Constructs a {@code Tag}.
+     *
+     * @param tagName A valid tag name.
+     */
     public Tag(String tagName) {
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
