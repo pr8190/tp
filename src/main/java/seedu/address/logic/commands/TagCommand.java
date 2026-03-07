@@ -1,10 +1,12 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.Model;
-
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_YEAR;
+
+import seedu.address.model.Model;
+
+
 
 /**
  * Adds a tag to a resident in the hall ledger.
