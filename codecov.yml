@@ -1,0 +1,2 @@
+ignore:
+  - "seedu/address/ui/**/*.java"
