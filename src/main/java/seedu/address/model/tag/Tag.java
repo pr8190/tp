@@ -25,7 +25,7 @@ public class Tag {
         requireNonNull(tagName);
         requireNonNull(tagName);
         checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
-        this.tagName = tagName;
+        this.tagName = this.formatTagName(type, tagName);
         this.type = type;
     }
 
@@ -46,6 +46,13 @@ public class Tag {
      */
     public static boolean isValidTagName(String test) {
         return test.matches(VALIDATION_REGEX);
+    }
+
+    public String formatTagName(TagType type, String name) {
+        if (type == TagType.YEAR) {
+            return "Y" + name;
+        }
+        return name;
     }
 
 
