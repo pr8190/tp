@@ -174,23 +174,29 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseTags(null, TagType.MAJOR));
     }
 
     @Test
     public void parseTags_collectionWithInvalidTags_throwsParseException() {
-        assertThrows(ParseException.class, () -> ParserUtil.parseTags(Arrays.asList(new Tag(TagType.MAJOR, VALID_TAG_1), new Tag(TagType.MAJOR, INVALID_TAG))));
+        assertThrows(ParseException.class, () ->
+                ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG), TagType.MAJOR));
     }
 
     @Test
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+        assertTrue(ParserUtil.parseTags(Collections.emptyList(), TagType.MAJOR).isEmpty());
     }
 
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(new Tag(TagType.MAJOR, VALID_TAG_1), new Tag(TagType.YEAR, VALID_TAG_2)));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(TagType.MAJOR, VALID_TAG_1), new Tag(TagType.YEAR, VALID_TAG_2)));
+        Set<Tag> actualTagSet =
+                ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2), TagType.MAJOR);
+
+        Set<Tag> expectedTagSet =
+                new HashSet<>(Arrays.asList(
+                        new Tag(TagType.MAJOR, VALID_TAG_1),
+                        new Tag(TagType.MAJOR, VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }
