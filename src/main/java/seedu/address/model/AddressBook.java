@@ -108,6 +108,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    public int getPersonListSize() {
+        return persons.asUnmodifiableObservableList().size();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
