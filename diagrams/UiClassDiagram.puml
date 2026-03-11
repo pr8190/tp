@@ -3,6 +3,13 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
+skinparam class {
+    FontColor UI_TEXT_DARK
+}
+skinparam class<<Hidden>> {
+    FontColor white
+    BackgroundColor white
+}
 
 package UI <<Rectangle>>{
 Class "<<interface>>\nUi" as Ui
@@ -15,46 +22,64 @@ Class PersonListPanel
 Class PersonCard
 Class StatusBarFooter
 Class CommandBox
+
+Class TabSection
+Class ListSection
+Class StudentDetailsTab
+Class DashboardTab
+Class FilterPanel
+Class SettingsTab
 }
 
 package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
+Class HiddenModel <<Hidden>>
 }
 
 package Logic <<Rectangle>> {
-Class HiddenLogic #FFFFFF
+Class HiddenLogic <<Hidden>>
 }
 
-Class HiddenOutside #FFFFFF
+Class HiddenOutside <<Hidden>>
 HiddenOutside ..> Ui
 
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
+
+MainWindow -down-> "0..1" HelpWindow
 MainWindow *-down->  "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
-MainWindow *-down-> "1" PersonListPanel
+MainWindow *-down-> "1" TabSection
+MainWindow *-down-> "1" ListSection
 MainWindow *-down-> "1" StatusBarFooter
-MainWindow --> "0..1" HelpWindow
+
+TabSection *-down-> "1" StudentDetailsTab
+TabSection *-down-> "1" DashboardTab
+TabSection *-down-> "1" SettingsTab
+
+ListSection *--> "1" FilterPanel
+ListSection *--> "1" PersonListPanel
 
 PersonListPanel -down-> "*" PersonCard
 
-MainWindow -left-|> UiPart
-
-ResultDisplay --|> UiPart
-CommandBox --|> UiPart
-PersonListPanel --|> UiPart
 PersonCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow --|> UiPart
+SettingsTab --|> UiPart
+DashboardTab --|> UiPart
+StudentDetailsTab --|> UiPart
 
-PersonCard ..> Model
+PersonCard .down.> Model
+FilterPanel .down.> Model
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-PersonListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
+CommandBox -[hidden]right- TabSection
+ListSection -[hidden]right- StatusBarFooter
+TabSection -[hidden]right- CommandBox
+ResultDisplay -[hidden]right- ListSection
+UiPart -[hidden]down- Model
+TabSection -[hidden]right- ResultDisplay
+DashboardTab -[hidden]right- SettingsTab
+SettingsTab -[hidden]right- StudentDetailsTab
 
 MainWindow -[hidden]-|> UiPart
 @enduml
