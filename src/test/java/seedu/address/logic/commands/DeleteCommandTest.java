@@ -84,7 +84,8 @@ public class DeleteCommandTest {
     @Test
     public void equals() {
         StudentId firstStudentId = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()).getStudentId();
-        StudentId secondStudentId = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased()).getStudentId();
+        StudentId secondStudentId = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased())
+                .getStudentId();
 
         DeleteCommand deleteFirstCommand = new DeleteCommand(firstStudentId);
         DeleteCommand deleteSecondCommand = new DeleteCommand(secondStudentId);
