@@ -74,33 +74,11 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setRoomNumber(ParserUtil.parseRoomNumber(argMultimap
                     .getValue(PREFIX_ROOM_NUMBER).get()));
         }
-        if (argMultimap.getValue(PREFIX_EMERGENCY_CONTACT).isPresent()) {
-            editPersonDescriptor.setEmergencyContact(ParserUtil.parseEmergencyContact(argMultimap
-                    .getValue(PREFIX_EMERGENCY_CONTACT).get()));
-        }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index, editPersonDescriptor);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * @param tags
-     * @return
-     * @throws ParseException
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(List<String> tags) throws ParseException {
-        requireNonNull(tags);
-        if (tags.isEmpty()) {
-            return Optional.empty(); // no tag prefix given at all
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("")
-            ? Collections.emptySet() // "t/" with no value = clear tags
-            : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
     }
 }
