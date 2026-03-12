@@ -10,19 +10,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagType;
-
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -79,30 +70,11 @@ public class EditCommandParser implements Parser<EditCommand> {
             editPersonDescriptor.setEmergencyContact(ParserUtil.parseEmergencyContact(argMultimap
                     .getValue(PREFIX_EMERGENCY_CONTACT).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index, editPersonDescriptor);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * @param tags
-     * @return
-     * @throws ParseException
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(List<String> tags) throws ParseException {
-        requireNonNull(tags);
-        if (tags.isEmpty()) {
-            return Optional.empty(); // no tag prefix given at all
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("")
-            ? Collections.emptySet() // "t/" with no value = clear tags
-            : tags;
-        // TODO: This is not the correct return statement.
-        return Optional.of(ParserUtil.parseTags(tagSet, TagType.YEAR));
     }
 }
