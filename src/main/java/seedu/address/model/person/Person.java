@@ -5,10 +5,12 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagType;
 
 /**
  * Represents a Person in the address book.
@@ -71,6 +73,33 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * @return the gender tag of this person, if it exists.
+     */
+    public Optional<Tag> getGender() {
+        return tags.stream()
+                .filter(tag -> tag.getTagType() == TagType.GENDER)
+                .findFirst();
+    }
+
+    /*
+     * @return the year tag of this person, if it exists.
+     */
+    public Optional<Tag> getYear() {
+        return tags.stream()
+                .filter(tag -> tag.getTagType() == TagType.YEAR)
+                .findFirst();
+    }
+
+    /*
+     * @return the major tag of this person, if it exists.
+     */
+    public Optional<Tag> getMajor() {
+        return tags.stream()
+                .filter(tag -> tag.getTagType() == TagType.MAJOR)
+                .findFirst();
     }
 
     /**
