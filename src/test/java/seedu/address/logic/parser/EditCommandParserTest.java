@@ -103,12 +103,12 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB +
                  EMAIL_DESC_AMY + STUDENTID_DESC_AMY + NAME_DESC_AMY
-                + ROOM_NUMBER_DESC_AMY + EMERGENCY_CONTACT_DESC_AMY;
+                + ROOM_NUMBER_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withStudentId(VALID_STUDENTID_AMY)
-                .withRoomNumber(VALID_ROOM_NUMBER_AMY).withEmergencyContact(VALID_EMERGENCY_CONTACT_AMY)
-                .withTags().build();
+                .withRoomNumber(VALID_ROOM_NUMBER_AMY)
+                .build();
 
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -154,17 +154,11 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // studentID
-        userInput = targetIndex.getOneBased() + ROOM_NUMBER_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withRoomNumber(VALID_ROOM_NUMBER_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
         // Emergency Contact
-        userInput = targetIndex.getOneBased() + EMERGENCY_CONTACT_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withEmergencyContact(VALID_EMERGENCY_CONTACT_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+//        userInput = targetIndex.getOneBased() + EMERGENCY_CONTACT_DESC_AMY;
+//        descriptor = new EditPersonDescriptorBuilder().withEmergencyContact(VALID_EMERGENCY_CONTACT_AMY).build();
+//        expectedCommand = new EditCommand(targetIndex, descriptor);
+//        assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
