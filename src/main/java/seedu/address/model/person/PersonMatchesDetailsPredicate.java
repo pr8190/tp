@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.FilterDetails;
 
@@ -22,12 +21,12 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        return matchesName(person)
-                || matchesSimpleField(person.getEmail().value, filterDetails.getEmailKeywords())
-                || matchesSimpleField(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
-                || matchesSimpleField(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
-                || matchesSimpleField(person.getStudentId().value, filterDetails.getStudentIdKeywords())
-                || matchesSimpleField(person.getEmergencyContact().value,
+        return isNameMatch(person)
+                || isFuzzyMatch(person.getEmail().value, filterDetails.getEmailKeywords())
+                || isFuzzyMatch(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
+                || isExactMatch(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
+                || isFuzzyMatch(person.getStudentId().value, filterDetails.getStudentIdKeywords())
+                || isExactMatch(person.getEmergencyContact().value,
                         filterDetails.getEmergencyContactKeywords())
                 || matchesFuzzyTags(person, filterDetails.getTagKeywords())
                 || matchesExactTags(person, filterDetails.getTagYearKeywords())
@@ -35,28 +34,36 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
                 || matchesExactTags(person, filterDetails.getTagGenderKeywords());
     }
 
-    // === Name matching (special: uses containsWordIgnoreCase on split words) ===
-    private boolean matchesName(Person person) {
-        Set<String> nameKeywords = filterDetails.getNameKeywords();
-        assert nameKeywords != null : "nameKeywords should be non-null";
-        if (nameKeywords.isEmpty()) {
-            return false;
-        }
-        String fullName = person.getName().fullName;
-        return nameKeywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(fullName, keyword));
+    // Name matching
+    private boolean isNameMatch(Person person) {
+        NameContainsKeywordsPredicate predicate =
+                new NameContainsKeywordsPredicate(filterDetails.getNameKeywords().stream().toList());
+        return predicate.test(person);
     }
 
-    // === Shared pipeline for simple string fields (email, phone, room, studentId, emergencyContact) ===
-    private boolean matchesSimpleField(String fieldValue, Set<String> keywords) {
+    // Exact string matching (not case-sensitive) for room and studentId
+    private boolean isExactMatch(String fieldValue, Set<String> keywords) {
         assert keywords != null : "keywords set should be non-null";
         if (keywords.isEmpty()) {
             return false;
         }
-        String lowerField = fieldValue.toLowerCase(Locale.ROOT);
+        String lowerField = fieldValue.toLowerCase();
         return keywords.stream()
-                .map(k -> k.toLowerCase(Locale.ROOT))
+                .map(k -> k.toLowerCase())
                 .anyMatch(lowerField::contains);
+    }
+
+    // Fuzzy string matching (not case-sensitive)
+    // TODO: Implement fuzzy Match
+    private boolean isFuzzyMatch(String fieldValue, Set<String> keywords) {
+        assert keywords != null : "keywords set should be non-null";
+        return isExactMatch(fieldValue, keywords);
+    }
+
+    // Substring matching (not case-sensitive)
+    // TODO: Implement fuzzy Match
+    private boolean isSubstringMatch(String fieldValue, Set<String> keywords) {
+        return isExactMatch(fieldValue, keywords);
     }
 
     // === Tag helpers without BiPredicate ===

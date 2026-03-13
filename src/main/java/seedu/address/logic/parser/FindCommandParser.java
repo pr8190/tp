@@ -38,29 +38,30 @@ public class FindCommandParser implements Parser<FindCommand> {
     public FindCommand parse(String args) throws ParseException {
         requireNonNull(args);
 
+        // Tokenize the arguments
         ArgumentTokenizer tokenizer = new ArgumentTokenizer();
         ArgumentMultimap argMultimap = tokenizer.tokenize(args,
                 PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
                 PREFIX_EMERGENCY_CONTACT, PREFIX_TAG, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER)
                 .removeEmptyValuesAndPrefix();
 
-        // Preamble and prefixes are both empty -> Empty argument message
+        // Preamble and prefixes are both empty -> Output empty argument message
         if (argMultimap.getPreamble().isEmpty() && argMultimap.hasEmptyPrefixArguments()) {
             throw new ParseException(String.format(MESSAGE_EMPTY_ARGUMENT, FindCommand.MESSAGE_USAGE));
         }
 
-        // Both preamble and prefixes exist -> Invalid command format message
+        // Both preamble and prefixes exist -> Output invalid command format message
         if (!argMultimap.getPreamble().isEmpty() && !argMultimap.hasEmptyPrefixArguments()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        // Preamble exists, prefixes are empty -> Search by name
+        // Preamble exists, prefixes are empty -> FindCommand search by name
         if (!argMultimap.getPreamble().isEmpty() && argMultimap.hasEmptyPrefixArguments()) {
             List<String> nameKeywords = getNameKeywords(args);
             return new FindCommand(new NameContainsKeywordsPredicate(nameKeywords));
         }
 
-        // Preamble is empty, prefixes exist -> Search by prefixes
+        // Preamble is empty, prefixes exist -> FindCommand by prefixes
         if (argMultimap.getPreamble().isEmpty() && !argMultimap.hasEmptyPrefixArguments()) {
             FilterDetails filterDetails = buildFilterDetails(argMultimap);
             // TODO: once PersonMatchesDetailsPredicate is ready, plug it here instead of empty predicate
