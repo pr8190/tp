@@ -100,12 +100,13 @@ public class ArgumentMultimap {
 
     /**
      * Returns true if the map contains no prefix-argument mappings,
-     * or only contains prefixes that map to empty string values (after trimming).
+     * or only contains prefixes that all map to empty string values (after trimming).
      */
     public boolean hasEmptyPrefixArguments() {
         return argMultimap
-                .values().stream()
-                .skip(1) // Skip the preamble
+                .entrySet().stream()
+                .filter(entry -> !entry.getKey().equals(new Prefix(""))) // Exclude the preamble
+                .map(entry -> entry.getValue())
                 .allMatch(valueList -> valueList.isEmpty()
                         || valueList.stream().allMatch(s -> s.trim().isEmpty()));
     }

@@ -100,6 +100,7 @@ class ArgumentMultimapTest {
         ArgumentMultimap map = new ArgumentMultimap();
         map.put(PREFIX_NAME, " ");
         map.put(PREFIX_PHONE, "");
+        map.put(PREFIX_EMPTY, " \t \n ");
         assertTrue(map.hasEmptyPrefixArguments());
     }
 
