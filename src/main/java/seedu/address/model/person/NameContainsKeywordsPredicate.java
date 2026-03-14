@@ -30,7 +30,8 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     @Override
     public boolean test(Person person) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.fuzzyMatchesIgnoresCase(person.getName().fullName, keyword));
+                .anyMatch(keyword ->
+                        StringUtil.fuzzyMatchesWordInSentenceIgnoreCase(person.getName().fullName, keyword));
     }
 
     @Override
