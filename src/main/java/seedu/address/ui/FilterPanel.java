@@ -45,7 +45,6 @@ public class FilterPanel extends UiPart<Region> {
      */
     public FilterPanel() {
         super(FXML);
-
         // Initialize dummy values for ComboBoxes for UI demonstration
         floorFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5");
         floorFilterComboBox.getSelectionModel().selectFirst();
@@ -62,5 +61,7 @@ public class FilterPanel extends UiPart<Region> {
 
         sortByComboBox.getItems().addAll("Ascending", "Descending");
         sortByComboBox.getSelectionModel().selectFirst();
+
+        nameFilterField.setOnKeyPressed();
     }
 }
