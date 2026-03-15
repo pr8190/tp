@@ -40,26 +40,28 @@
           </padding>
         </StackPane>
 
-        <!-- Result Display -->
-        <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
-                   styleClass="stack-pane">
-          <padding>
-            <Insets bottom="5" left="10" right="10" top="5" />
-          </padding>
-          <VBox.margin>
-            <Insets bottom="10.0" />
-          </VBox.margin>
-        </StackPane>
+        <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS">
+            <!-- Result Display -->
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="300" minHeight="100" prefHeight="100"
+                       styleClass="stack-pane">
+                <padding>
+                    <Insets bottom="5" left="10" right="10" top="5" />
+                </padding>
+                <VBox.margin>
+                    <Insets bottom="10.0" />
+                </VBox.margin>
+            </StackPane>
 
-        <!-- SplitPane with Tab section and Person list section -->
-        <SplitPane dividerPositions="0.65" VBox.vgrow="ALWAYS">
-          <items>
-            <!-- Left side: tab / directory section placeholder -->
-            <StackPane fx:id="tabSectionPlaceholder" VBox.vgrow="ALWAYS" minWidth ="400.0" />
+            <!-- SplitPane with Tab section and Person list section -->
+            <SplitPane dividerPositions="0.65" VBox.vgrow="ALWAYS">
+                <items>
+                    <!-- Left side: tab / directory section placeholder -->
+                    <StackPane fx:id="tabSectionPlaceholder" VBox.vgrow="ALWAYS" minWidth ="400.0" />
 
-            <!-- Right side: person list section -->
-            <StackPane fx:id="listSectionPlaceholder" VBox.vgrow="ALWAYS" minWidth="400.0" />
-          </items>
+                    <!-- Right side: person list section -->
+                    <StackPane fx:id="listSectionPlaceholder" VBox.vgrow="ALWAYS" minWidth="400.0" />
+                </items>
+            </SplitPane>
         </SplitPane>
 
         <!-- Status bar -->
