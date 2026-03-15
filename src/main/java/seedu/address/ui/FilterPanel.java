@@ -16,15 +16,25 @@ public class FilterPanel extends UiPart<Region> {
     @FXML
     private TextField nameFilterField;
     @FXML
-    private TextField tagFilterField;
+    private TextField phoneNumberFilterField;
     @FXML
-    private ComboBox<String> blockFilterComboBox;
+    private TextField emailFilterField;
+    @FXML
+    private TextField studentIdFilterField;
+    @FXML
+    private TextField roomNumberFilterField;
+    @FXML
+    private TextField majorFilterField;
+    @FXML
+    private TextField emergencyContactFilterField;
+    @FXML
+    private ComboBox<String> floorFilterComboBox;
     @FXML
     private ComboBox<String> yearFilterComboBox;
     @FXML
     private ComboBox<String> genderFilterComboBox;
     @FXML
-    private ComboBox<String> sortComboBox;
+    private ComboBox<String> sortByComboBox;
     @FXML
     private FontIcon filterIcon;
     @FXML
@@ -37,8 +47,8 @@ public class FilterPanel extends UiPart<Region> {
         super(FXML);
 
         // Initialize dummy values for ComboBoxes for UI demonstration
-        blockFilterComboBox.getItems().addAll("Any", "A", "B", "C", "D", "E");
-        blockFilterComboBox.getSelectionModel().selectFirst();
+        floorFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5");
+        floorFilterComboBox.getSelectionModel().selectFirst();
 
         yearFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5+");
         yearFilterComboBox.getSelectionModel().selectFirst();
@@ -46,7 +56,11 @@ public class FilterPanel extends UiPart<Region> {
         genderFilterComboBox.getItems().addAll("Any", "Male", "Female");
         genderFilterComboBox.getSelectionModel().selectFirst();
 
-        sortComboBox.getItems().addAll("Name", "CCA Points (High to Low)", "Year (Seniority)");
-        sortComboBox.getSelectionModel().selectFirst();
+        sortByComboBox.getItems().addAll("None", "Name", "Phone", "Email", "Student ID", "Room number", "Major",
+                "Emergency Contact", "Floor", "Year", "Gender");
+        sortByComboBox.getSelectionModel().selectFirst();
+
+        sortByComboBox.getItems().addAll("Ascending", "Descending");
+        sortByComboBox.getSelectionModel().selectFirst();
     }
 }
