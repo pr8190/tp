@@ -551,3 +551,18 @@
     -fx-font-size: 11pt;
     -fx-alignment: center-left;
 }
+
+/* Name flow pane tags in filter panel */
+#nameTags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#nameTags .label {
+    -fx-text-fill: white;
+    -fx-background-color: secondary-blue;
+    -fx-padding: 1 5 1 5;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-font-size: 11;
+}
