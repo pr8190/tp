@@ -18,9 +18,16 @@
 
                 <VBox spacing="5.0">
                     <Label styleClass="label-bright" text="Search by Name" />
-                    <TextField fx:id="nameFilterField" promptText="E.g: Alex"
-                               onAction="#handleNameFieldEntered"/>
-               <FlowPane fx:id="nameTags" prefWidth="200.0" rowValignment="TOP" />
+                    <TextField fx:id="nameFilterField" onAction="#handleNameFieldEntered" promptText="E.g: Alex" />
+               <HBox>
+                  <children>
+                     <Label styleClass="label-small" text="Keywords:" />
+                     <FlowPane fx:id="nameTags" rowValignment="TOP" HBox.hgrow="ALWAYS">
+                        <HBox.margin>
+                           <Insets left="3.0" />
+                        </HBox.margin></FlowPane>
+                  </children>
+               </HBox>
                 </VBox>
 
                 <GridPane hgap="20.0" vgap="15.0">

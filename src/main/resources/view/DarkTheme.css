@@ -35,6 +35,13 @@
     -fx-opacity: 1;
 }
 
+.label-small {
+    -fx-font-size: 9pt;
+    -fx-font-family: "SansSerif";
+    -fx-text-fill: derive(light-grey, 50%);
+    -fx-opacity: 0.8;
+}
+
 .text-field {
     -fx-font-size: 10pt;
     -fx-font-family: "SansSerif";
