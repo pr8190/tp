@@ -44,36 +44,6 @@ public class StringUtil {
     }
 
     /**
-     * Checks if a word is a substring of any words in the word set, ignoring case.
-     * <br>
-     * Examples:
-     * <pre>
-     *      isSubstringOfAnyIgnoreCase("abc", Set.of("abc", "xyz")) == true
-     *              // "abc" is a substring of "abc"
-     *      isSubstringOfAnyIgnoreCase("abc", Set.of("ABCdef")) == true
-     *              // "abc" is a substring of "ABCdef", ignoring case
-     *      isSubstringOfAnyIgnoreCase("abc", Set.of("ab", "xyz")) == false
-     *              // "abc" is not a substring of any
-     * </pre>
-     *
-     * @param word    The text to check. Cannot be null or empty.
-     * @param wordSet The set of words to look for. Cannot be null or empty.
-     * @return true if {@code word} is a substring of any in {@code wordSet}.
-     */
-    public static boolean isSubstringOfAnyIgnoreCase(String word, Set<String> wordSet) {
-        requireNonNull(word);
-        requireNonNull(wordSet);
-
-        String preppedWord = word.toLowerCase().trim();
-        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(!wordSet.isEmpty(), "Word set cannot be empty");
-
-        return wordSet.stream()
-                .map(w -> w.toLowerCase().trim())
-                .anyMatch(w -> w.contains(preppedWord));
-    }
-
-    /**
      * Checks if word fuzzy matches any word in the word set, ignoring case.
      * <br>
      * Fuzzy matching is defined as an algorithm in {@link #fuzzyMatchesIgnoresCase(String, String)}.
@@ -82,8 +52,8 @@ public class StringUtil {
      * <pre>
      *      fuzzyMatchesAnyIgnoreCase("abc", Set.of("abc", "xyz")) == true
      *              // "abc" fuzzy matches "abc"
-     *      fuzzyMatchesAnyIgnoreCase("abc", Set.of("ABCdefghi")) == true
-     *              // "abc" is a 3 character-long substring of "ABCdefghi", so it is considered a fuzzy match
+     *      fuzzyMatchesAnyIgnoreCase("abc", Set.of("ABCxyz")) == true
+     *              // "abc" is a 3 character-long substring of "ABCxyz", so it is considered a fuzzy match
      *      fuzzyMatchesAnyIgnoreCase("abc", Set.of("ab", "xyz")) == true
      *              // "abc" is a 1 edit distance away from "ab", so it is considered a fuzzy match
      * </pre>
@@ -107,7 +77,7 @@ public class StringUtil {
      * The matching rules are applied after trimming and converting to lower case:
      * <ol>
      *     <li>Exact matches are always true.</li>
-     *     <li>If either string is 2 characters or shorter, only exact matches return true (fuzzy logic is disabled).</li>
+     *     <li>If either string is 2 characters or shorter, only exact matches return true (fuzzy logic disabled).</li>
      *     <li>If the {@code query} is a substring of the {@code target}, returns true.</li>
      *     <li>If the Levenshtein distance is 2 or less, returns true (tolerating small typos).</li>
      * </ol>
