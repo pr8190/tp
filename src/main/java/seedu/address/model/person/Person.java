@@ -6,9 +6,11 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagType;
 
 /**
  * Represents a Person in the address book.
@@ -71,6 +73,47 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    /**
+     * @return the gender tag(s) of this person, if they exist
+     */
+    public Set<Tag> getGender() {
+        Set<Tag> genderTags = tags.stream()
+                .filter(tag -> tag.getTagType() == TagType.GENDER)
+                .collect(Collectors.toSet());
+        assertTagLimit(genderTags, TagType.GENDER);
+        return genderTags;
+    }
+
+    /*
+     * @return the year tags of this person
+     */
+    public Set<Tag> getYear() {
+        Set<Tag> yearTags = tags.stream()
+                .filter(tag -> tag.getTagType() == TagType.YEAR)
+                .collect(Collectors.toSet());
+        assertTagLimit(yearTags, TagType.YEAR);
+        return yearTags;
+    }
+
+    /*
+     * @return the year tags of this person, if they exist.
+     */
+    public Set<Tag> getMajor() {
+        Set<Tag> majorTags = tags.stream()
+                .filter(tag -> tag.getTagType() == TagType.MAJOR)
+                .collect(Collectors.toSet());
+        assertTagLimit(majorTags, TagType.MAJOR);
+        return majorTags;
+    }
+
+    /**
+     * Asserts that the number of tags of a given type does not exceed the allowed maximum.
+     */
+    private static void assertTagLimit(Set<Tag> tagSet, TagType type) {
+        assert tagSet.size() <= type.getMaxTagsPerType()
+                : "Tag count for " + type + " exceeds limit of " + type.getMaxTagsPerType();
     }
 
     /**

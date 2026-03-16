@@ -5,7 +5,17 @@ package seedu.address.model.tag;
  * Guarantees: immutable; name is valid
  */
 public enum TagType {
-    YEAR,
-    MAJOR,
-    GENDER;
+    YEAR(1),
+    MAJOR(2),
+    GENDER(1);
+
+    private final int maxTagsPerType;
+
+    TagType(int maxTagsPerType) {
+        this.maxTagsPerType = maxTagsPerType;
+    }
+
+    public int getMaxTagsPerType() {
+        return maxTagsPerType;
+    }
 }

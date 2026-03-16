@@ -15,6 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagType;
 
 /**
  * Adds a tag to a resident in the hall ledger.
@@ -69,6 +70,7 @@ public class TagCommand extends Command {
         Person personToTag = lastShownList.get(index.getZeroBased());
         Set<Tag> updatedTags = new HashSet<>(personToTag.getTags());
         updatedTags.addAll(tags);
+        checkTagLimits(updatedTags);
 
         Person taggedPerson = new Person(
                 personToTag.getName(),
@@ -84,5 +86,18 @@ public class TagCommand extends Command {
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(TAG_SUCCESS, taggedPerson));
+    }
+
+    private void checkTagLimits(Set<Tag> updatedTags) throws CommandException {
+        for (TagType type : TagType.values()) {
+            long countOfTagsPerType = updatedTags.stream()
+                    .filter(tag -> tag.getTagType() == type)
+                    .count();
+            if (countOfTagsPerType > type.getMaxTagsPerType()) {
+                throw new CommandException(
+                        "Tag type " + type + " allows at most " + type.getMaxTagsPerType() + " tag(s) per person."
+                );
+            }
+        }
     }
 }

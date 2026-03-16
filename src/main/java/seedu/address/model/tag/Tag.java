@@ -36,7 +36,19 @@ public class Tag {
         return test.matches(VALIDATION_REGEX);
     }
 
+    /**
+     * @return the tag name of this tag.
+     */
+    public String getTagName() {
+        return tagName;
+    }
 
+    /**
+     * @return the tag type of this tag.
+     */
+    public TagType getTagType() {
+        return type;
+    }
 
     @Override
     public boolean equals(Object other) {
