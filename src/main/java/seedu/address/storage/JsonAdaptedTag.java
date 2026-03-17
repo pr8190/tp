@@ -13,17 +13,17 @@ import seedu.address.model.tag.TagType;
 class JsonAdaptedTag {
 
     private final String tagName;
-    private final String type;
+    private final String tagType;
 
     /**
      * Constructs a {@code JsonAdaptedTag} with the given {@code tagName}.
      */
     @JsonCreator
-    public JsonAdaptedTag(@JsonProperty("tagType") String type,
+    public JsonAdaptedTag(@JsonProperty("tagType") String tagType,
                           @JsonProperty("tagName") String tagName) {
 
         this.tagName = tagName;
-        this.type = type;
+        this.tagType = tagType;
     }
 
     /**
@@ -31,7 +31,7 @@ class JsonAdaptedTag {
      */
     public JsonAdaptedTag(Tag source) {
 
-        this.type = source.type.name();
+        this.tagType = source.tagType.name();
         tagName = source.tagName;
     }
 
@@ -51,9 +51,9 @@ class JsonAdaptedTag {
         }
         TagType type;
         try {
-            type = TagType.valueOf(this.type);
+            type = TagType.valueOf(this.tagType);
         } catch (IllegalArgumentException e) {
-            throw new IllegalValueException("Invalid tag type: " + this.type);
+            throw new IllegalValueException("Invalid tag type: " + this.tagType);
         }
         return new Tag(type, tagName);
     }

@@ -1,5 +1,4 @@
 {
-  "_comment": "AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook()",
   "persons" : [ {
     "name" : "Alice Pauline",
     "phone" : "+65 94351253",
@@ -7,7 +6,16 @@
     "studentId" : "A1234567X",
     "roomNumber" : "13E",
     "emergencyContact" : "+65 91234567",
-    "tags": [{"tagType":"GENDER","tagName":"she"}]
+    "tags" : [ {
+      "tagType" : "MAJOR",
+      "tagName" : "CS"
+    }, {
+      "tagType" : "YEAR",
+      "tagName" : "Y1"
+    }, {
+      "tagType" : "GENDER",
+      "tagName" : "Female"
+    } ]
   }, {
     "name" : "Benson Meier",
     "phone" : "+65 98765432",
@@ -15,7 +23,19 @@
     "studentId" : "A8765432Y",
     "roomNumber" : "10A",
     "emergencyContact" : "+65 91234567",
-    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y2"}]
+    "tags" : [ {
+      "tagType" : "MAJOR",
+      "tagName" : "CS"
+    }, {
+      "tagType" : "MAJOR",
+      "tagName" : "Maths"
+    }, {
+      "tagType" : "YEAR",
+      "tagName" : "Y2"
+    }, {
+      "tagType" : "GENDER",
+      "tagName" : "Male"
+    } ]
   }, {
     "name" : "Carl Kurz",
     "phone" : "+65 95352563",
@@ -23,7 +43,7 @@
     "studentId" : "A1111111X",
     "roomNumber" : "12B",
     "emergencyContact" : "+65 91234567",
-    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
+    "tags" : [ ]
   }, {
     "name" : "Daniel Meier",
     "phone" : "+65 87652533",
@@ -31,7 +51,13 @@
     "studentId" : "A2222222X",
     "roomNumber" : "6C",
     "emergencyContact" : "+65 91234567",
-    "tags": [{"tagType":"YEAR","tagName":"Y2"}]
+    "tags" : [ {
+      "tagType" : "YEAR",
+      "tagName" : "Y3"
+    }, {
+      "tagType" : "MAJOR",
+      "tagName" : "Business"
+    } ]
   }, {
     "name" : "Elle Meyer",
     "phone" : "+65 9482224",
@@ -39,7 +65,13 @@
     "studentId" : "A3333333X",
     "roomNumber" : "7E",
     "emergencyContact" : "+65 91234567",
-    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
+    "tags" : [ {
+      "tagType" : "YEAR",
+      "tagName" : "Y1"
+    }, {
+      "tagType" : "GENDER",
+      "tagName" : "Female"
+    } ]
   }, {
     "name" : "Fiona Kunz",
     "phone" : "+65 9482427",
@@ -47,7 +79,16 @@
     "studentId" : "A4444444X",
     "roomNumber" : "14A",
     "emergencyContact" : "+65 91234567",
-    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
+    "tags" : [ {
+      "tagType" : "MAJOR",
+      "tagName" : "Economics"
+    }, {
+      "tagType" : "GENDER",
+      "tagName" : "Female"
+    }, {
+      "tagType" : "MAJOR",
+      "tagName" : "Statistics"
+    } ]
   }, {
     "name" : "George Best",
     "phone" : "+65 9482442",
@@ -55,6 +96,13 @@
     "studentId" : "A5555555X",
     "roomNumber" : "15N",
     "emergencyContact" : "+65 91234567",
-    "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
-  } ]
+    "tags" : [ {
+      "tagType" : "GENDER",
+      "tagName" : "NB"
+    }, {
+      "tagType" : "YEAR",
+      "tagName" : "Y4"
+    } ]
+  }
+  ]
 }

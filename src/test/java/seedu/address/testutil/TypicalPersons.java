@@ -15,6 +15,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MAJOR;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_YEAR;
 
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +24,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.TagType;
+import seedu.address.storage.JsonAddressBookStorage;
 
 /**
  * A list of person data in the correct format
@@ -32,12 +35,17 @@ public class TypicalPersons {
             .withStudentId("A1234567X").withEmail("alice@example.com")
             .withPhone("+65 94351253")
             .withRoomNumber("13E").withEmergencyContact("+65 91234567")
-            .withTags(new Object[]{TagType.GENDER, "she"}).build();
+            .withTags(new Object[]{TagType.GENDER, "Female"},
+                    new Object[]{TagType.YEAR, "Y1"},
+                    new Object[]{TagType.MAJOR, "CS"}).build();
 
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withStudentId("A8765432Y").withEmail("johnd@example.com").withPhone("+65 98765432")
             .withRoomNumber("10A").withEmergencyContact("+65 91234567")
-            .withTags(new Object[]{TagType.MAJOR, "CS"}, new Object[]{TagType.YEAR, "Y2"}).build();
+            .withTags(new Object[]{TagType.MAJOR, "CS"},
+                    new Object[]{TagType.MAJOR, "Maths"},
+                    new Object[]{TagType.YEAR, "Y2"},
+                    new Object[]{TagType.GENDER, "Male"}).build();
 
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("+65 95352563")
             .withEmail("heinz@example.com").withStudentId("A1111111X").withRoomNumber("12B")
@@ -46,19 +54,27 @@ public class TypicalPersons {
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("+65 87652533")
             .withEmail("cornelia@example.com").withStudentId("A2222222X").withRoomNumber("6C")
             .withEmergencyContact("+65 91234567")
-            .withTags(new Object[]{TagType.YEAR, "Y2"}).build();
+            .withTags(new Object[]{TagType.YEAR, "Y3"},
+                    new Object[]{TagType.MAJOR, "Business"}).build();
 
     public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("+65 9482224")
             .withEmail("werner@example.com").withStudentId("A3333333X").withRoomNumber("7E")
-            .withEmergencyContact("+65 91234567").build();
+            .withEmergencyContact("+65 91234567")
+            .withTags(new Object[]{TagType.YEAR, "Y1"},
+                    new Object[]{TagType.GENDER, "Female"}).build();
 
     public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("+65 9482427")
             .withEmail("lydia@example.com").withStudentId("A4444444X").withRoomNumber("14A")
-            .withEmergencyContact("+65 91234567").build();
+            .withEmergencyContact("+65 91234567")
+            .withTags(new Object[]{TagType.MAJOR, "Economics"},
+                    new Object[]{TagType.MAJOR, "Statistics"},
+                    new Object[]{TagType.GENDER, "Female"}).build();
 
     public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("+65 9482442")
             .withEmail("anna@example.com").withStudentId("A5555555X").withRoomNumber("15N")
-            .withEmergencyContact("+65 91234567").build();
+            .withEmergencyContact("+65 91234567")
+            .withTags(new Object[]{TagType.YEAR, "Y4"},
+                    new Object[]{TagType.GENDER, "NB"}).build();
 
     // Manually added
     public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("+65 8482424")
@@ -91,5 +107,14 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
+
+    /** Regenerates the typical persons JSON file. This allows easy updating of typicalPersonsAddressBook. */
+    public static void main(String[] args) throws IOException {
+        new JsonAddressBookStorage(Paths.get(
+                "src", "test", "data", "JsonSerializableAddressBookTest",
+                "typicalPersonsAddressBook.json"))
+                .saveAddressBook(getTypicalAddressBook());
+        System.out.println("Done.");
     }
 }

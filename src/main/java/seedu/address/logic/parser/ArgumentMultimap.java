@@ -77,12 +77,15 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns a new ArgumentMultimap with all empty string values removed.
-     * If a prefix has only empty string values, that prefix will be removed from the map entirely.
+     * Returns a new ArgumentMultimap with all empty string values removed, and prefixes that only have empty string
+     * values will also be removed.
      *
-     * @return a new {@code ArgumentMultimap} with empty string values removed
+     * This is useful for commands like FindCommand where empty string values are not meaningful and should be treated
+     * as if the prefix was not provided at all.
+     *
+     * @return a new {@code ArgumentMultimap} with empty string values and empty prefixes removed
      */
-    public ArgumentMultimap removeEmptyValues() {
+    public ArgumentMultimap removeEmptyValuesAndPrefixes() {
         ArgumentMultimap cleanedMap = new ArgumentMultimap();
         for (Map.Entry<Prefix, List<String>> entry : argMultimap.entrySet()) {
             List<String> nonEmptyValues = new ArrayList<>();
@@ -100,12 +103,13 @@ public class ArgumentMultimap {
 
     /**
      * Returns true if the map contains no prefix-argument mappings,
-     * or only contains prefixes that map to empty string values (after trimming).
+     * or only contains prefixes that all map to empty string values (after trimming).
      */
     public boolean hasEmptyPrefixArguments() {
         return argMultimap
-                .values().stream()
-                .skip(1) // Skip the preamble
+                .entrySet().stream()
+                .filter(entry -> !entry.getKey().equals(new Prefix(""))) // Exclude the preamble
+                .map(entry -> entry.getValue())
                 .allMatch(valueList -> valueList.isEmpty()
                         || valueList.stream().allMatch(s -> s.trim().isEmpty()));
     }

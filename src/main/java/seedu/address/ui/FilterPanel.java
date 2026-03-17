@@ -1,11 +1,16 @@
 package seedu.address.ui;
 
+import java.util.Set;
+
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
+import seedu.address.commons.util.StringUtil;
 
 /**
  * Panel containing the list of filtering and sorting options.
@@ -16,15 +21,27 @@ public class FilterPanel extends UiPart<Region> {
     @FXML
     private TextField nameFilterField;
     @FXML
-    private TextField tagFilterField;
+    private FlowPane nameTags;
     @FXML
-    private ComboBox<String> blockFilterComboBox;
+    private TextField phoneNumberFilterField;
+    @FXML
+    private TextField emailFilterField;
+    @FXML
+    private TextField studentIdFilterField;
+    @FXML
+    private TextField roomNumberFilterField;
+    @FXML
+    private TextField majorFilterField;
+    @FXML
+    private TextField emergencyContactFilterField;
+    @FXML
+    private ComboBox<String> floorFilterComboBox;
     @FXML
     private ComboBox<String> yearFilterComboBox;
     @FXML
     private ComboBox<String> genderFilterComboBox;
     @FXML
-    private ComboBox<String> sortComboBox;
+    private ComboBox<String> sortByComboBox;
     @FXML
     private FontIcon filterIcon;
     @FXML
@@ -35,10 +52,9 @@ public class FilterPanel extends UiPart<Region> {
      */
     public FilterPanel() {
         super(FXML);
-
         // Initialize dummy values for ComboBoxes for UI demonstration
-        blockFilterComboBox.getItems().addAll("Any", "A", "B", "C", "D", "E");
-        blockFilterComboBox.getSelectionModel().selectFirst();
+        floorFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5");
+        floorFilterComboBox.getSelectionModel().selectFirst();
 
         yearFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5+");
         yearFilterComboBox.getSelectionModel().selectFirst();
@@ -46,7 +62,27 @@ public class FilterPanel extends UiPart<Region> {
         genderFilterComboBox.getItems().addAll("Any", "Male", "Female");
         genderFilterComboBox.getSelectionModel().selectFirst();
 
-        sortComboBox.getItems().addAll("Name", "CCA Points (High to Low)", "Year (Seniority)");
-        sortComboBox.getSelectionModel().selectFirst();
+        sortByComboBox.getItems().addAll("None", "Name", "Phone", "Email", "Student ID", "Room number", "Major",
+                "Emergency Contact", "Floor", "Year", "Gender");
+        sortByComboBox.getSelectionModel().selectFirst();
+
+        sortByComboBox.getItems().addAll("Ascending", "Descending");
+        sortByComboBox.getSelectionModel().selectFirst();
+    }
+
+    /*
+    * Handles the event when the user presses 'Enter' in the name filter field.
+    * Splits the input into individual keywords and displays them as tags in the UI.
+     */
+    @FXML
+    private void handleNameFieldEntered() {
+        nameTags.getChildren().clear();
+        String nameFilterText = nameFilterField.getText();
+        if (nameFilterText.trim().isEmpty()) {
+            return;
+        }
+        Set<String> nameFilterKeywordsSet = StringUtil.splitSentenceIntoWords(nameFilterText);
+        nameFilterKeywordsSet.forEach(tag -> nameTags.getChildren().add(new Label(tag)));
+        nameFilterField.clear();
     }
 }

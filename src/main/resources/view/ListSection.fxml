@@ -10,6 +10,6 @@
     </padding>
     <children>
         <StackPane fx:id="filterPanelPlaceholder" VBox.vgrow="NEVER"/>
-        <StackPane fx:id="personListPanelPlaceholder" minWidth="200.0" VBox.vgrow="ALWAYS"/>
+        <StackPane fx:id="personListPanelPlaceholder" minWidth="320.0" VBox.vgrow="ALWAYS"/>
     </children>
 </VBox>

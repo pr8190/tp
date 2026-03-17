@@ -11,7 +11,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagType;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -25,8 +24,6 @@ public class PersonBuilder {
     public static final String DEFAULT_STUDENTID = "A1234567X";
     public static final String DEFAULT_ROOM_NUMBER = "13E";
     public static final String DEFAULT_EMERGENCY_CONTACT = "+65 91234567";
-    public static final Tag VALID_TAG_MAJOR = new Tag(TagType.MAJOR, "CS");
-    public static final Tag VALID_TAG_YEAR = new Tag(TagType.YEAR, "Y1");
 
     private Name name;
     private Phone phone;
@@ -47,8 +44,6 @@ public class PersonBuilder {
         studentId = new StudentId(DEFAULT_STUDENTID);
         roomNumber = new RoomNumber(DEFAULT_ROOM_NUMBER);
         emergencyContact = new EmergencyContact(DEFAULT_EMERGENCY_CONTACT);
-        tags.add(VALID_TAG_MAJOR);
-        tags.add(VALID_TAG_YEAR);
     }
 
     /**
@@ -123,5 +118,4 @@ public class PersonBuilder {
     public Person build() {
         return new Person(name, phone, email, studentId, roomNumber, emergencyContact, tags);
     }
-
 }

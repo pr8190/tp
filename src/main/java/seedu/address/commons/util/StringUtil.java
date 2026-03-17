@@ -6,6 +6,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Helper functions for handling strings.
@@ -31,8 +33,7 @@ public class StringUtil {
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
         checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
-        String preppedSentence = sentence;
-        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+        String[] wordsInPreppedSentence = sentence.split("\\s+");
 
         return Arrays.stream(wordsInPreppedSentence)
                 .anyMatch(preppedWord::equalsIgnoreCase);
@@ -64,5 +65,21 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Splits a given sentence into words and returns a set of the words in the sentence.
+     *
+     * @param sentence sentence to be split into words. Cannot be null.
+     * @return a {@code Set<String>} of the words in the sentence.
+     */
+    public static Set<String> splitSentenceIntoWords(String sentence) {
+        requireNonNull(sentence);
+        String trimmedSentence = sentence.trim();
+        if (trimmedSentence.isEmpty()) {
+            return new HashSet<>();
+        }
+        String[] wordsInSentence = trimmedSentence.split("\\s+");
+        return new HashSet<>(Arrays.asList(wordsInSentence));
     }
 }
