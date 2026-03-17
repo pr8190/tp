@@ -15,7 +15,7 @@ public class StudentId {
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "A\\d{6,8}[X-Z]";
+    public static final String VALIDATION_REGEX = "A\\d{6,8}[A-Z]";
 
     public final String value;
 
