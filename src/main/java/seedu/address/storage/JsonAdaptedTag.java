@@ -49,13 +49,12 @@ class JsonAdaptedTag {
         if (!Tag.isValidTagName(tagName)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
-        TagType tagType;
+        TagType type;
         try {
-            tagType = TagType.valueOf(this.tagType);
+            type = TagType.valueOf(this.tagType);
         } catch (IllegalArgumentException e) {
             throw new IllegalValueException("Invalid tag type: " + this.tagType);
         }
-        return new Tag(tagType, tagName);
+        return new Tag(type, tagName);
     }
-
 }
