@@ -41,35 +41,47 @@ public class NameContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
+        // Zero keywords
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice").build()));
+
         // One keyword
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
+        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Multiple keywords
+        // Exact match - multiple matching keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
-        // Only one matching keyword
+        // Exact match - one matching keyword
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
 
-        // Mixed-case keywords
+        // Exact match - mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
+
+        // Fuzzy match - Levenshtein distance < 2
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Abice", "Bob"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
+
+        // Fuzzy match - Query is substring of target
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Lic", "Bob"));
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
-
         // Non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
+        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("Carol"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
+        // Keywords does not match name
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("George", "Hello", "World"));
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice Carol").build()));
+
         // Keywords match phone, email and address, but does not match name
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("+6512345", "alice@email.com", "A1234567X"));
+        predicate = new NameContainsKeywordsPredicate(Arrays.asList("+6512345", "nonmatching@email.com", "A1234567X"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").withPhone("+6512345")
                 .withEmail("alice@email.com").withStudentId("A1234567X").build()));
     }
