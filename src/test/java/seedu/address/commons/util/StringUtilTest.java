@@ -164,7 +164,7 @@ public class StringUtilTest {
         assertTrue(StringUtil.fuzzyMatchesAnyIgnoreCase("kitti", wordSet));
 
         // Substring match
-        assertTrue(StringUtil.fuzzyMatchesAnyIgnoreCase("stitu", wordSet));
+        assertTrue(StringUtil.fuzzyMatchesAnyIgnoreCase("unconstitutional", wordSet));
 
         // No match (too different and not substring)
         assertFalse(StringUtil.fuzzyMatchesAnyIgnoreCase("dragon", wordSet));
