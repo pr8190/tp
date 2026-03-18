@@ -87,7 +87,7 @@ public class TagCommand extends Command {
         model.setPerson(personToTag, taggedPerson);
         model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
-        return new CommandResult(String.format(TAG_SUCCESS, taggedPerson));
+        return new CommandResult(String.format(TAG_SUCCESS, Messages.format(taggedPerson)));
     }
 
     //    private void checkTagLimits(HashMap<Tag, TagType> updatedTags) throws CommandException {
