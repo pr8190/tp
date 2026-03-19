@@ -58,8 +58,8 @@ public class CommandTestUtil {
             + VALID_EMERGENCY_CONTACT_AMY;
     public static final String EMERGENCY_CONTACT_DESC_BOB = " " + PREFIX_EMERGENCY_CONTACT
             + VALID_EMERGENCY_CONTACT_BOB;
-    public static final String TAG_DESC_YEAR = " " + PREFIX_TAG + "YEAR:Y1";
-    public static final String TAG_DESC_MAJOR = " " + PREFIX_TAG + "MAJOR:CS";
+    public static final String TAG_DESC_YEAR = " " + PREFIX_TAG + VALID_TAG_YEAR;
+    public static final String TAG_DESC_MAJOR = " " + PREFIX_TAG + VALID_TAG_MAJOR[1];
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones

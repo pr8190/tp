@@ -23,8 +23,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MAJOR;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_YEAR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
@@ -106,18 +104,16 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         StudentId targetStudentId = new StudentId(VALID_STUDENTID_AMY);
-        String userInput = " " + VALID_STUDENTID_AMY + PHONE_DESC_BOB + TAG_DESC_MAJOR
-                + EMAIL_DESC_AMY + STUDENTID_DESC_AMY + NAME_DESC_AMY + TAG_DESC_YEAR
+        String userInput = " " + VALID_STUDENTID_AMY + PHONE_DESC_BOB
+                + EMAIL_DESC_AMY + STUDENTID_DESC_AMY + NAME_DESC_AMY
                 + ROOM_NUMBER_DESC_AMY;
 
-        System.out.println("DEBUG userInput: [" + userInput + "]");
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder()
                 .withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_AMY)
                 .withStudentId(VALID_STUDENTID_AMY)
                 .withRoomNumber(VALID_ROOM_NUMBER_AMY)
-                .withTags(VALID_TAG_MAJOR, VALID_TAG_YEAR)
                 .build();
 
         EditCommand expectedCommand = new EditCommand(targetStudentId, descriptor);
