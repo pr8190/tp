@@ -15,8 +15,10 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.EmergencyContact;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.RoomNumber;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
@@ -26,12 +28,16 @@ public class ParserUtilTest {
     private static final String INVALID_PHONE = "651234";
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_ROOM_NUMBER = "A1";
+    private static final String INVALID_EMERGENCY_CONTACT = "12345678";
     private static final String INVALID_TAG = "#Chemistry";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "+91 123456";
     private static final String VALID_STUDENTID = "A1234567Z";
     private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_ROOM_NUMBER = "1A";
+    private static final String VALID_EMERGENCY_NUMBER = "+65 12345678";
     private static final String VALID_TAG_1 = "Chemistry";
     private static final String VALID_TAG_2 = "Y1";
 
@@ -147,6 +153,52 @@ public class ParserUtilTest {
         String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
         Email expectedEmail = new Email(VALID_EMAIL);
         assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseRoomNumber_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRoomNumber((String) null));
+    }
+
+    @Test
+    public void parseRoomNumber_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRoomNumber(INVALID_ROOM_NUMBER));
+    }
+
+    @Test
+    public void parseRoomNumber_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        RoomNumber expectedRoomNumber = new RoomNumber(VALID_ROOM_NUMBER);
+        assertEquals(expectedRoomNumber, ParserUtil.parseRoomNumber(VALID_ROOM_NUMBER));
+    }
+
+    @Test
+    public void parseRoomNumber_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String emailWithWhitespace = WHITESPACE + VALID_ROOM_NUMBER + WHITESPACE;
+        RoomNumber expectedRoomNumber = new RoomNumber(VALID_ROOM_NUMBER);
+        assertEquals(expectedRoomNumber, ParserUtil.parseRoomNumber(emailWithWhitespace));
+    }
+
+    @Test
+    public void parseEmergencyContact_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseEmergencyContact((String) null));
+    }
+
+    @Test
+    public void parseEmergencyContact_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseEmergencyContact(INVALID_EMERGENCY_CONTACT));
+    }
+
+    @Test
+    public void parseEmergencyContact_validValueWithoutWhitespace_returnsEmail() throws Exception {
+        EmergencyContact expectedEmergencyContact = new EmergencyContact(VALID_EMERGENCY_NUMBER);
+        assertEquals(expectedEmergencyContact, ParserUtil.parseEmergencyContact(VALID_EMERGENCY_NUMBER));
+    }
+
+    @Test
+    public void parseEmergencyContact_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String emailWithWhitespace = WHITESPACE + VALID_EMERGENCY_NUMBER + WHITESPACE;
+        EmergencyContact expectedEmergencyContact = new EmergencyContact(VALID_EMERGENCY_NUMBER);
+        assertEquals(expectedEmergencyContact, ParserUtil.parseEmergencyContact(emailWithWhitespace));
     }
 
     @Test

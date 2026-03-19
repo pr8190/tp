@@ -112,14 +112,22 @@ class JsonAdaptedPerson {
         }
         final StudentId modelStudentId = new StudentId(studentId);
 
-        if (roomNumber != null && !RoomNumber.isValidRoomNumber(roomNumber)) {
+        if (roomNumber == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    RoomNumber.class.getSimpleName()));
+        }
+
+        if (!RoomNumber.isValidRoomNumber(roomNumber)) {
             throw new IllegalValueException(RoomNumber.MESSAGE_CONSTRAINTS);
         }
-        final RoomNumber modelRoomNumber = roomNumber != null
-                                         ? new RoomNumber(roomNumber)
-                                         : null;
+        final RoomNumber modelRoomNumber = new RoomNumber(roomNumber);
 
-        if (emergencyContact != null && !EmergencyContact.isValidEmergencyContact(emergencyContact)) {
+        if (emergencyContact == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmergencyContact.class.getSimpleName()));
+        }
+
+        if (!EmergencyContact.isValidEmergencyContact(emergencyContact)) {
             throw new IllegalValueException(EmergencyContact.MESSAGE_CONSTRAINTS);
         }
         final EmergencyContact modelEmergencyContact = emergencyContact != null

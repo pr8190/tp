@@ -27,6 +27,9 @@ public class StudentIdTest {
         // invalid studentIds
         assertFalse(StudentId.isValidStudentId("")); // empty string
         assertFalse(StudentId.isValidStudentId(" ")); // spaces only
+        assertFalse(StudentId.isValidStudentId("A1111111")); //Does not end with a letter
+        assertFalse(StudentId.isValidStudentId("2222222X")); //Does not start with A
+        assertFalse(StudentId.isValidStudentId("B2222222X")); //Does not start with A
 
         // valid studentIds
         assertTrue(StudentId.isValidStudentId("A4487884X"));

@@ -22,16 +22,19 @@ import static seedu.address.logic.commands.CommandTestUtil.ROOM_NUMBER_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.STUDENTID_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.STUDENTID_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMERGENCY_CONTACT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
 import org.junit.jupiter.api.Test;
@@ -61,7 +64,7 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parse_repeatedNonTagValue_failure() {
+    public void parse_repeatedValues_failure() {
         String validExpectedPersonString = NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + STUDENTID_DESC_BOB + ROOM_NUMBER_DESC_BOB + EMERGENCY_CONTACT_DESC_BOB;
 
@@ -81,14 +84,21 @@ public class AddCommandParserTest {
         assertParseFailure(parser, STUDENTID_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
 
+        // multiple room numbers
+        assertParseFailure(parser, ROOM_NUMBER_DESC_AMY + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROOM_NUMBER));
+
+        // multiple emergency contacts
+        assertParseFailure(parser, EMERGENCY_CONTACT_DESC_AMY + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EMERGENCY_CONTACT));
+
         // multiple fields repeated
         assertParseFailure(parser,
-                validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY + STUDENTID_DESC_AMY
+                validExpectedPersonString + PHONE_DESC_AMY + EMAIL_DESC_AMY + NAME_DESC_AMY
+                        + STUDENTID_DESC_AMY + ROOM_NUMBER_DESC_AMY + EMERGENCY_CONTACT_DESC_AMY
                         + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_NAME, PREFIX_STUDENT_ID,
-                        PREFIX_EMAIL, PREFIX_PHONE));
-
-        // invalid value followed by valid value
+                        PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_EMERGENCY_CONTACT));
 
         // invalid name
         assertParseFailure(parser, INVALID_NAME_DESC + validExpectedPersonString,
@@ -102,9 +112,17 @@ public class AddCommandParserTest {
         assertParseFailure(parser, INVALID_PHONE_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
 
+        // invalid room number
+        assertParseFailure(parser, INVALID_ROOM_NUMBER_DESC + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROOM_NUMBER));
+
         // invalid student ID
         assertParseFailure(parser, INVALID_STUDENTID_DESC + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
+
+        // invalid emergency contact
+        assertParseFailure(parser, INVALID_EMERGENCY_CONTACT_DESC + validExpectedPersonString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EMERGENCY_CONTACT));
 
         // valid value followed by invalid value
 
@@ -123,15 +141,13 @@ public class AddCommandParserTest {
         // invalid student ID
         assertParseFailure(parser, validExpectedPersonString + INVALID_STUDENTID_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
-    }
 
-    @Test
-    public void parse_optionalFieldsMissing_success() {
-        // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
-        assertParseSuccess(parser, NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + STUDENTID_DESC_AMY
-                        + ROOM_NUMBER_DESC_AMY + EMERGENCY_CONTACT_DESC_AMY,
-                new AddCommand(expectedPerson));
+        // invalid room number
+        assertParseFailure(parser, validExpectedPersonString + INVALID_ROOM_NUMBER_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_ROOM_NUMBER));
+
+        assertParseFailure(parser, validExpectedPersonString + INVALID_EMERGENCY_CONTACT_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_EMERGENCY_CONTACT));
     }
 
     @Test
@@ -139,23 +155,38 @@ public class AddCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + STUDENTID_DESC_BOB,
+        assertParseFailure(parser, VALID_NAME_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + STUDENTID_DESC_BOB
+                + ROOM_NUMBER_DESC_BOB + EMERGENCY_CONTACT_DESC_BOB,
                 expectedMessage);
 
         // missing phone prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + STUDENTID_DESC_BOB,
+        assertParseFailure(parser, NAME_DESC_BOB + VALID_PHONE_BOB + EMAIL_DESC_BOB + STUDENTID_DESC_BOB
+                        + ROOM_NUMBER_DESC_BOB + EMERGENCY_CONTACT_DESC_BOB,
                 expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + STUDENTID_DESC_BOB,
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + VALID_EMAIL_BOB + STUDENTID_DESC_BOB
+                        + ROOM_NUMBER_DESC_BOB + EMERGENCY_CONTACT_DESC_BOB,
                 expectedMessage);
 
-        // missing address prefix
-        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_STUDENTID_BOB,
+        // missing student Id prefix
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + VALID_STUDENTID_BOB
+                        + ROOM_NUMBER_DESC_BOB + EMERGENCY_CONTACT_DESC_BOB,
+                expectedMessage);
+
+        // missing room number prefix
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + STUDENTID_DESC_BOB
+                        + VALID_ROOM_NUMBER_BOB + EMERGENCY_CONTACT_DESC_BOB,
+                expectedMessage);
+
+        // missing emergency contact prefix
+        assertParseFailure(parser, NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB + STUDENTID_DESC_BOB
+                        + ROOM_NUMBER_DESC_BOB + VALID_EMERGENCY_CONTACT_BOB,
                 expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_STUDENTID_BOB,
+        assertParseFailure(parser, VALID_NAME_BOB + VALID_PHONE_BOB + VALID_EMAIL_BOB + VALID_STUDENTID_BOB
+                        + VALID_ROOM_NUMBER_BOB + VALID_EMERGENCY_CONTACT_BOB,
                 expectedMessage);
     }
 

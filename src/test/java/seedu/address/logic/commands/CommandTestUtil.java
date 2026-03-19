@@ -68,8 +68,6 @@ public class CommandTestUtil {
     public static final String INVALID_ROOM_NUMBER_DESC = " " + PREFIX_ROOM_NUMBER + "a8";
     public static final String INVALID_EMERGENCY_CONTACT_DESC = " " + PREFIX_EMERGENCY_CONTACT + "123A";
 
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
-
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
