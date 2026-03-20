@@ -198,7 +198,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567M`
 **Edit**   | `edit STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [i=STUDENT_ID] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g.,`edit i=A1234567M n=James Lee e=jameslee@example.com`
-**Find**   | `find KEYWORD`<br> e.g., `find James Jake`
+**Find**   | `NAME_KEYWORD [MORE_NAME_KEYWORDS]` OR `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 **Tag**    | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`
 **List**   | `list`
 **Help**   | `help`
