@@ -70,11 +70,16 @@ Hall Ledger (HL) is a **desktop app for managing residents in an NUS hostel, opt
 
 ### Viewing help : `help`
 
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
+Opens the HallLedger Help window, which displays the available commands and their usage formats.
 
 Format: `help`
+
+Example:
+* `help`
+
+When the command is entered, HallLedger opens a Help window containing a quick reference list of supported commands. The Help window also includes a reference to the HallLedger User Guide for more detailed explanations.
+
+![Help window](images/helpWindow.png)
 
 
 ### Adding a person: `add`
@@ -177,19 +182,23 @@ Examples:
 
 Read more about fuzzy matching here: [Fuzzy Matching](#not-implemented-yet).
 
-### Deleting a person : `delete`
+### Deleting a resident : `delete`
 
-Deletes the specified person from the address book.
+Deletes the resident identified by student ID from HallLedger.
 
-Format: `delete INDEX`
+Format: `delete i=STUDENT_ID`
 
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
+Example:
+* `delete i=A0312075X`
 
-Examples:
-* `list` followed by `delete 2` deletes the 2nd person in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
+After a valid delete command is entered, HallLedger shows a confirmation dialog before the resident is actually removed.
+
+* Click **Confirm** to proceed with the deletion.
+* Click **Cancel** to stop the deletion. HallLedger will display the message `Deletion cancelled.` and no resident will be removed.
+
+If the command format is invalid, HallLedger will show an error message instead of opening the confirmation dialog.
+
+![Delete confirmation dialog](images/deleteConfirmation.png)
 
 ### Clearing all entries : `clear`
 
@@ -227,8 +236,35 @@ _Details coming soon ..._
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**Q**: Why does `delete` show a confirmation dialog instead of deleting immediately?<br>
+**A**: Deleting a resident is a destructive action. The confirmation dialog helps prevent accidental deletion of resident records, especially when the user is working quickly through multiple entries.
+
+**Q**: What happens if I click **Cancel** in the delete confirmation dialog?<br>
+**A**: The deletion is stopped, no resident is removed, and HallLedger displays the message `Deletion cancelled.`
+
+**Q**: How can I quickly see the available commands in HallLedger?<br>
+**A**: Enter `help` to open the Help window. The Help window displays a quick reference list of the supported commands and their usage formats, which is useful when you need to check a command while using the app.
+
+**Q**: Where can I find more detailed explanations beyond the Help window?<br>
+**A**: The Help window includes a reference to the HallLedger User Guide. The User Guide provides fuller explanations, examples, and notes about command behavior.
+
+**Q**: Why does HallLedger show an error instead of opening the delete confirmation dialog sometimes?<br>
+**A**: The confirmation dialog only appears after HallLedger recognises the command as a valid delete command. If the command format is invalid, such as missing a required value or using the wrong format, HallLedger will show an error message instead.
+
+**Q**: How do I identify the correct resident before editing or deleting a record?<br>
+**A**: Use identifying fields such as student ID, room number, and name to verify that you are acting on the correct resident. For deletion, HallLedger uses the student ID in the command format `delete i=STUDENT_ID`.
+
+**Q**: What is the fastest way to work with HallLedger?<br>
+**A**: HallLedger is designed for users who prefer typing commands. In general, the fastest workflow is to use the command box directly for tasks such as adding, finding, editing, tagging, deleting, listing, and opening help, instead of relying on repeated manual navigation.
+
+**Q**: If I make a mistake while entering a command, will HallLedger still change the data?<br>
+**A**: No. If the command format or values are invalid, HallLedger will show an error message and the data will remain unchanged.
+
+**Q**: How do I reset HallLedger for a new semester or a fresh start?<br>
+**A**: Use the `clear` command to remove all resident records from the current data file. As this affects all records, make sure you intend to reset the data before doing so.
+
+**Q**: Can I edit the data file manually?<br>
+**A**: Yes. HallLedger stores data locally in a human-editable text file. However, manual edits should be done carefully, because invalid edits may prevent HallLedger from loading the data correctly.
 
 **Q**: How do I go back to seeing the list of all students after running `find`?<br>
 **A**: Run the `list` command to see the full list of students again.
