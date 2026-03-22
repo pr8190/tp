@@ -24,7 +24,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_AMY
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -211,12 +210,13 @@ public class EditCommandParserTest {
 
         // more than two student-ID fields repeated
         userInput = STUDENTID_DESC_AMY + STUDENTID_DESC_BOB + STUDENTID_DESC_AMY;
-        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
+        assertParseFailure(parser, userInput,
+                String.format(EditCommand.DUPLICATE_STUDENT_ID_PREFIX, EditCommand.MESSAGE_USAGE));
 
         // more than two student-ID fields repeated, and multiple non-ID fields repeated
         // -> only student-ID duplicate error is captured
         userInput = STUDENTID_DESC_AMY + STUDENTID_DESC_BOB + STUDENTID_DESC_AMY + PHONE_DESC_AMY + PHONE_DESC_BOB;
         assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
+                String.format(EditCommand.DUPLICATE_STUDENT_ID_PREFIX, EditCommand.MESSAGE_USAGE));
     }
 }

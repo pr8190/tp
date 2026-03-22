@@ -94,7 +94,7 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         // Check for duplicate student ID prefixes (allow up to 2)
         if (argMultimap.getAllValues(PREFIX_STUDENT_ID).size() > 2) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(EditCommand.DUPLICATE_STUDENT_ID_PREFIX, EditCommand.MESSAGE_USAGE));
         }
 
         // Check for duplicate prefixes in single-valued fields
