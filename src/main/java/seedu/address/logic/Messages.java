@@ -19,7 +19,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX =
             "ResidentNotFound: No resident found with student ID A0404041X.";
     public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
-    public static final String MESSAGE_STUDENT_NOT_FOUND = "No person with Student ID %1$s found.";
+    public static final String MESSAGE_RESIDENT_NOT_FOUND = "No resident with Student ID %1$s found.";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 

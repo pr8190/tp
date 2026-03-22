@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMERGENCY_CONTACT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
@@ -13,6 +14,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_MAJOR;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.HashMap;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +27,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagType;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -40,7 +45,13 @@ public class EditCommandTest {
         Person firstPerson = model.getFilteredPersonList().get(0);
         StudentId targetStudentId = firstPerson.getStudentId();
 
-        Person editedPerson = new PersonBuilder().withRemark("Allergic to peanuts").build();
+        // retrieve the tags of the first person
+        HashMap<TagType, Tag> firstPersonTags = new HashMap<>(firstPerson.getTags());
+
+        // make sure the tags are not modified by the EditCommand
+        Person editedPerson = new PersonBuilder().withTags(firstPersonTags)
+                .withRemark("Allergic to peanuts").build().build();
+
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(targetStudentId, descriptor);
 
@@ -60,11 +71,14 @@ public class EditCommandTest {
         StudentId targetStudentId = lastPerson.getStudentId();
 
         PersonBuilder personInList = new PersonBuilder(lastPerson);
+
         Person editedPerson = personInList.withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withTags(VALID_TAG_MAJOR).build();
+                .withEmergencyContact(VALID_EMERGENCY_CONTACT_BOB)
+                .build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                .withPhone(VALID_PHONE_BOB).build();
+                .withPhone(VALID_PHONE_BOB)
+                .withEmergencyContact(VALID_EMERGENCY_CONTACT_BOB).build();
         EditCommand editCommand = new EditCommand(targetStudentId, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS,
@@ -143,7 +157,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(nonExistentId, descriptor);
 
         assertCommandFailure(editCommand, model,
-                String.format(EditCommand.MESSAGE_STUDENT_NOT_FOUND, nonExistentId));
+                String.format(Messages.MESSAGE_RESIDENT_NOT_FOUND, nonExistentId));
     }
 
     @Test

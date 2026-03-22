@@ -55,8 +55,8 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited resident: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This resident already exists in the address book.";
-    public static final String MESSAGE_STUDENT_NOT_FOUND = "No resident with Student ID %1$s found.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "The edit details cause duplicated resident details" +
+            "in the address book.";
 
     private final StudentId targetStudentId;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -82,7 +82,7 @@ public class EditCommand extends Command {
             .filter(person -> person.getStudentId().equals(targetStudentId))
             .findFirst()
             .orElseThrow(() -> new CommandException(
-                String.format(Messages.MESSAGE_STUDENT_NOT_FOUND, targetStudentId)));
+                String.format(Messages.MESSAGE_RESIDENT_NOT_FOUND, targetStudentId)));
 
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
