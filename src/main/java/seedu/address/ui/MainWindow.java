@@ -38,7 +38,6 @@ public class MainWindow extends UiPart<Stage> {
     private final Logic logic;
     private final HelpWindow helpWindow;
     // Independent Ui parts residing in this Ui container
-    private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
 
     @FXML
@@ -174,10 +173,6 @@ public class MainWindow extends UiPart<Stage> {
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
