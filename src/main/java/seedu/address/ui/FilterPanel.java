@@ -4,23 +4,19 @@ import java.util.Set;
 
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import javafx.collections.SetChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.model.FilterDetails;
-import seedu.address.ui.filter.FilterPanelTag;
 
 /**
  * Panel containing the list of filtering and sorting options.
  */
 public class FilterPanel extends UiPart<Region> {
     private static final String FXML = "FilterPanel.fxml";
-
-    private final FilterDetails filterDetails;
 
     @FXML
     private TextField nameFilterField;
@@ -56,12 +52,6 @@ public class FilterPanel extends UiPart<Region> {
      */
     public FilterPanel() {
         super(FXML);
-
-        // Initialize filterDetails with default values for demonstration purposes
-        this.filterDetails = new FilterDetails();
-        filterDetails.getNameKeywords().addListener((SetChangeListener<String>) change -> updateNameTags());
-        filterDetails.setNameKeywords(Set.of("Alice", "Bob", "Charlie", "Daniel", "Eve"));
-
         // Initialize dummy values for ComboBoxes for UI demonstration
         floorFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5");
         floorFilterComboBox.getSelectionModel().selectFirst();
@@ -80,25 +70,19 @@ public class FilterPanel extends UiPart<Region> {
         sortByComboBox.getSelectionModel().selectFirst();
     }
 
-    private void updateNameTags() {
-        nameTags.getChildren().clear();
-        for (String keyword : filterDetails.getNameKeywords()) {
-            nameTags.getChildren().add(new FilterPanelTag(keyword).getRoot());
-        }
-    }
-
     /*
     * Handles the event when the user presses 'Enter' in the name filter field.
     * Splits the input into individual keywords and displays them as tags in the UI.
      */
     @FXML
     private void handleNameFieldEntered() {
+        nameTags.getChildren().clear();
         String nameFilterText = nameFilterField.getText();
         if (nameFilterText.trim().isEmpty()) {
             return;
         }
         Set<String> nameFilterKeywordsSet = StringUtil.splitSentenceIntoWords(nameFilterText);
-        filterDetails.setNameKeywords(nameFilterKeywordsSet);
+        nameFilterKeywordsSet.forEach(tag -> nameTags.getChildren().add(new Label(tag)));
         nameFilterField.clear();
     }
 }
