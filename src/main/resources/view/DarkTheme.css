@@ -323,8 +323,6 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: light-grey;
-    -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: dark-grey;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
