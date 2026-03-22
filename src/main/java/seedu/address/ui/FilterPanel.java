@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.FilterDetails;
 
 /**
  * Panel containing the list of filtering and sorting options.
@@ -48,9 +50,9 @@ public class FilterPanel extends UiPart<Region> {
     private FontIcon sortIcon;
 
     /**
-     * Creates a {@code FilterPanel} with default filter and sort options.
+     * Creates a {@code FilterPanel} with the given {@code ObjectProperty<FilterDetails>}.
      */
-    public FilterPanel() {
+    public FilterPanel(ObjectProperty<FilterDetails> filterDetails) {
         super(FXML);
         // Initialize dummy values for ComboBoxes for UI demonstration
         floorFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5");
