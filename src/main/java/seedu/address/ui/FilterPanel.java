@@ -98,10 +98,12 @@ public class FilterPanel extends UiPart<Region> {
         // Display each keyword as a tag in the UI
         nameFilterKeywordsSet.forEach(tag -> nameTags.getChildren().add(new Label(tag)));
 
-        // Update the filter details
-        FilterDetails currentFilterDetails = filterDetails.get();
-        currentFilterDetails.setNameKeywords(nameFilterKeywordsSet);
-        filterDetails.set(currentFilterDetails);
+        // Create a new FilterDetails with updated name keywords
+        FilterDetails newFilterDetails = new FilterDetails(filterDetails.get());
+        newFilterDetails.setNameKeywords(nameFilterKeywordsSet);
+
+        // Trigger the listener in ModelManager
+        filterDetails.set(newFilterDetails);
 
         nameFilterField.clear();
     }
