@@ -80,13 +80,13 @@ public class CommandTestUtil {
                 .withStudentId(VALID_STUDENTID_AMY) // ← fix
                 .withRoomNumber(VALID_ROOM_NUMBER_AMY) // ← add
                 .withEmergencyContact(VALID_EMERGENCY_CONTACT_AMY) // ← add
-                .withTags(VALID_TAG_YEAR).build();
+                .build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withStudentId(VALID_STUDENTID_BOB) // ← fix
                 .withRoomNumber(VALID_ROOM_NUMBER_BOB) // ← add
                 .withEmergencyContact(VALID_EMERGENCY_CONTACT_BOB) // ← add
-                .withTags(VALID_TAG_MAJOR, VALID_TAG_YEAR).build();
+                .build();
     }
 
     /**
