@@ -44,19 +44,24 @@ public class StringUtil {
     }
 
     /**
-     * Checks if word fuzzy matches any word in the word set, ignoring case.
+     * Checks if any query word in {@code wordSet} fuzzy-matches the given target {@code word}, ignoring case.
      * <br>
-     * Fuzzy matching is defined as an algorithm in {@link #fuzzyMatchesIgnoresCase(String, String)}.
+     * Fuzzy matching is delegated to {@link #fuzzyMatchesIgnoresCase(String, String)} where each
+     * word in {@code wordSet} is treated as the query and {@code word} is treated as the target.
      * <br>
      * Examples:
      * <pre>
      *      fuzzyMatchesAnyIgnoreCase("abc", Set.of("abc", "xyz")) == true
-     *              // "abc" fuzzy matches "abc"
-     *      fuzzyMatchesAnyIgnoreCase("abc", Set.of("ABCxyz")) == true
-     *              // "abc" is a 3 character-long substring of "ABCxyz", so it is considered a fuzzy match
-     *      fuzzyMatchesAnyIgnoreCase("abc", Set.of("ab", "xyz")) == true
-     *              // "abc" is a 1 edit distance away from "ab", so it is considered a fuzzy match
+     *              // query "abc" exactly matches target "abc"
+     *      fuzzyMatchesAnyIgnoreCase("abcde", Set.of("bcd")) == true
+     *              // query "bcd" is a substring of target "abcde"
+     *      fuzzyMatchesAnyIgnoreCase("abc", Set.of("abcxyz")) == false
+     *              // query "abcxyz" is not a substring of target "abc" and exceeds typo threshold
      * </pre>
+     *
+     * @param word the target word. Cannot be null or empty.
+     * @param wordSet the set of query words. Cannot be null or empty.
+     * @return true if at least one query word fuzzy-matches the target word.
      */
     public static boolean fuzzyMatchesAnyIgnoreCase(String word, Set<String> wordSet) {
         requireNonNull(word);
@@ -81,13 +86,15 @@ public class StringUtil {
      *     <li>If both the {@code query} and the {@code target} are 4 characters or longer and their Levenshtein
      *     distance is 2 or less, returns true (tolerating small typos).</li>
      * </ol>
+     * For short strings (length 3 or less), only exact and substring matches are allowed.
      *
      * <br>Examples:
      * <pre>
-     *    fuzzyMatchesIgnoresCase("ABc", "abc") == true  // exact match
-     *    fuzzyMatchesIgnoresCase("abc", "acd") == true  // 2 edits (b->c, c->d) -> match
-     *    fuzzyMatchesIgnoresCase("abc", "abcde") == true  // {@code query} is a substring of {@code target} -> match
-     *    fuzzyMatchesIgnoresCase("ab", "abcde")  == false // too short for fuzzy matching
+     *    fuzzyMatchesIgnoresCase("ABc", "abc") == true      // exact match
+     *    fuzzyMatchesIgnoresCase("abc", "abcde") == true    // query substring match
+     *    fuzzyMatchesIgnoresCase("ab", "abcde") == true     // short query still allowed via substring
+     *    fuzzyMatchesIgnoresCase("abc", "acd") == false     // too short for typo-distance matching
+     *    fuzzyMatchesIgnoresCase("kitten", "sitten") == true // long-string typo-distance match
      * </pre>
      *
      * @param query The string to search for. Cannot be null or empty.
