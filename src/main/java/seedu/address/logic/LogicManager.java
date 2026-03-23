@@ -44,6 +44,7 @@ public class LogicManager implements Logic {
         addressBookParser = new AddressBookParser();
     }
 
+    // ========================= Command Executor ===============================================
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -61,6 +62,13 @@ public class LogicManager implements Logic {
         }
 
         return commandResult;
+    }
+
+    @Override
+    public CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
+        model.setFilterDetails(filterDetails);
+        return new CommandResult(
+                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
     }
 
     @Override
