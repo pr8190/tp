@@ -22,7 +22,7 @@
                     <TextField fx:id="nameFilterField" onAction="#handleNameFieldEntered" promptText="E.g: Alex" />
                <HBox>
                   <children>
-                     <Label minWidth="57.0" styleClass="label-small" text="Keywords:" />
+                     <Label styleClass="label-small" text="Keywords:" />
                      <FlowPane fx:id="nameTags" rowValignment="TOP" HBox.hgrow="ALWAYS">
                         <HBox.margin>
                            <Insets left="3.0" />
