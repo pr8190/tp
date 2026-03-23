@@ -2,6 +2,7 @@ package seedu.address.ui.filter;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import seedu.address.ui.UiPart;
 
@@ -31,7 +32,8 @@ public class FilterPanelTag extends UiPart<Region> {
         label.setText(tagLabel);
     }
 
-    private void handleDeleteTag() {
-        return;
+    @FXML
+    private void handleDeleteTag(MouseEvent e) {
+        // TODO: wire up delete behaviour when available
     }
 }
