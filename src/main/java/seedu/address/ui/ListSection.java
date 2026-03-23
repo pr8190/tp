@@ -14,6 +14,7 @@ public class ListSection extends UiPart<Region> {
     private static final String FXML = "ListSection.fxml";
 
     private final Logic logic;
+    private final FilterPanel.FilterExecutor filterExecutor;
 
     @FXML
     private StackPane filterPanelPlaceholder;
@@ -26,14 +27,15 @@ public class ListSection extends UiPart<Region> {
      *
      * @param logic
      */
-    public ListSection(Logic logic) {
+    public ListSection(Logic logic, FilterPanel.FilterExecutor filterExecutor) {
         super(FXML);
         this.logic = logic;
+        this.filterExecutor = filterExecutor;
         fillInnerParts();
     }
 
     private void fillInnerParts() {
-        FilterPanel filterPanel = new FilterPanel(logic.getFilterDetailsProperty());
+        FilterPanel filterPanel = new FilterPanel(logic.getFilterDetailsProperty(), filterExecutor);
         filterPanelPlaceholder.getChildren().add(filterPanel.getRoot());
 
         PersonListPanel personListPanel = new PersonListPanel(logic.getFilteredPersonList());

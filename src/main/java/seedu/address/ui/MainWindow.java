@@ -120,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ListSection listSection = new ListSection(logic);
+        ListSection listSection = new ListSection(logic, this::executeFilter);
         listSectionPlaceholder.getChildren().add(listSection.getRoot());
 
         TabSection tabSection = new TabSection(logic);
