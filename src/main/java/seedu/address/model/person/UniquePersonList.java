@@ -3,7 +3,6 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if the list contains another person with the same room
+     * Returns true if the list contains another person with the same room.
      */
     public boolean isRoomOccupied(Person toCheck) {
         requireNonNull(toCheck);
@@ -127,19 +126,7 @@ public class UniquePersonList implements Iterable<Person> {
             return false;
         }
         UniquePersonList otherUniquePersonList = (UniquePersonList) other;
-        List<Person> list1 = new ArrayList<>(internalList);
-        List<Person> list2 = new ArrayList<>(otherUniquePersonList.internalList);
-        System.out.println("list1 size: " + list1.size());
-        System.out.println("list2 size: " + list2.size());
-        for (int i = 0; i < Math.min(list1.size(), list2.size()); i++) {
-            boolean eq = list1.get(i).equals(list2.get(i));
-            System.out.println("Person " + i + " equal: " + eq);
-            if (!eq) {
-                System.out.println("  list1: " + list1.get(i));
-                System.out.println("  list2: " + list2.get(i));
-            }
-        }
-        return list1.equals(list2);
+        return internalList.equals(otherUniquePersonList.internalList);
     }
 
     @Override
