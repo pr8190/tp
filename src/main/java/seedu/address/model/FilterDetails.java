@@ -32,24 +32,6 @@ public class FilterDetails {
         this.tagGenderKeywords = new HashSet<>();
     }
 
-    /**
-     * Creates a copy of the given {@code FilterDetails}.
-     *
-     * @param other the {@code FilterDetails} to copy
-     * @return a new {@code FilterDetails} object with the same details as the given {@code FilterDetails}
-     */
-    public FilterDetails(FilterDetails other) {
-        this.nameKeywords = new HashSet<>(other.nameKeywords);
-        this.emailKeywords = new HashSet<>(other.emailKeywords);
-        this.phoneNumberKeywords = new HashSet<>(other.phoneNumberKeywords);
-        this.roomNumberKeywords = new HashSet<>(other.roomNumberKeywords);
-        this.studentIdKeywords = new HashSet<>(other.studentIdKeywords);
-        this.emergencyContactKeywords = new HashSet<>(other.emergencyContactKeywords);
-        this.tagYearKeywords = new HashSet<>(other.tagYearKeywords);
-        this.tagMajorKeywords = new HashSet<>(other.tagMajorKeywords);
-        this.tagGenderKeywords = new HashSet<>(other.tagGenderKeywords);
-    }
-
     // ==================== Setters ======================
 
     /**
