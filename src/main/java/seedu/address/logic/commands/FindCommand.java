@@ -49,6 +49,11 @@ public class FindCommand extends Command {
         this.filterDetails.setNameKeywords(predicate.getKeywords());
     }
 
+    /**
+     * Creates a FindCommand to find the specified {@code Person} using the given {@code PersonMatchesDetailsPredicate}.
+     *
+     * @param predicate the predicate to be used for finding persons by multiple attributes.
+     */
     public FindCommand(PersonMatchesDetailsPredicate predicate) {
         this.predicate = predicate;
         this.filterDetails = predicate.filterDetails();

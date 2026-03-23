@@ -47,6 +47,15 @@ public class LogicManager implements Logic {
     }
 
     // ========================= Command Executor ===============================================
+
+    /**
+     * Executes the command and returns the result.
+     *
+     * @param commandText The command as entered by the user.
+     * @return
+     * @throws CommandException if an error occurs during command execution.
+     * @throws ParseException   if an error occurs during parsing the command.
+     */
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
@@ -66,7 +75,15 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
-    // TODO: Do exception handling
+
+    /**
+     * Executes the filter command and returns the result. Calls on {@code FindCommand} to perform the filtering based
+     * on the filter details provided by the UI.
+     *
+     * @param filterDetails The filter details from the UI.
+     * @return the result of executing the filter command.
+     * @throws CommandException if an error occurs during command execution.
+     */
     @Override
     public CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
         assert(filterDetails != null);
