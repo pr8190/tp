@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -11,12 +12,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.model.FilterDetails;
 
 /**
  * Panel containing the list of filtering and sorting options.
  */
 public class FilterPanel extends UiPart<Region> {
     private static final String FXML = "FilterPanel.fxml";
+    private final ObjectProperty<FilterDetails> filterDetails;
 
     @FXML
     private TextField nameFilterField;
@@ -43,15 +46,25 @@ public class FilterPanel extends UiPart<Region> {
     @FXML
     private ComboBox<String> sortByComboBox;
     @FXML
+    private ComboBox<String> sortOrderComboBox;
+    @FXML
     private FontIcon filterIcon;
     @FXML
     private FontIcon sortIcon;
 
     /**
-     * Creates a {@code FilterPanel} with default filter and sort options.
+     * Creates a {@code FilterPanel} with the given {@code ObjectProperty<FilterDetails>}.
      */
-    public FilterPanel() {
+    public FilterPanel(ObjectProperty<FilterDetails> filterDetails) {
         super(FXML);
+        this.filterDetails = filterDetails;
+        fillInnerParts();
+    }
+
+    /**
+    * Fills the inner parts of the FilterPanel, such as setting up event handlers for the filter fields and
+    */
+    private void fillInnerParts() {
         // Initialize dummy values for ComboBoxes for UI demonstration
         floorFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5");
         floorFilterComboBox.getSelectionModel().selectFirst();
@@ -66,10 +79,9 @@ public class FilterPanel extends UiPart<Region> {
                 "Emergency Contact", "Floor", "Year", "Gender");
         sortByComboBox.getSelectionModel().selectFirst();
 
-        sortByComboBox.getItems().addAll("Ascending", "Descending");
-        sortByComboBox.getSelectionModel().selectFirst();
+        sortOrderComboBox.getItems().addAll("Ascending", "Descending");
+        sortOrderComboBox.getSelectionModel().selectFirst();
     }
-
     /*
     * Handles the event when the user presses 'Enter' in the name filter field.
     * Splits the input into individual keywords and displays them as tags in the UI.
@@ -82,7 +94,17 @@ public class FilterPanel extends UiPart<Region> {
             return;
         }
         Set<String> nameFilterKeywordsSet = StringUtil.splitSentenceIntoWords(nameFilterText);
+
+        // Display each keyword as a tag in the UI
         nameFilterKeywordsSet.forEach(tag -> nameTags.getChildren().add(new Label(tag)));
+
+        // Create a new FilterDetails with updated name keywords
+        FilterDetails newFilterDetails = new FilterDetails(filterDetails.get());
+        newFilterDetails.setNameKeywords(nameFilterKeywordsSet);
+
+        // Trigger the listener in ModelManager
+        filterDetails.set(newFilterDetails);
+
         nameFilterField.clear();
     }
 }

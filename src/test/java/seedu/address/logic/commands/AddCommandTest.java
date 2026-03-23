@@ -14,11 +14,13 @@ import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.FilterDetails;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
@@ -169,6 +171,11 @@ public class AddCommandTest {
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObjectProperty<FilterDetails> getFilterDetailsProperty() {
             throw new AssertionError("This method should not be called.");
         }
     }
