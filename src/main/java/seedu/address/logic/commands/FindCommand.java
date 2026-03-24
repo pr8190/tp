@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
@@ -10,8 +9,6 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.FilterDetails;
 import seedu.address.model.Model;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonMatchesDetailsPredicate;
 
 /**
@@ -28,30 +25,17 @@ public class FindCommand extends Command {
             + "[m=MAJOR] [g=GENDER]\n"
             + "Example: " + COMMAND_WORD + " n=Alice p=91234567 y=Y1";
 
-    private final Predicate<Person> predicate;
     private final FilterDetails filterDetails;
+    private final PersonMatchesDetailsPredicate predicate;
 
     private final Logger logger = LogsCenter.getLogger(FindCommand.class);
 
     /**
-     * Creates a FindCommand to find the specified {@code Person} using the given {@code NameContainsKeywordsPredicate}.
-     *
-     * @param predicate the predicate to be used for finding persons by name.
+     * Creates a {@code FindCommand} using the given {@code FilterDetails}.
      */
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
-        this.filterDetails = new FilterDetails();
-        this.filterDetails.setNameKeywords(predicate.getKeywords());
-    }
-
-    /**
-     * Creates a FindCommand to find the specified {@code Person} using the given {@code PersonMatchesDetailsPredicate}.
-     *
-     * @param predicate the predicate to be used for finding persons by multiple attributes.
-     */
-    public FindCommand(PersonMatchesDetailsPredicate predicate) {
-        this.predicate = predicate;
-        this.filterDetails = predicate.filterDetails();
+    public FindCommand(FilterDetails filterDetails) {
+        this.filterDetails = new FilterDetails(filterDetails);
+        this.predicate = new PersonMatchesDetailsPredicate(this.filterDetails);
     }
 
     @Override
