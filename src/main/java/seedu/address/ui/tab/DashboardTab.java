@@ -8,6 +8,9 @@ import seedu.address.logic.Logic;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
+/**
+ * DashboardTab displays statistics about the students in the address book.
+ */
 public class DashboardTab extends UiPart<Region> {
     private static final String FXML = "DashboardTab.fxml";
     private final Logic logic;
@@ -28,6 +31,9 @@ public class DashboardTab extends UiPart<Region> {
         logic.getFilteredPersonList().addListener((ListChangeListener<Object>) c -> refresh());
     }
 
+    /**
+     * Refreshes the statistics displayed on the dashboard
+     */
     private void refresh() {
         var list = logic.getFilteredPersonList();
 
@@ -47,6 +53,13 @@ public class DashboardTab extends UiPart<Region> {
         y4CountLabel.setText(String.valueOf(countByTag(list, "Y4")));
     }
 
+    /**
+     * Counts the number of people in the list that have a specific tag.
+     *
+     * @param list The list of people to search through.
+     * @param tagName The name of the tag to count.
+     * @return The number of people with the specified tag.
+     */
     private long countByTag(javafx.collections.ObservableList<? extends Person> list, String tagName) {
         return list.stream()
                 .filter(p -> p.getTags().values().stream()
