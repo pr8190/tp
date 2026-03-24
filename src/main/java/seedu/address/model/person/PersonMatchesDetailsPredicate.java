@@ -1,11 +1,11 @@
 package seedu.address.model.person;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.FilterDetails;
 
@@ -44,15 +44,17 @@ public record PersonMatchesDetailsPredicate(FilterDetails filterDetails) impleme
 
     /**
      * Checks if the person's name matches any of the keywords specified in {@code FilterDetails}.
-     * Name matching is done using {@link NameContainsKeywordsPredicate#test(Person)}.
      */
     private boolean isNameMatch(Person person) {
         if (filterDetails.getNameKeywords().isEmpty()) {
             return true;
         }
-        List<String> listOfKeywords = filterDetails.getNameKeywords().stream().toList();
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(listOfKeywords);
-        return predicate.test(person);
+        Set<String> nameKeywords = filterDetails.getNameKeywords();
+        Set<String> nameWords = StringUtil.splitSentenceIntoWords(person.getName().fullName);
+        if (nameWords.isEmpty()) {
+            return false;
+        }
+        return nameWords.stream().anyMatch(nameWord -> StringUtil.fuzzyMatchesAnyIgnoreCase(nameWord, nameKeywords));
     }
 
     /**

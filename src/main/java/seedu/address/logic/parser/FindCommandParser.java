@@ -17,14 +17,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_YEAR;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.FilterDetails;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.PersonMatchesDetailsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -32,46 +28,10 @@ import seedu.address.model.person.PersonMatchesDetailsPredicate;
 public class FindCommandParser implements Parser<FindCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the FindCommand
-     * and returns a FindCommand object for execution.
-     *
-     * @throws ParseException if the user input does not conform the expected format
+     * Returns name filter values exactly as provided via repeated {@code n=} prefixes.
      */
-    public FindCommand parse(String args) throws ParseException {
-        requireNonNull(args);
-
-        // Tokenize the arguments
-        ArgumentTokenizer tokenizer = new ArgumentTokenizer();
-        ArgumentMultimap argMultimap = tokenizer.tokenize(args,
-                PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
-                PREFIX_EMERGENCY_CONTACT, PREFIX_TAG, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER)
-                .removeEmptyValuesAndPrefixes();
-
-        // Preamble and prefixes are both empty -> Output empty argument message
-        if (argMultimap.getPreamble().isEmpty() && argMultimap.hasEmptyPrefixArguments()) {
-            throw new ParseException(String.format(MESSAGE_EMPTY_ARGUMENT + "\n" + FindCommand.MESSAGE_USAGE));
-        }
-
-        // Both preamble and prefixes exist -> Output invalid command format message
-        if (!argMultimap.getPreamble().isEmpty() && !argMultimap.hasEmptyPrefixArguments()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + "\n" + FindCommand.MESSAGE_USAGE));
-        }
-
-        // Preamble exists, prefixes are empty -> FindCommand search by name
-        if (!argMultimap.getPreamble().isEmpty() && argMultimap.hasEmptyPrefixArguments()) {
-            Set<String> nameKeywordsSet = StringUtil.splitSentenceIntoWords(argMultimap.getPreamble());
-            List<String> nameKeywordsList = nameKeywordsSet.stream().toList();
-            return new FindCommand(new NameContainsKeywordsPredicate(nameKeywordsList));
-        }
-
-        // Preamble is empty, prefixes exist -> FindCommand by prefixes
-        if (argMultimap.getPreamble().isEmpty() && !argMultimap.hasEmptyPrefixArguments()) {
-            FilterDetails filterDetails = buildFilterDetails(argMultimap);
-            return new FindCommand(new PersonMatchesDetailsPredicate(filterDetails));
-        }
-
-        // Should not reach here because all cases are covered above
-        throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + "\n" + FindCommand.MESSAGE_USAGE));
+    private static Set<String> getNameKeywords(ArgumentMultimap argMultimap) {
+        return toSet(argMultimap.getAllValues(PREFIX_NAME));
     }
 
     /**
@@ -108,30 +68,33 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
-     * Returns as set of name keywords from an ArgumentMultimap.
-     * <p>
-     *     Currently, the {@code ArgumentMultimap#getAllValues(PREFIX_NAME)} returns a list of name values.
-     *     <br>
-     *     For example, if the user input is "n=Alice Bob n=Charlie David", then the return list will contain
-     *     ["Alice Bob", "Charlie David"], where each name value may contain multiple words.
-     *     <br>
-     *     However, we want to extract a set of individual name keywords from these name values. In the above example,
-     *     we want to extract a {@code Set} of keywords: "Alice", "Bob", "Charlie", and "David" from the two name
-     *     values.
-     *     <br>
-     *     This ensures that it is compatible with the existing {@code FilterDetails} which accepts a set of
-     *     name keywords in individual words.
-     * </p>
+     * Parses the given {@code String} of arguments in the context of the FindCommand
+     * and returns a FindCommand object for execution.
      *
-     * @param argMultimap the ArgumentMultimap containing the name values to be processed
-     * @return a set of individual name keywords extracted from the name values in the ArgumentMultimap
+     * @throws ParseException if the user input does not conform the expected format
      */
-    private static Set<String> getNameKeywords(ArgumentMultimap argMultimap) {
-        List<String> nameValues = argMultimap.getAllValues(PREFIX_NAME);
-        Set<String> nameKeywords = nameValues.stream()
-                .flatMap(nameValue -> StringUtil.splitSentenceIntoWords(nameValue).stream())
-                .collect(Collectors.toSet());
-        return nameKeywords;
+    public FindCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
+        // Tokenize the arguments
+        ArgumentTokenizer tokenizer = new ArgumentTokenizer();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
+                PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
+                PREFIX_EMERGENCY_CONTACT, PREFIX_TAG, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER)
+                .removeEmptyValuesAndPrefixes();
+
+        // Any preamble text is invalid for find because this command is prefix-only.
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT + "\n" + FindCommand.MESSAGE_USAGE));
+        }
+
+        // No non-empty prefix arguments.
+        if (argMultimap.hasEmptyPrefixArguments()) {
+            throw new ParseException(String.format(MESSAGE_EMPTY_ARGUMENT + "\n" + FindCommand.MESSAGE_USAGE));
+        }
+
+        FilterDetails filterDetails = buildFilterDetails(argMultimap);
+        return new FindCommand(filterDetails);
     }
 
     private static Set<String> toSet(List<String> values) {
