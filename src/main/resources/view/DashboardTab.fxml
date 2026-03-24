@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="seedu.address.ui.DashboardPanel"
+      spacing="16"
+      style="-fx-padding: 20; -fx-background-color: #ffffff;">
+
+    <Label text="Dashboard Overview"
+           style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+    <HBox spacing="16">
+
+        <!-- LEFT: Gender breakdown (horizontal) -->
+        <VBox spacing="8"
+              style="-fx-background-color: #f5f5f5; -fx-padding: 14;
+                     -fx-background-radius: 8; -fx-min-width: 200;">
+            <Label text="Gender Breakdown"
+                   style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #555;"/>
+
+            <HBox spacing="20" style="-fx-alignment: CENTER_LEFT;">
+                <VBox style="-fx-alignment: CENTER;">
+                    <Label text="♂ Male"
+                           style="-fx-font-size: 11px; -fx-text-fill: #4a90d9;"/>
+                    <Label fx:id="maleCountLabel" text="0"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #4a90d9;"/>
+                </VBox>
+                <VBox style="-fx-alignment: CENTER;">
+                    <Label text="♀ Female"
+                           style="-fx-font-size: 11px; -fx-text-fill: #e07b8a;"/>
+                    <Label fx:id="femaleCountLabel" text="0"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #e07b8a;"/>
+                </VBox>
+                <VBox style="-fx-alignment: CENTER;">
+                    <Label text="⚧ Other"
+                           style="-fx-font-size: 11px; -fx-text-fill: #888;"/>
+                    <Label fx:id="otherCountLabel" text="0"
+                           style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #888;"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- RIGHT: Year groups (vertical) -->
+        <VBox spacing="8"
+              style="-fx-background-color: #f5f5f5; -fx-padding: 14;
+                     -fx-background-radius: 8; -fx-min-width: 140;">
+            <Label text="Year Groups"
+                   style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #555;"/>
+
+            <HBox spacing="8" style="-fx-alignment: CENTER_LEFT;">
+                <Label text="Y1" style="-fx-font-size: 13px; -fx-text-fill: #333; -fx-min-width: 30;"/>
+                <Label fx:id="y1CountLabel" text="0"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="8" style="-fx-alignment: CENTER_LEFT;">
+                <Label text="Y2" style="-fx-font-size: 13px; -fx-text-fill: #333; -fx-min-width: 30;"/>
+                <Label fx:id="y2CountLabel" text="0"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="8" style="-fx-alignment: CENTER_LEFT;">
+                <Label text="Y3" style="-fx-font-size: 13px; -fx-text-fill: #333; -fx-min-width: 30;"/>
+                <Label fx:id="y3CountLabel" text="0"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            </HBox>
+            <HBox spacing="8" style="-fx-alignment: CENTER_LEFT;">
+                <Label text="Y4" style="-fx-font-size: 13px; -fx-text-fill: #333; -fx-min-width: 30;"/>
+                <Label fx:id="y4CountLabel" text="0"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+
+    </HBox>
+</VBox>

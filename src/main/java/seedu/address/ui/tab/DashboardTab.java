@@ -9,7 +9,7 @@ import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
 public class DashboardTab extends UiPart<Region> {
-    private static final String FXML = "DashboardPanel.fxml";
+    private static final String FXML = "DashboardTab.fxml";
     private final Logic logic;
 
     @FXML private Label maleCountLabel;
