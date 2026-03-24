@@ -1,19 +1,10 @@
 package seedu.address.ui.tab;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
-import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
-
-import java.util.Optional;
-import java.util.function.Consumer;
 
 /**
  * A ui for the main tab that is displayed on the main window.
@@ -25,7 +16,7 @@ public class StudentDetailsTab extends UiPart<Region> {
      * The person whose details would be shown in the directory tab
      **/
     // TODO: Implement selectedPerson logic
-    private final ObservableValue<Person> selectedPerson;
+    //  private final ObjectProperty<Optional<Person>> selectedPerson;
     @FXML
     private TabPane studentDetailsTabPane;
 
@@ -38,15 +29,13 @@ public class StudentDetailsTab extends UiPart<Region> {
     /**
      * Creates a {@code StudentDetailsTab} with the given {@code Logic}.
      */
-    public StudentDetailsTab(ObservableValue<Person> selectedPerson,
-                             Consumer<Person> onSelectedPersonChange) {
+    public StudentDetailsTab() {
         super(FXML);
-        this.selectedPerson = selectedPerson;
         fillInnerParts();
     }
 
     private void fillInnerParts() {
-        Profile profile = new Profile(selectedPerson);
+        Profile profile = new Profile();
         profilePlaceholder.getChildren().add(profile.getRoot());
 
         DemeritRecords demeritRecords = new DemeritRecords();

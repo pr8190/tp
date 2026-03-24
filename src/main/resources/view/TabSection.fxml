@@ -25,5 +25,13 @@
                 <StackPane fx:id="dashboardTabPlaceholder" minHeight="500"/>
             </content>
         </Tab>
+        <Tab text="Settings">
+            <graphic>
+                <FontIcon iconLiteral="dashicons-admin-settings" iconSize="20" iconColor="white"/>
+            </graphic>
+            <content>
+                <StackPane fx:id="settingsTabPlaceholder" minHeight="500"/>
+            </content>
+        </Tab>
     </tabs>
 </TabPane>

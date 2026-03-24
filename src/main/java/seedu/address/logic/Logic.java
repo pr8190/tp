@@ -3,7 +3,6 @@ package seedu.address.logic;
 import java.nio.file.Path;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
@@ -55,20 +54,4 @@ public interface Logic {
      * Returns the filter details property for dynamic updates.
      */
     ObjectProperty<FilterDetails> getFilterDetailsProperty();
-
-    /**
-     * Selected person in the filtered person list.
-     * null if no person is selected.
-     *
-     * @see seedu.address.model.Model#selectedPersonProperty()
-     */
-    ReadOnlyProperty<Person> selectedPersonProperty();
-
-    /**
-     * Sets the selected person in the filtered person list.
-     *
-     * @see seedu.address.model.Model#setSelectedPerson(Person)
-     */
-    void setSelectedPerson(Person person);
-
 }

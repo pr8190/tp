@@ -1,9 +1,7 @@
 package seedu.address.ui;
 
-import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -25,19 +23,10 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Creates a {@code PersonListPanel} with the given {@code ObservableList}.
      */
-    public PersonListPanel(ObservableList<Person> personList, ObservableValue<Person> selectedPerson,
-                           Consumer<Person> onSelectedPersonChange) {
+    public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-            onSelectedPersonChange.accept(newValue);
-        });
-        selectedPerson.addListener((observable, oldValue, newValue) -> {
-            logger.fine("Selected person changed to: " + newValue);
-        });
     }
 
     /**
