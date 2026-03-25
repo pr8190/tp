@@ -52,4 +52,32 @@ public class FindCommandParserTest {
         assertParseFailure(parser, "Alice Bob",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
+
+    @Test
+    public void parse_moreThan20ValuesForSinglePrefix_throwsParseException() {
+        StringBuilder userInput = new StringBuilder();
+        for (int index = 1; index <= 21; index++) {
+            userInput.append(" n=Name").append(index);
+        }
+
+        String expectedMessage = String.format(FindCommand.MESSAGE_TOO_MANY_PREFIX_VALUES, "[n=]");
+        assertParseFailure(parser, userInput.toString(), expectedMessage);
+    }
+
+    @Test
+    public void parse_exactly20ValuesForSinglePrefix_success() {
+        StringBuilder userInput = new StringBuilder();
+        for (int index = 1; index <= 20; index++) {
+            userInput.append(" n=Name").append(index);
+        }
+
+        FilterDetails filterDetails = new FilterDetails();
+        filterDetails.setNameKeywords(Set.of(
+                "Name1", "Name2", "Name3", "Name4", "Name5",
+                "Name6", "Name7", "Name8", "Name9", "Name10",
+                "Name11", "Name12", "Name13", "Name14", "Name15",
+                "Name16", "Name17", "Name18", "Name19", "Name20"));
+
+        assertParseSuccess(parser, userInput.toString(), new FindCommand(filterDetails));
+    }
 }
