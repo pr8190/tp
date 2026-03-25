@@ -2,12 +2,15 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.demerit.DemeritIncident;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
@@ -26,15 +29,26 @@ public class Person {
     // Data fields
     private final RoomNumber roomNumber;
     private final EmergencyContact emergencyContact;
-    private final Map<TagType, Tag> tags;
     private final Remark remark;
+    private final Map<TagType, Tag> tags;
+    private final List<DemeritIncident> demeritIncidents;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, StudentId studentId, RoomNumber roomNumber,
                   EmergencyContact emergencyContact, Remark remark, Map<TagType, Tag> tags) {
-        requireAllNonNull(name, phone, email, studentId, roomNumber, emergencyContact, tags);
+        this(name, phone, email, studentId, roomNumber, emergencyContact, remark, tags, List.of());
+    }
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Person(Name name, Phone phone, Email email, StudentId studentId, RoomNumber roomNumber,
+                  EmergencyContact emergencyContact, Remark remark, Map<TagType, Tag> tags,
+                  List<DemeritIncident> demeritIncidents) {
+        requireAllNonNull(name, phone, email, studentId, roomNumber,
+                emergencyContact, remark, tags, demeritIncidents);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -42,7 +56,8 @@ public class Person {
         this.roomNumber = roomNumber;
         this.emergencyContact = emergencyContact;
         this.remark = remark;
-        this.tags = tags;
+        this.tags = new HashMap<>(tags);
+        this.demeritIncidents = new ArrayList<>(demeritIncidents);
     }
 
     public Name getName() {
@@ -73,37 +88,58 @@ public class Person {
         return remark;
     }
 
+    /**
+     * Returns an immutable tag map, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     public Map<TagType, Tag> getTags() {
         return Collections.unmodifiableMap(tags);
     }
 
     /**
-     * @return the gender tag(s) of this person, if they exist
+     * Returns the gender tag of this person, if it exists.
      */
     public Tag getGender() {
         return tags.get(TagType.GENDER);
     }
 
-    /*
-     * @return the year tags of this person
+    /**
+     * Returns the year tag of this person, if it exists.
      */
     public Tag getYear() {
         return tags.get(TagType.YEAR);
     }
 
-    /*
-     * @return the year tags of this person, if they exist.
+    /**
+     * Returns the major tag of this person, if it exists.
      */
     public Tag getMajor() {
         return tags.get(TagType.MAJOR);
     }
 
     /**
-     * Asserts that the number of tags of a given type does not exceed the allowed maximum.
+     * Returns an immutable list of demerit incidents.
      */
-    private static void assertTagLimit(Set<Tag> tagSet, TagType type) {
-        assert tagSet.size() <= type.getMaxTagsPerType()
-                : "Tag count for " + type + " exceeds limit of " + type.getMaxTagsPerType();
+    public List<DemeritIncident> getDemeritIncidents() {
+        return Collections.unmodifiableList(demeritIncidents);
+    }
+
+    /**
+     * Returns the resident's total accumulated demerit points.
+     */
+    public int getTotalDemeritPoints() {
+        return demeritIncidents.stream()
+                .mapToInt(DemeritIncident::getPointsApplied)
+                .sum();
+    }
+
+    /**
+     * Returns the number of times this resident has already committed the given rule.
+     */
+    public int getOccurrenceCountForRule(int ruleIndex) {
+        return (int) demeritIncidents.stream()
+                .filter(incident -> incident.getRuleIndex() == ruleIndex)
+                .count();
     }
 
     /**
@@ -120,7 +156,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same room
+     * Returns true if both persons have the same room.
      */
     public boolean hasSameRoom(Person otherPerson) {
         if (otherPerson == this) {
@@ -139,8 +175,6 @@ public class Person {
         if (other == this) {
             return true;
         }
-
-        // instanceof handles nulls
         if (!(other instanceof Person)) {
             return false;
         }
@@ -153,13 +187,14 @@ public class Person {
                 && roomNumber.equals(otherPerson.roomNumber)
                 && emergencyContact.equals(otherPerson.emergencyContact)
                 && remark.equals(otherPerson.remark)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && demeritIncidents.equals(otherPerson.demeritIncidents);
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, studentId, roomNumber, emergencyContact, remark, tags);
+        return Objects.hash(name, phone, email, studentId, roomNumber,
+                emergencyContact, remark, tags, demeritIncidents);
     }
 
     @Override
@@ -173,7 +208,7 @@ public class Person {
                 .add("emergencyContact", emergencyContact)
                 .add("remark", remark)
                 .add("tags", tags)
+                .add("demeritIncidents", demeritIncidents)
                 .toString();
     }
-
 }

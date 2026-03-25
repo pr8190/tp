@@ -161,4 +161,24 @@ public class ParserUtil {
 
         return tagSet;
     }
+
+    /**
+     * Parses a {@code String input} into a positive integer.
+     *
+     * @throws ParseException if the given {@code input} is not a positive integer.
+     */
+    public static int parsePositiveInt(String input) throws ParseException {
+        requireNonNull(input);
+        String trimmedInput = input.trim();
+        try {
+            int value = Integer.parseInt(trimmedInput);
+            if (value <= 0) {
+                throw new NumberFormatException();
+            }
+            return value;
+        } catch (NumberFormatException e) {
+            throw new ParseException("Demerit rule index must be a positive integer.");
+        }
+    }
 }
+

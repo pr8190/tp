@@ -110,13 +110,22 @@ public class EditCommand extends Command {
         StudentId updatedStudentId = editPersonDescriptor.getStudentId().orElse(personToEdit.getStudentId());
         RoomNumber updatedRoomNumber = editPersonDescriptor.getRoomNumber().orElse(personToEdit.getRoomNumber());
         EmergencyContact updatedEmergencyContact = editPersonDescriptor.getEmergencyContact()
-                        .orElse(personToEdit.getEmergencyContact());
-        Remark remark = personToEdit.getRemark();
+                .orElse(personToEdit.getEmergencyContact());
+        Remark updatedRemark = editPersonDescriptor.getRemark().orElse(personToEdit.getRemark());
         Map<TagType, Tag> updatedTags = editPersonDescriptor.getTags()
                 .orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedStudentId, updatedRoomNumber,
-                updatedEmergencyContact, remark, updatedTags);
+        return new Person(
+                updatedName,
+                updatedPhone,
+                updatedEmail,
+                updatedStudentId,
+                updatedRoomNumber,
+                updatedEmergencyContact,
+                updatedRemark,
+                updatedTags,
+                personToEdit.getDemeritIncidents()
+        );
     }
 
     @Override
@@ -178,7 +187,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, studentId, roomNumber, emergencyContact, tags);
+            return CollectionUtil.isAnyNonNull(name, phone, email, studentId, roomNumber,
+                    emergencyContact, remark, tags);
         }
 
         public void setName(Name name) {
@@ -225,13 +235,11 @@ public class EditCommand extends Command {
             this.emergencyContact = emergencyContact;
         }
 
-        public Optional<EmergencyContact> getEmergencyContact() {
-            return Optional.ofNullable(emergencyContact);
-        }
+        public Optional<EmergencyContact> getEmergencyContact() { return Optional.ofNullable(emergencyContact); }
 
-        public Optional<Remark> setRemark(Remark remark) {
-            return Optional.ofNullable(remark);
-        }
+        public void setRemark(Remark remark) { this.remark = remark; }
+
+        public Optional<Remark> getRemark() { return Optional.ofNullable(remark); }
 
         /**
          * Sets {@code tags} to this object's {@code tags}.
@@ -286,3 +294,4 @@ public class EditCommand extends Command {
         }
     }
 }
+

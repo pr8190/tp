@@ -19,35 +19,33 @@ import seedu.address.model.tag.TagType;
 
 /**
  * Adds a tag to a resident in the hall ledger.
- * The resident is identified using the index number from the displayed resident list.
  * Existing tags will be overwritten by the newly provided tags.
  */
 public class TagCommand extends Command {
 
     public static final String COMMAND_WORD = "tag";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ":Adds a tag to the resident in the hall ledger"
-            + "by the index number used in the displayed resident list."
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tag to the resident in the hall ledger "
+            + "by the student ID used in the displayed resident list. "
             + "Existing tags will be overwritten by the input tags.\n"
-            + "Parameters: i=STUDENT_ID (must be a valid student ID) "
+            + "Parameters: i=STUDENT_ID "
             + "[" + PREFIX_TAG_YEAR + "YEAR] "
             + "[" + PREFIX_TAG_MAJOR + "MAJOR] "
-            + "[" + PREFIX_TAG_GENDER + "GENDER] "
-            + "Example: " + COMMAND_WORD + "1 "
-            + PREFIX_TAG_YEAR + "2 "
+            + "[" + PREFIX_TAG_GENDER + "GENDER]\n"
+            + "Example: " + COMMAND_WORD + " i=A1234567X "
+            + PREFIX_TAG_YEAR + "Y2 "
             + PREFIX_TAG_MAJOR + "CS "
-            + "Note if the student has a double major specify like "
-            + "[" + PREFIX_TAG_MAJOR + "MAJOR1 and MAJOR2]";
+            + PREFIX_TAG_GENDER + "Male";
 
     public static final String TAG_SUCCESS = "Added Tag to Resident: %1$s";
-    public static final String TAG_NOT_ADDED = "At least one tag (year / major / gender) must be provided.";
+    public static final String TAG_NOT_ADDED =
+            "At least one tag must be provided.";
 
     public final StudentId studentId;
     public final Map<TagType, Tag> tags;
 
     /**
-     * @param studentId of the person in the filtered person list to edit
-     * @param tags list of tags to add to the person
+     * Creates a tag command.
      */
     public TagCommand(StudentId studentId, Map<TagType, Tag> tags) {
         requireNonNull(studentId);
@@ -56,12 +54,7 @@ public class TagCommand extends Command {
         this.tags = tags;
     }
 
-    /**
-     * Executes the tag command.
-     *
-     * @param model {@code Model} which the command should operate on.
-     * @return a {@code CommandResult} describing the result of the command execution.
-     */
+    @Override
     public CommandResult execute(Model model) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
@@ -74,13 +67,12 @@ public class TagCommand extends Command {
         }
 
         if (personToTag == null) {
-            throw new CommandException(String.format("ResidentNotFound: No resident "
-                    + "found with student ID %s.", studentId));
+            throw new CommandException(String.format(
+                    "ResidentNotFound: No resident found with student ID %s.", studentId));
         }
 
         HashMap<TagType, Tag> updatedTags = new HashMap<>(personToTag.getTags());
         updatedTags.putAll(tags);
-        //checkTagLimits(updatedTags);
 
         Person taggedPerson = new Person(
                 personToTag.getName(),
@@ -90,7 +82,8 @@ public class TagCommand extends Command {
                 personToTag.getRoomNumber(),
                 personToTag.getEmergencyContact(),
                 personToTag.getRemark(),
-                updatedTags
+                updatedTags,
+                personToTag.getDemeritIncidents()
         );
 
         model.setPerson(personToTag, taggedPerson);
