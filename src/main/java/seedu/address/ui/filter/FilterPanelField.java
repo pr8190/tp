@@ -17,7 +17,8 @@ import seedu.address.ui.UiPart;
 public class FilterPanelField extends UiPart<Region> {
 	private static final String FXML = "FilterPanelField.fxml";
 
-	private final KeywordSubmittedHandler onKeywordSubmitted;
+    private final List<String> keywords;
+    private final KeywordsChangedHandler onKeywordsChanged;
 
 	@FXML
 	private Label titleLabel;
@@ -31,11 +32,12 @@ public class FilterPanelField extends UiPart<Region> {
 	/**
 	 * Creates a reusable filter field section.
 	 */
-	public FilterPanelField(String title, String promptText, KeywordSubmittedHandler onKeywordSubmitted) {
+    public FilterPanelField(String title, String promptText, KeywordsChangedHandler onKeywordsChanged) {
 		super(FXML);
 		requireNonNull(title);
 		requireNonNull(promptText);
-		this.onKeywordSubmitted = requireNonNull(onKeywordSubmitted);
+        this.onKeywordsChanged = requireNonNull(onKeywordsChanged);
+        this.keywords = new ArrayList<>();
 		titleLabel.setText(title);
 		keywordInputField.setPromptText(promptText);
 	}
