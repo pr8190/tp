@@ -68,7 +68,7 @@ public class FilterPanel extends UiPart<Region> {
         bindField(studentIdFilterFieldPlaceholder, "Search by Student ID", "E.g: A1234567X",
                 filterDetails.getStudentIdKeywords(), FilterDetails::setStudentIdKeywords);
 
-        bindField(roomNumberFilterFieldPlaceholder, "Search by Room Number", "E.g: 12A",
+        bindField(roomNumberFilterFieldPlaceholder, "Search by Room Number (exact)", "E.g: 12A",
                 filterDetails.getRoomNumberKeywords(), FilterDetails::setRoomNumberKeywords);
 
         bindField(majorFilterFieldPlaceholder, "Search by Major", "E.g: Computer Science",
@@ -77,20 +77,21 @@ public class FilterPanel extends UiPart<Region> {
         bindField(emergencyContactFilterFieldPlaceholder, "Search by Emergency Contact", "E.g: +65 98765432",
                 filterDetails.getEmergencyContactKeywords(), FilterDetails::setEmergencyContactKeywords);
 
-        // Year and gender are text-based for now (no ComboBox)
         bindField(yearFilterFieldPlaceholder, "Search by Year", "E.g: Y1",
                 filterDetails.getTagYearKeywords(), FilterDetails::setTagYearKeywords);
 
-        bindField(genderFilterFieldPlaceholder, "Search by Gender", "E.g: Female",
+        bindField(genderFilterFieldPlaceholder, "Search by Gender (exact)", "E.g: Female",
                 filterDetails.getTagGenderKeywords(), FilterDetails::setTagGenderKeywords);
     }
 
     /**
-     * Binds a filter field to its respective keyword set from {@link ReadOnlyFilterDetails}.
+     * Binds a filter field to its respective keywords, extracted from {@link ReadOnlyFilterDetails}.
      *
-     * <p>When users edit tags in the field, this method routes the updated keyword list to
-     * {@link #applyAndExecute(KeywordSetter, Set)}. When {@code sourceKeywords} changes from elsewhere,
-     * this method updates the field UI so both directions stay synchronized.
+     * <p>When users edit tags in the field, this method sets the {@link ReadOnlyFilterDetails} via
+     * {@link #applyAndExecute(KeywordSetter, Set)}.
+     *
+     * <p>When {@code sourceKeywords} changes from elsewhere, this method updates the field UI through a listener so
+     * both UI and Model stay synchronized.
      *
      * @param placeholder   target UI container
      * @param title         section label
@@ -135,6 +136,9 @@ public class FilterPanel extends UiPart<Region> {
         }
     }
 
+    /**
+     * Functional interface for setting a specific keyword set in a {@link FilterDetails} instance.
+     */
     @FunctionalInterface
     private interface KeywordSetter {
         void set(FilterDetails details, Set<String> keywords);

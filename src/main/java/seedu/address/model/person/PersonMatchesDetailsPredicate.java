@@ -34,10 +34,10 @@ public record PersonMatchesDetailsPredicate(FilterDetails filterDetails) impleme
         return isNameMatch(person)
                 & isFuzzyMatch(person.getEmail().value, filterDetails.getEmailKeywords())
                 & isFuzzyMatch(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
-                & isExactMatch(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
+                & isFuzzyMatch(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
                 & isFuzzyMatch(person.getStudentId().value, filterDetails.getStudentIdKeywords())
                 & isFuzzyMatch(person.getEmergencyContact().value, filterDetails.getEmergencyContactKeywords())
-                & matchesExactTags(person, filterDetails.getTagYearKeywords())
+                & matchesFuzzyTags(person, filterDetails.getTagYearKeywords())
                 & matchesFuzzyTags(person, filterDetails.getTagMajorKeywords())
                 & matchesExactTags(person, filterDetails.getTagGenderKeywords());
     }
@@ -55,21 +55,6 @@ public record PersonMatchesDetailsPredicate(FilterDetails filterDetails) impleme
             return false;
         }
         return nameWords.stream().anyMatch(nameWord -> StringUtil.fuzzyMatchesAnyIgnoreCase(nameWord, nameKeywords));
-    }
-
-    /**
-     * Checks if the given {@code fieldValue} exactly matches any of the {@code keywords} (case-insensitive).
-     */
-    private boolean isExactMatch(String fieldValue, Set<String> keywords) {
-        assert keywords != null : "keywords set should be non-null";
-        if (keywords.isEmpty()) {
-            return true;
-        }
-        if (fieldValue.isEmpty()) {
-            return false;
-        }
-        String lower = fieldValue.toLowerCase(Locale.ROOT);
-        return keywords.stream().map(k -> k.toLowerCase(Locale.ROOT)).anyMatch(lower::equals);
     }
 
     /**
