@@ -131,58 +131,29 @@ Examples:
 
 ### Locating persons: `find`
 
-Finds persons using one of two methods:
-1. [Find by name](#method-1-find-by-name)
-2. [Find by attributes](#method-2-find-by-attributes)
-
-#### Method 1: Find by name
-
-Finds persons whose names contain any of the given keywords.
-
-Format: `find NAME_KEYWORD [MORE_NAME_KEYWORDS]`
-
-* Case-insensitive: `find Hans Bo` gives the same result as `find hans bo`.
-* Keyword order does not matter.
-* Multiple keywords are OR-based for names.
-  * e.g. `find Hans Bo Anna` can return residents such as `Hans Gruber`, `Bo Yang`, `Anna Lee`.
-* Name matching supports exact, substring, and typo-tolerant matching for longer words.
-  * e.g. `find Alex` can match `Alex`, `Alexander`, and close typos such as `Alxe`.
-
-Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-
-#### Method 2: Find by attributes
-
 Finds persons who match multiple attributes such as name, phone number, email or major.
 
 Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
+* Prefix-only command: preamble text is not supported.
+    * e.g. `find Alice Bob` is invalid. Use `find n=Alice n=Bob`.
 * Case-insensitive and order-independent across prefixes.
-  * e.g. `find n=Alice y=Y1` gives the same result as `find y=Y1 n=ALICE`.
-* Different prefixes are combined by AND logic.
-  * e.g. `find n=Alice p=9123 y=Y1` returns residents that satisfy all three filters.
+    * e.g. `find n=Alice y=Y1` gives the same result as `find y=Y1 n=ALICE`.
+* Different prefixes are combined with AND.
+    * e.g. `find n=Alice p=9123 y=Y1` returns residents that satisfy all 3 filters.
 * Repeating the same prefix is OR-based.
-  * e.g. `find y=Y2 y=Y3` returns Year 2 or Year 3 residents.
-  * e.g. `find n=Hans Bo n=Anna` can return residents matching either name group.
-* Matching behavior by field:
-
-| Prefix | Field | Match type | Notes |
-| --- | --- | --- | --- |
-| `n=` | Name | Fuzzy | Same behavior as Method 1 (exact, contains, typo-tolerant for longer words). |
-| `p=` | Phone | Fuzzy (contains) | Case-insensitive partial match. |
-| `e=` | Email | Fuzzy (contains) | Case-insensitive partial match. |
-| `i=` | Student ID | Fuzzy (contains) | Case-insensitive partial match. |
-| `ec=` | Emergency contact | Fuzzy (contains) | Case-insensitive partial match. |
-| `r=` | Room number | Exact | Case-insensitive exact match only. |
-| `y=` | Year tag | Exact | Case-insensitive exact tag match. |
-| `g=` | Gender tag | Exact | Case-insensitive exact tag match. |
-| `m=` | Major tag | Fuzzy (contains) | Case-insensitive partial tag match. |
+    * e.g. `find y=Y2 y=Y3` returns Year 2 or Year 3 residents.
+    * e.g. `find n=Hans Bo n=Anna Lee` can return residents matching either `n=` value.
+* Each `n=` value is treated as one value as typed; it is not split by spaces.
+    * e.g. `find n=Hans Bo` keeps `Hans Bo` as one name filter value.
 
 Examples:
+
+* `find n=John Doe` returns residents whose names fuzzy-match `John Doe`.
+* `find n=Alex n=David` returns residents matching either name value.
 * `find m=CS m=Economics g=Male g=Others` returns persons majoring in CS or Economics, and whose gender is listed as 
   Male or Others.
-* `find ec=+84 e=gmail` returns persons whose emergency contact contains `+84` and whose email contains `gmail`.
+* `find ec=+84 e=gmail` returns persons whose emergency contact contains `+84`, and whose email contains `gmail`.
 
 Read more about fuzzy matching here: [Fuzzy Matching Details](FuzzyMatching.md).
 

@@ -146,6 +146,25 @@ public class FilterDetails implements ReadOnlyFilterDetails {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof FilterDetails otherFilterDetails)) {
+            return false;
+        }
+        return nameKeywords.equals(otherFilterDetails.nameKeywords)
+                && emailKeywords.equals(otherFilterDetails.emailKeywords)
+                && phoneNumberKeywords.equals(otherFilterDetails.phoneNumberKeywords)
+                && roomNumberKeywords.equals(otherFilterDetails.roomNumberKeywords)
+                && studentIdKeywords.equals(otherFilterDetails.studentIdKeywords)
+                && emergencyContactKeywords.equals(otherFilterDetails.emergencyContactKeywords)
+                && tagYearKeywords.equals(otherFilterDetails.tagYearKeywords)
+                && tagMajorKeywords.equals(otherFilterDetails.tagMajorKeywords)
+                && tagGenderKeywords.equals(otherFilterDetails.tagGenderKeywords);
+    }
+
+    @Override
     public String toString() {
         return "{"
                 + "nameKeywords=" + nameKeywords

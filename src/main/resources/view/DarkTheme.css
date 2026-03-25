@@ -617,13 +617,41 @@
     -fx-vgap: 5;
 }
 
-#nameTags .label {
-    -fx-text-fill: white;
+#filterPanelTags {
     -fx-background-color: secondary-blue;
-    -fx-padding: 2 6 2 6;
+    -fx-padding: 1 5 1 5;
     -fx-border-radius: 3;
     -fx-background-radius: 3;
+}
+
+#filterPanelTags:hover {
+    -fx-background-color: derive(secondary-blue, -10%);
+}
+
+#filterPanelTags .label {
+    -fx-text-fill: white;
+    -fx-font-size: 11;
+}
+
+#filterPanelTags .button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-width: 0;
+    -fx-text-fill: white;
+    -fx-opacity: 0.8;
     -fx-font-size: 13;
+}
+
+#filterPanelTags .button:hover {
+    -fx-opacity: 1;
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
+}
+
+#filterPanelTags .button:pressed {
+    -fx-opacity: 0.6;
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
 }
 
 /* List Section background color */

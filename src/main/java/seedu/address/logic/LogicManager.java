@@ -20,7 +20,6 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyFilterDetails;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonMatchesDetailsPredicate;
 import seedu.address.storage.Storage;
 
 /**
@@ -90,7 +89,7 @@ public class LogicManager implements Logic {
         assert(filterDetails != null);
 
         logger.info("----------------[FILTER DETAILS FROM UI] " + filterDetails);
-        Command command = new FindCommand(new PersonMatchesDetailsPredicate(filterDetails));
+        Command command = new FindCommand(filterDetails);
         CommandResult commandResult = command.execute(model);
         return commandResult;
     }

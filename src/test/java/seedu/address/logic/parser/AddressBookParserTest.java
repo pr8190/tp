@@ -6,9 +6,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +19,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.FilterDetails;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.testutil.PersonBuilder;
@@ -69,10 +67,13 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
+        FilterDetails filterDetails = new FilterDetails();
+        filterDetails.setNameKeywords(Set.of("foo", "bar", "baz"));
+        filterDetails.setStudentIdKeywords(Set.of("G1234567X", "G1234567Y", "G1234567Z"));
+        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD
+                + " n=foo n=bar n=baz"
+                + " i=G1234567X i=G1234567Y i=G1234567Z");
+        assertEquals(new FindCommand(filterDetails), command);
     }
 
     @Test
