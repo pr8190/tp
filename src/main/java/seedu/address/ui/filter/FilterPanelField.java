@@ -38,7 +38,7 @@ public class FilterPanelField extends UiPart<Region> {
 		requireNonNull(title);
 		requireNonNull(promptText);
         this.onKeywordsChanged = requireNonNull(onKeywordsChanged);
-        this.keywords = List.of();
+        this.keywords = new ArrayList<>();
 		titleLabel.setText(title);
 		keywordInputField.setPromptText(promptText);
 	}
