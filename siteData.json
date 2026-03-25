@@ -76,6 +76,19 @@
       "headingKeywords": {}
     },
     {
+      "src": "FuzzyMatching.md",
+      "title": "Fuzzy Matching Details",
+      "headings": {
+        "fuzzy-matching-details": "Fuzzy Matching Details",
+        "1-name-fuzzy-matching-find-alice-or-find-n-alice": "1. Name fuzzy matching (find Alice or find n=Alice)",
+        "examples": "Examples",
+        "2-prefix-based-find-matching-behavior": "2. Prefix-based find matching behavior",
+        "3-and-or-rules-in-prefixed-find": "3. AND/OR rules in prefixed find",
+        "4-case-sensitivity": "4. Case sensitivity"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "Logging.md",
       "title": "Logging guide",
       "headings": {
