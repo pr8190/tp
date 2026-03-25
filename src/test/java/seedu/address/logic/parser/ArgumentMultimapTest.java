@@ -118,4 +118,41 @@ class ArgumentMultimapTest {
         map.put(PREFIX_PHONE, "value");
         assertFalse(map.hasEmptyPrefixArguments());
     }
+
+    @Test
+    public void getNonEmptyValuesCount_allPrefixesHaveOneNonEmptyValue_returnsOneForEachPrefix() {
+        ArgumentMultimap map = new ArgumentMultimap();
+        map.put(PREFIX_NAME, "Alice");
+        map.put(PREFIX_PHONE, "+65 91234567");
+
+        List<Long> countByPrefix = map.getNonEmptyValuesCount(PREFIX_NAME, PREFIX_PHONE);
+
+        assertEquals(List.of(1L, 1L), countByPrefix);
+    }
+
+    @Test
+    public void getNonEmptyValuesCount_mixedEmptyAndNonEmptyValues_countsOnlyNonEmptyValues() {
+        ArgumentMultimap map = new ArgumentMultimap();
+        map.put(PREFIX_NAME, " ");
+        map.put(PREFIX_NAME, "Alice");
+        map.put(PREFIX_NAME, "\t");
+        map.put(PREFIX_PHONE, "");
+        map.put(PREFIX_PHONE, "+65 91234567");
+
+        List<Long> countByPrefix = map.getNonEmptyValuesCount(PREFIX_NAME, PREFIX_PHONE);
+
+        assertEquals(List.of(1L, 1L), countByPrefix);
+    }
+
+    @Test
+    public void getNonEmptyValuesCount_missingPrefixAndNoPrefixesProvided_returnsZeroAndEmptyList() {
+        ArgumentMultimap map = new ArgumentMultimap();
+        Prefix missingPrefix = new Prefix("e=");
+
+        List<Long> missingPrefixCount = map.getNonEmptyValuesCount(missingPrefix);
+        List<Long> noPrefixCount = map.getNonEmptyValuesCount();
+
+        assertEquals(List.of(0L), missingPrefixCount);
+        assertEquals(List.of(), noPrefixCount);
+    }
 }
