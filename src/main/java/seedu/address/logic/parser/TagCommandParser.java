@@ -41,14 +41,19 @@ public class TagCommandParser implements Parser<TagCommand> {
 
         Map<TagType, Tag> tags = new HashMap<>();
 
-        argumentMultimap.getValue(CliSyntax.PREFIX_TAG_GENDER)
-                .ifPresent(gender -> tags.put(TagType.GENDER, new Tag(TagType.GENDER, gender)));
+        try {
+            argumentMultimap.getValue(CliSyntax.PREFIX_TAG_GENDER)
+                    .ifPresent(gender -> tags.put(TagType.GENDER, new Tag(TagType.GENDER, gender)));
 
-        argumentMultimap.getValue(CliSyntax.PREFIX_TAG_MAJOR)
-                .ifPresent(major -> tags.put(TagType.MAJOR, new Tag(TagType.MAJOR, major)));
+            argumentMultimap.getValue(CliSyntax.PREFIX_TAG_MAJOR)
+                    .ifPresent(major -> tags.put(TagType.MAJOR, new Tag(TagType.MAJOR, major)));
 
-        argumentMultimap.getValue(CliSyntax.PREFIX_TAG_YEAR)
-                .ifPresent(year -> tags.put(TagType.YEAR, new Tag(TagType.YEAR, year)));
+            argumentMultimap.getValue(CliSyntax.PREFIX_TAG_YEAR)
+                    .ifPresent(year -> tags.put(TagType.YEAR, new Tag(TagType.YEAR, year)));
+
+        } catch (IllegalArgumentException e) {
+            throw new ParseException(e.getMessage());
+        }
 
         if (tags.isEmpty()) {
             throw new ParseException(TagCommand.TAG_NOT_ADDED);

@@ -89,8 +89,9 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    // ================ Filter Details Accessors ========================================================
     /**
-     * Returns the filter details property for dynamic updates.
+     * Sets the current filter details used for filtering the person list.
      */
     ObjectProperty<FilterDetails> getFilterDetailsProperty();
 
@@ -104,4 +105,10 @@ public interface Model {
      * Sets the selected person in the filtered person list.
      */
     void setSelectedPerson(Person person);
+    void setFilterDetails(FilterDetails filterDetails);
+
+    /**
+     * Returns the current read-only filter details.
+     */
+    ReadOnlyFilterDetails getFilterDetails();
 }

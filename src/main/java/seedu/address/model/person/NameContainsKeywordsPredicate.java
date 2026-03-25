@@ -17,6 +17,13 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         this.keywords = keywords;
     }
 
+    /**
+     * Returns the name keywords used by this predicate.
+     */
+    public Set<String> getKeywords() {
+        return Set.copyOf(keywords);
+    }
+
     @Override
     public boolean test(Person person) {
         Set<String> keywordsSet = Set.copyOf(keywords);
@@ -41,11 +48,10 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof NameContainsKeywordsPredicate)) {
+        if (!(other instanceof NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate)) {
             return false;
         }
 
-        NameContainsKeywordsPredicate otherNameContainsKeywordsPredicate = (NameContainsKeywordsPredicate) other;
         // Compare keywords as sets to ignore order and duplicates
         Set<String> keywordsSet = Set.copyOf(keywords);
         Set<String> otherKeywordsSet = Set.copyOf(otherNameContainsKeywordsPredicate.keywords);

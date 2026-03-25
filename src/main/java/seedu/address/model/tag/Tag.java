@@ -9,8 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum} ]*[\\p{Alnum}]+[\\p{Alnum} ]*";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric. "
+            + "Gender tags may contain '/' eg: she/her";
 
     public final String tagName;
     public final TagType tagType;
@@ -24,9 +24,10 @@ public class Tag {
     public Tag(TagType tagType, String tagName) {
         requireNonNull(tagName);
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+
         String trimmedName = tagName.trim();
-        checkArgument(isValidTagName(trimmedName), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTagName(trimmedName, tagType), MESSAGE_CONSTRAINTS);
+
         this.tagName = trimmedName;
         this.tagType = tagType;
     }
@@ -34,8 +35,9 @@ public class Tag {
     /**
      * Returns true if a given string is a valid tag name.
      */
-    public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public static boolean isValidTagName(String test, TagType type) {
+        requireNonNull(type);
+        return test != null && type.isValidTagName(test);
     }
 
     /**

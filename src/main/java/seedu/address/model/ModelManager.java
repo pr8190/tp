@@ -30,6 +30,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
     private final ObjectProperty<FilterDetails> filterDetails = new SimpleObjectProperty<>(new FilterDetails());
     private final SimpleObjectProperty<Person> selectedPerson = new SimpleObjectProperty<>();
+    private final FilterDetails filterDetails;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,9 +42,8 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
+        this.filterDetails = new FilterDetails();
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
-        addFilterDetailsListener();
     }
 
     public ModelManager() {
@@ -147,14 +147,14 @@ public class ModelManager implements Model {
     //=========== Filter Details Accessors =============================================================
 
     @Override
-    public ObjectProperty<FilterDetails> getFilterDetailsProperty() {
+    public ReadOnlyFilterDetails getFilterDetails() {
         return filterDetails;
     }
 
-    private void addFilterDetailsListener() {
-        filterDetails.addListener((obs, oldVal, newVal) -> {
-            updateFilteredPersonList(new PersonMatchesDetailsPredicate(newVal));
-        });
+    @Override
+    public void setFilterDetails(FilterDetails filterDetails) {
+        requireNonNull(filterDetails);
+        this.filterDetails.set(filterDetails);
     }
 
     //=========== Equals method =============================================================
@@ -165,12 +165,11 @@ public class ModelManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ModelManager)) {
+        if (!(other instanceof ModelManager otherModelManager)) {
             return false;
         }
 
         // TODO: Add FilterDetails to equality check
-        ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
                 && new ArrayList<>(filteredPersons).equals(new ArrayList<>(otherModelManager.filteredPersons));
