@@ -12,15 +12,21 @@ import seedu.address.model.FilterDetails;
 /**
  * Tests whether a {@code Person} matches the details specified in a {@link FilterDetails}.
  */
-public class PersonMatchesDetailsPredicate implements Predicate<Person> {
-
-    private final FilterDetails filterDetails;
+public record PersonMatchesDetailsPredicate(FilterDetails filterDetails) implements Predicate<Person> {
 
     /**
      * Creates a {@code PersonMatchesDetailsPredicate} with the given {@code FilterDetails}.
      */
     public PersonMatchesDetailsPredicate(FilterDetails filterDetails) {
         this.filterDetails = Objects.requireNonNull(filterDetails);
+    }
+
+    /**
+     * Returns a snapshot of the filter details used by this predicate.
+     */
+    @Override
+    public FilterDetails filterDetails() {
+        return new FilterDetails(filterDetails);
     }
 
     @Override
@@ -30,7 +36,7 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
                 & isFuzzyMatch(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
                 & isExactMatch(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
                 & isFuzzyMatch(person.getStudentId().value, filterDetails.getStudentIdKeywords())
-                & isExactMatch(person.getEmergencyContact().value, filterDetails.getEmergencyContactKeywords())
+                & isFuzzyMatch(person.getEmergencyContact().value, filterDetails.getEmergencyContactKeywords())
                 & matchesExactTags(person, filterDetails.getTagYearKeywords())
                 & matchesFuzzyTags(person, filterDetails.getTagMajorKeywords())
                 & matchesExactTags(person, filterDetails.getTagGenderKeywords());
@@ -116,10 +122,9 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof PersonMatchesDetailsPredicate)) {
+        if (!(other instanceof PersonMatchesDetailsPredicate otherPredicate)) {
             return false;
         }
-        PersonMatchesDetailsPredicate otherPredicate = (PersonMatchesDetailsPredicate) other;
         return Objects.equals(this.filterDetails, otherPredicate.filterDetails);
     }
 

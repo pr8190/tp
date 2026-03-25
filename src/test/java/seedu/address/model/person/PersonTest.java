@@ -90,9 +90,9 @@ public class PersonTest {
                 + ", studentId=" + ALICE.getStudentId()
                 + ", roomNumber=" + ALICE.getRoomNumber()
                 + ", emergencyContact=" + ALICE.getEmergencyContact()
+                + ", remark=" + ALICE.getRemark()
                 + ", tags=" + ALICE.getTags()
                 + ", demeritIncidents=" + ALICE.getDemeritIncidents() + "}";
         assertEquals(expected, ALICE.toString());
     }
 }
-

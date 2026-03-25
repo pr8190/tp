@@ -22,6 +22,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.FilterDetails;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -119,7 +120,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        ListSection listSection = new ListSection(logic);
+        ListSection listSection = new ListSection(logic, this::executeFilter);
         listSectionPlaceholder.getChildren().add(listSection.getRoot());
 
         TabSection tabSection = new TabSection(logic);
@@ -204,6 +205,7 @@ public class MainWindow extends UiPart<Stage> {
         return result.isPresent() && result.get() == confirmButton;
     }
 
+    // =============================== Executing Commands  ================================
     /**
      * Executes the command and returns the result.
      *
@@ -233,6 +235,22 @@ public class MainWindow extends UiPart<Stage> {
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
+            resultDisplay.setFeedbackToUser(e.getMessage());
+            throw e;
+        }
+    }
+
+    /**
+     * Applies filters and updates the shared result display.
+     */
+    private CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
+        try {
+            CommandResult commandResult = logic.executeFilter(filterDetails);
+            logger.info("Result: " + commandResult.getFeedbackToUser());
+            resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            return commandResult;
+        } catch (CommandException e) {
+            logger.info("An error occurred while applying filters: " + filterDetails);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
         }

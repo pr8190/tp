@@ -6,6 +6,7 @@
     "studentId" : "A1234567X",
     "roomNumber" : "13E",
     "emergencyContact" : "+65 91234567",
+    "remark": "Allergic to peanuts",
     "tags" : [ {
       "tagType" : "MAJOR",
       "tagName" : "CS"
@@ -23,6 +24,7 @@
     "studentId" : "A8765432Y",
     "roomNumber" : "10A",
     "emergencyContact" : "+65 91234567",
+    "remark": "Allergic to peanuts",
     "tags" : [ {
       "tagType" : "MAJOR",
       "tagName" : "CS Maths"

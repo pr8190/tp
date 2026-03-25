@@ -29,6 +29,7 @@ public class Person {
     // Data fields
     private final RoomNumber roomNumber;
     private final EmergencyContact emergencyContact;
+    private final Remark remark;
     private final Map<TagType, Tag> tags;
     private final List<DemeritIncident> demeritIncidents;
 
@@ -36,23 +37,25 @@ public class Person {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, StudentId studentId, RoomNumber roomNumber,
-                  EmergencyContact emergencyContact, Map<TagType, Tag> tags) {
-        this(name, phone, email, studentId, roomNumber, emergencyContact, tags, List.of());
+                  EmergencyContact emergencyContact, Remark remark, Map<TagType, Tag> tags) {
+        this(name, phone, email, studentId, roomNumber, emergencyContact, remark, tags, List.of());
     }
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, StudentId studentId, RoomNumber roomNumber,
-                  EmergencyContact emergencyContact, Map<TagType, Tag> tags,
+                  EmergencyContact emergencyContact, Remark remark, Map<TagType, Tag> tags,
                   List<DemeritIncident> demeritIncidents) {
-        requireAllNonNull(name, phone, email, studentId, roomNumber, emergencyContact, tags, demeritIncidents);
+        requireAllNonNull(name, phone, email, studentId, roomNumber,
+                emergencyContact, remark, tags, demeritIncidents);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.studentId = studentId;
         this.roomNumber = roomNumber;
         this.emergencyContact = emergencyContact;
+        this.remark = remark;
         this.tags = new HashMap<>(tags);
         this.demeritIncidents = new ArrayList<>(demeritIncidents);
     }
@@ -79,6 +82,10 @@ public class Person {
 
     public EmergencyContact getEmergencyContact() {
         return emergencyContact;
+    }
+
+    public Remark getRemark() {
+        return remark;
     }
 
     /**
@@ -179,6 +186,7 @@ public class Person {
                 && studentId.equals(otherPerson.studentId)
                 && roomNumber.equals(otherPerson.roomNumber)
                 && emergencyContact.equals(otherPerson.emergencyContact)
+                && remark.equals(otherPerson.remark)
                 && tags.equals(otherPerson.tags)
                 && demeritIncidents.equals(otherPerson.demeritIncidents);
     }
@@ -186,7 +194,7 @@ public class Person {
     @Override
     public int hashCode() {
         return Objects.hash(name, phone, email, studentId, roomNumber,
-                emergencyContact, tags, demeritIncidents);
+                emergencyContact, remark, tags, demeritIncidents);
     }
 
     @Override
@@ -198,6 +206,7 @@ public class Person {
                 .add("studentId", studentId)
                 .add("roomNumber", roomNumber)
                 .add("emergencyContact", emergencyContact)
+                .add("remark", remark)
                 .add("tags", tags)
                 .add("demeritIncidents", demeritIncidents)
                 .toString();

@@ -14,6 +14,7 @@ import seedu.address.model.person.EmergencyContact;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Tag;
@@ -34,6 +35,7 @@ class JsonAdaptedPerson {
     private final String studentId;
     private final String roomNumber;
     private final String emergencyContact;
+    private final String remark;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -46,6 +48,7 @@ class JsonAdaptedPerson {
                              @JsonProperty("studentId") String studentId,
                              @JsonProperty("roomNumber") String roomNumber,
                              @JsonProperty("emergencyContact") String emergencyContact,
+                             @JsonProperty("remark") String remark,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.phone = phone;
@@ -53,6 +56,7 @@ class JsonAdaptedPerson {
         this.studentId = studentId;
         this.roomNumber = roomNumber;
         this.emergencyContact = emergencyContact;
+        this.remark = remark;
         if (tags != null) {
             this.tags.addAll(tags);
         }
@@ -68,6 +72,7 @@ class JsonAdaptedPerson {
         studentId = source.getStudentId().value;
         roomNumber = source.getRoomNumber() != null ? source.getRoomNumber().value : null;
         emergencyContact = source.getEmergencyContact() != null ? source.getEmergencyContact().value : null;
+        remark = source.getRemark().remark;
         tags.addAll(source.getTags().values().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -128,7 +133,13 @@ class JsonAdaptedPerson {
         if (!EmergencyContact.isValidEmergencyContact(emergencyContact)) {
             throw new IllegalValueException(EmergencyContact.MESSAGE_CONSTRAINTS);
         }
+
         final EmergencyContact modelEmergencyContact = new EmergencyContact(emergencyContact);
+
+        Remark modelRemark = new Remark("");
+        if (remark != null) {
+            modelRemark = new Remark(remark);
+        }
 
         final HashMap<TagType, Tag> modelTags = new HashMap<>();
         for (JsonAdaptedTag jsonAdaptedTag : tags) {
@@ -141,6 +152,6 @@ class JsonAdaptedPerson {
         }
 
         return new Person(modelName, modelPhone, modelEmail, modelStudentId, modelRoomNumber,
-                modelEmergencyContact, modelTags);
+                modelEmergencyContact, modelRemark, modelTags);
     }
 }

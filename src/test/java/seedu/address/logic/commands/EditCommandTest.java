@@ -40,7 +40,7 @@ public class EditCommandTest {
         Person firstPerson = model.getFilteredPersonList().get(0);
         StudentId targetStudentId = firstPerson.getStudentId();
 
-        Person editedPerson = new PersonBuilder().build();
+        Person editedPerson = new PersonBuilder().withRemark("Allergic to peanuts").build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(targetStudentId, descriptor);
 

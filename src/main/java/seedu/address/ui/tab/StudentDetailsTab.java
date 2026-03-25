@@ -1,9 +1,11 @@
 package seedu.address.ui.tab;
 
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
+import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
 /**
@@ -16,7 +18,7 @@ public class StudentDetailsTab extends UiPart<Region> {
      * The person whose details would be shown in the directory tab
      **/
     // TODO: Implement selectedPerson logic
-    //  private final ObjectProperty<Optional<Person>> selectedPerson;
+    private final ObservableValue<Person> selectedPerson;
     @FXML
     private TabPane studentDetailsTabPane;
 
@@ -29,13 +31,14 @@ public class StudentDetailsTab extends UiPart<Region> {
     /**
      * Creates a {@code StudentDetailsTab} with the given {@code Logic}.
      */
-    public StudentDetailsTab() {
+    public StudentDetailsTab(ObservableValue<Person> selectedPerson) {
         super(FXML);
+        this.selectedPerson = selectedPerson;
         fillInnerParts();
     }
 
     private void fillInnerParts() {
-        Profile profile = new Profile();
+        Profile profile = new Profile(selectedPerson);
         profilePlaceholder.getChildren().add(profile.getRoot());
 
         DemeritRecords demeritRecords = new DemeritRecords();

@@ -5,17 +5,27 @@ package seedu.address.model.tag;
  * Guarantees: immutable; name is valid
  */
 public enum TagType {
-    YEAR(1),
-    MAJOR(1),
-    GENDER(1);
+    YEAR(1, "[\\p{Alnum} ]*[\\p{Alnum}]+[\\p{Alnum} ]*"),
+    MAJOR(1, "[\\p{Alnum} ]*[\\p{Alnum}]+[\\p{Alnum} ]*"),
+    GENDER(1, "[\\p{Alnum}/][\\p{Alnum}/ ]*");
 
     private final int maxTagsPerType;
+    private final String validationRegex;
 
-    TagType(int maxTagsPerType) {
+    TagType(int maxTagsPerType, String validationRegex) {
         this.maxTagsPerType = maxTagsPerType;
+        this.validationRegex = validationRegex;
+    }
+
+    public String getValidationRegex() {
+        return validationRegex;
     }
 
     public int getMaxTagsPerType() {
         return maxTagsPerType;
+    }
+
+    public boolean isValidTagName(String tagName) {
+        return tagName != null && tagName.matches(validationRegex);
     }
 }

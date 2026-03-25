@@ -83,6 +83,8 @@ public class TagCommand extends Command {
                 personToTag.getEmergencyContact(),
                 updatedTags,
                 personToTag.getDemeritIncidents()
+                personToTag.getRemark(),
+                updatedTags
         );
 
         model.setPerson(personToTag, taggedPerson);

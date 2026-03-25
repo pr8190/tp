@@ -5,7 +5,8 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<TitledPane animated="true" minWidth="320.0" styleClass="filter-pane" stylesheets="@DarkTheme.css" text="Filter &amp; Sort" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<TitledPane expanded="false" minWidth="320.0" styleClass="filter-pane" stylesheets="@DarkTheme.css"
+            text="Filter &amp; Sort" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
         <FontIcon iconLiteral="dashicons-filter" iconSize="16" styleClass="filter-icon" />
     </graphic>

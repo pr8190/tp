@@ -1,127 +1,148 @@
 package seedu.address.model;
 
-import java.util.HashSet;
+import static java.util.Objects.requireNonNull;
+
 import java.util.Set;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 
 /**
  * Stores the details of the filter to be applied to the address book.
  */
-public class FilterDetails {
-    private Set<String> nameKeywords;
-    private Set<String> emailKeywords;
-    private Set<String> phoneNumberKeywords;
-    private Set<String> roomNumberKeywords;
-    private Set<String> studentIdKeywords;
-    private Set<String> emergencyContactKeywords;
-    private Set<String> tagYearKeywords;
-    private Set<String> tagMajorKeywords;
-    private Set<String> tagGenderKeywords;
+public class FilterDetails implements ReadOnlyFilterDetails {
+    private final ObservableSet<String> nameKeywords;
+    private final ObservableSet<String> emailKeywords;
+    private final ObservableSet<String> phoneNumberKeywords;
+    private final ObservableSet<String> roomNumberKeywords;
+    private final ObservableSet<String> studentIdKeywords;
+    private final ObservableSet<String> emergencyContactKeywords;
+    private final ObservableSet<String> tagYearKeywords;
+    private final ObservableSet<String> tagMajorKeywords;
+    private final ObservableSet<String> tagGenderKeywords;
 
     /**
      * Initializes a new {@code FilterDetails} object with empty keyword sets.
      */
     public FilterDetails() {
-        this.nameKeywords = new HashSet<>();
-        this.emailKeywords = new HashSet<>();
-        this.phoneNumberKeywords = new HashSet<>();
-        this.roomNumberKeywords = new HashSet<>();
-        this.studentIdKeywords = new HashSet<>();
-        this.emergencyContactKeywords = new HashSet<>();
-        this.tagYearKeywords = new HashSet<>();
-        this.tagMajorKeywords = new HashSet<>();
-        this.tagGenderKeywords = new HashSet<>();
+        this.nameKeywords = FXCollections.observableSet();
+        this.emailKeywords = FXCollections.observableSet();
+        this.phoneNumberKeywords = FXCollections.observableSet();
+        this.roomNumberKeywords = FXCollections.observableSet();
+        this.studentIdKeywords = FXCollections.observableSet();
+        this.emergencyContactKeywords = FXCollections.observableSet();
+        this.tagYearKeywords = FXCollections.observableSet();
+        this.tagMajorKeywords = FXCollections.observableSet();
+        this.tagGenderKeywords = FXCollections.observableSet();
     }
 
     /**
-     * Creates a copy of the given {@code FilterDetails}.
-     *
-     * @param other the {@code FilterDetails} to copy
-     * @return a new {@code FilterDetails} object with the same details as the given {@code FilterDetails}
+     * Initializes a new {@code FilterDetails} object as a copy of the given read-only details.
      */
-    public FilterDetails(FilterDetails other) {
-        this.nameKeywords = new HashSet<>(other.nameKeywords);
-        this.emailKeywords = new HashSet<>(other.emailKeywords);
-        this.phoneNumberKeywords = new HashSet<>(other.phoneNumberKeywords);
-        this.roomNumberKeywords = new HashSet<>(other.roomNumberKeywords);
-        this.studentIdKeywords = new HashSet<>(other.studentIdKeywords);
-        this.emergencyContactKeywords = new HashSet<>(other.emergencyContactKeywords);
-        this.tagYearKeywords = new HashSet<>(other.tagYearKeywords);
-        this.tagMajorKeywords = new HashSet<>(other.tagMajorKeywords);
-        this.tagGenderKeywords = new HashSet<>(other.tagGenderKeywords);
+    public FilterDetails(ReadOnlyFilterDetails other) {
+        this();
+        set(other);
     }
 
     // ==================== Setters ======================
-    public void setNameKeywords(Set<String> nameKeywords) {
-        this.nameKeywords = nameKeywords;
-    }
 
-    public void setEmailKeywords(Set<String> emailKeywords) {
-        this.emailKeywords = emailKeywords;
-    }
-
-    public void setPhoneNumberKeywords(Set<String> phoneNumberKeywords) {
-        this.phoneNumberKeywords = phoneNumberKeywords;
-    }
-
-    public void setRoomNumberKeywords(Set<String> roomNumberKeywords) {
-        this.roomNumberKeywords = roomNumberKeywords;
-    }
-
-    public void setStudentIdKeywords(Set<String> studentIdKeywords) {
-        this.studentIdKeywords = studentIdKeywords;
-    }
-
-    public void setEmergencyContactKeywords(Set<String> emergencyContactKeywords) {
-        this.emergencyContactKeywords = emergencyContactKeywords;
-    }
-
-    public void setTagYearKeywords(Set<String> tagYearKeywords) {
-        this.tagYearKeywords = tagYearKeywords;
-    }
-
-    public void setTagMajorKeywords(Set<String> tagMajorKeywords) {
-        this.tagMajorKeywords = tagMajorKeywords;
-    }
-
-    public void setTagGenderKeywords(Set<String> tagGenderKeywords) {
-        this.tagGenderKeywords = tagGenderKeywords;
+    /**
+     * Sets the details of this {@code FilterDetails} to be the same as the given {@code ReadOnlyFilterDetails}.
+     *
+     * @param other the {@code ReadOnlyFilterDetails} to copy the details from
+     */
+    public void set(ReadOnlyFilterDetails other) {
+        requireNonNull(other);
+        replaceAll(nameKeywords, other.getNameKeywords());
+        replaceAll(emailKeywords, other.getEmailKeywords());
+        replaceAll(phoneNumberKeywords, other.getPhoneNumberKeywords());
+        replaceAll(roomNumberKeywords, other.getRoomNumberKeywords());
+        replaceAll(studentIdKeywords, other.getStudentIdKeywords());
+        replaceAll(emergencyContactKeywords, other.getEmergencyContactKeywords());
+        replaceAll(tagYearKeywords, other.getTagYearKeywords());
+        replaceAll(tagMajorKeywords, other.getTagMajorKeywords());
+        replaceAll(tagGenderKeywords, other.getTagGenderKeywords());
     }
 
     // ==================== Getters ======================
-    public Set<String> getNameKeywords() {
+    public ObservableSet<String> getNameKeywords() {
         return nameKeywords;
     }
 
-    public Set<String> getEmailKeywords() {
+    public ObservableSet<String> getEmailKeywords() {
         return emailKeywords;
     }
 
-    public Set<String> getPhoneNumberKeywords() {
+    public ObservableSet<String> getPhoneNumberKeywords() {
         return phoneNumberKeywords;
     }
 
-    public Set<String> getRoomNumberKeywords() {
+    public ObservableSet<String> getRoomNumberKeywords() {
         return roomNumberKeywords;
     }
 
-    public Set<String> getStudentIdKeywords() {
+    public ObservableSet<String> getStudentIdKeywords() {
         return studentIdKeywords;
     }
 
-    public Set<String> getEmergencyContactKeywords() {
+    public ObservableSet<String> getEmergencyContactKeywords() {
         return emergencyContactKeywords;
     }
 
-    public Set<String> getTagYearKeywords() {
+    public ObservableSet<String> getTagYearKeywords() {
         return tagYearKeywords;
     }
 
-    public Set<String> getTagMajorKeywords() {
+    public ObservableSet<String> getTagMajorKeywords() {
         return tagMajorKeywords;
     }
 
-    public Set<String> getTagGenderKeywords() {
+    public ObservableSet<String> getTagGenderKeywords() {
         return tagGenderKeywords;
+    }
+
+    // ==================== Setters ======================
+
+    public void setNameKeywords(Set<String> nameKeywords) {
+        replaceAll(this.nameKeywords, nameKeywords);
+    }
+
+    public void setEmailKeywords(Set<String> emailKeywords) {
+        replaceAll(this.emailKeywords, emailKeywords);
+    }
+
+    public void setPhoneNumberKeywords(Set<String> phoneNumberKeywords) {
+        replaceAll(this.phoneNumberKeywords, phoneNumberKeywords);
+    }
+
+    public void setRoomNumberKeywords(Set<String> roomNumberKeywords) {
+        replaceAll(this.roomNumberKeywords, roomNumberKeywords);
+    }
+
+    public void setStudentIdKeywords(Set<String> studentIdKeywords) {
+        replaceAll(this.studentIdKeywords, studentIdKeywords);
+    }
+
+    public void setEmergencyContactKeywords(Set<String> emergencyContactKeywords) {
+        replaceAll(this.emergencyContactKeywords, emergencyContactKeywords);
+    }
+
+    public void setTagYearKeywords(Set<String> tagYearKeywords) {
+        replaceAll(this.tagYearKeywords, tagYearKeywords);
+    }
+
+    public void setTagMajorKeywords(Set<String> tagMajorKeywords) {
+        replaceAll(this.tagMajorKeywords, tagMajorKeywords);
+    }
+
+    public void setTagGenderKeywords(Set<String> tagGenderKeywords) {
+        replaceAll(this.tagGenderKeywords, tagGenderKeywords);
+    }
+
+    private void replaceAll(Set<String> target, Set<String> source) {
+        requireNonNull(source);
+        target.clear();
+        target.addAll(source);
     }
 
     @Override

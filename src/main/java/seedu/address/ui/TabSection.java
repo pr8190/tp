@@ -45,7 +45,9 @@ public class TabSection extends UiPart<Region> {
     }
 
     private void fillInnerParts() {
-        StudentDetailsTab studentDetailsTab = new StudentDetailsTab();
+        StudentDetailsTab studentDetailsTab = new StudentDetailsTab(logic.selectedPersonProperty());
         studentDetailsTabPlaceholder.getChildren().add(studentDetailsTab.getRoot());
+
+        //TODO fill dashboard section
     }
 }

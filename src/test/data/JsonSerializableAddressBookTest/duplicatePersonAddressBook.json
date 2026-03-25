@@ -6,6 +6,7 @@
     "studentId": "A1234567X",
     "roomNumber": "1A",
     "emergencyContact": "+65 91234567",
+    "remark": "always late",
     "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
   }, {
     "name": "Alice Pauline",
@@ -14,6 +15,7 @@
     "studentId": "A1234567X",
     "roomNumber": "1A",
     "emergencyContact": "+65 91234567",
+    "remark": "always late",
     "tags": [{"tagType":"MAJOR","tagName":"CS"},{"tagType":"YEAR","tagName":"Y1"}]
   } ]
 }

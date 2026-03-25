@@ -27,6 +27,7 @@ import seedu.address.model.person.EmergencyContact;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Tag;
@@ -63,7 +64,7 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param targetStudentId the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(StudentId targetStudentId, EditPersonDescriptor editPersonDescriptor) {
@@ -110,10 +111,13 @@ public class EditCommand extends Command {
         RoomNumber updatedRoomNumber = editPersonDescriptor.getRoomNumber().orElse(personToEdit.getRoomNumber());
         EmergencyContact updatedEmergencyContact = editPersonDescriptor.getEmergencyContact()
                         .orElse(personToEdit.getEmergencyContact());
-        Map<TagType, Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Remark remark = personToEdit.getRemark();
+        Map<TagType, Tag> updatedTags = editPersonDescriptor.getTags()
+                .orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedStudentId, updatedRoomNumber,
                 updatedEmergencyContact, updatedTags, personToEdit.getDemeritIncidents());
+                updatedEmergencyContact, remark, updatedTags);
     }
 
     @Override
@@ -151,6 +155,7 @@ public class EditCommand extends Command {
         private StudentId studentId;
         private RoomNumber roomNumber;
         private EmergencyContact emergencyContact;
+        private Remark remark;
         private HashMap<TagType, Tag> tags;
 
         public EditPersonDescriptor() {}
@@ -166,6 +171,7 @@ public class EditCommand extends Command {
             setStudentId(toCopy.studentId);
             setRoomNumber(toCopy.roomNumber);
             setEmergencyContact(toCopy.emergencyContact);
+            setRemark(toCopy.remark);
             setTags(toCopy.tags);
         }
 
@@ -224,6 +230,10 @@ public class EditCommand extends Command {
             return Optional.ofNullable(emergencyContact);
         }
 
+        public Optional<Remark> setRemark(Remark remark) {
+            return Optional.ofNullable(remark);
+        }
+
         /**
          * Sets {@code tags} to this object's {@code tags}.
          * A defensive copy of {@code tags} is used internally.
@@ -259,6 +269,7 @@ public class EditCommand extends Command {
                     && Objects.equals(studentId, otherEditPersonDescriptor.studentId)
                     && Objects.equals(roomNumber, otherEditPersonDescriptor.roomNumber)
                     && Objects.equals(emergencyContact, otherEditPersonDescriptor.emergencyContact)
+                    && Objects.equals(remark, otherEditPersonDescriptor.remark)
                     && Objects.equals(tags, otherEditPersonDescriptor.tags);
         }
 

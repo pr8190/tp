@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,11 +9,15 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
+
+
 /**
  * Jackson-friendly version of {@link Tag}.
  */
 class JsonAdaptedTag {
 
+    private static final String MESSAGE_INVALID_TAG_TYPE = "Tag must be alphanumeric. "
+            + "Only gender tags may contain '/' eg: she/her";
     private final String tagName;
     private final String tagType;
 
@@ -46,16 +52,22 @@ class JsonAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted tag.
      */
     public Tag toModelType() throws IllegalValueException {
-        if (!Tag.isValidTagName(tagName)) {
+        if (tagType == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TagType.class.getSimpleName()));
+        }
+
+        TagType modelTagType;
+        try {
+            modelTagType = TagType.valueOf(tagType);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(MESSAGE_INVALID_TAG_TYPE);
+        }
+
+        if (!Tag.isValidTagName(tagName, modelTagType)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
-        TagType type;
-        try {
-            type = TagType.valueOf(this.tagType);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalValueException("Invalid tag type: " + this.tagType);
-        }
-        return new Tag(type, tagName);
+
+        return new Tag(modelTagType, tagName);
     }
 
 }
