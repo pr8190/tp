@@ -29,13 +29,17 @@ Hall Ledger (HL) is a **desktop app for managing residents in an NUS hostel, opt
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all residents.
 
-   * `add n=John Doe p=+6598765432 e=johnd@example.com i=A1234567X r=1A ec=+65 12345678` : Adds a contact named `John Doe` to the Hall Ledger.
+   * `add n=John Doe p=+6598765432 e=johnd@example.com i=A1234567X r=1A ec=+65 12345678` : Adds a resident named `John Doe` to HallLedger.
 
-   * `delete i=A1234567X` : Deletes the resident with student id A1234567X.
+   * `demeritlist` : Shows the indexed demerit rules available in HallLedger.
 
-   * `clear` : Deletes all contacts.
+   * `demerit i=A1234567X di=18 rm=Visitor during quiet hours` : Adds a demerit record to the resident with student ID `A1234567X`.
+
+   * `delete i=A1234567X` : Deletes the resident with student ID `A1234567X`.
+
+   * `clear` : Deletes all residents.
 
    * `exit` : Exits the app.
 
@@ -186,6 +190,42 @@ Examples:
 
 Read more about fuzzy matching here: [Fuzzy Matching Details](FuzzyMatching.md).
 
+### Listing demerit rules: `demeritlist`
+
+Shows the indexed demerit rules available in HallLedger.
+
+Format: `demeritlist`
+
+- Displays the demerit rule catalogue with the rule index and point tiers.
+- Use the displayed rule index together with the `demerit` command when recording a resident’s demerit incident.
+
+Example:
+* `demeritlist`
+
+### Adding a demerit record: `demerit`
+
+Adds a demerit record to an existing resident.
+
+Format: `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`
+
+- Applies the demerit rule identified by `RULE_INDEX` to the resident identified by `STUDENT_ID`.
+- `STUDENT_ID` must refer to an existing resident in HallLedger.
+- `RULE_INDEX` must match one of the indexed rules shown by `demeritlist`.
+- If the same resident receives the same rule again, HallLedger automatically applies the next offence tier for that rule.
+- `rm=` is optional and can be used to store a short context note for that incident.
+- The resident’s displayed total demerit points will update after the command succeeds.
+
+Examples:
+* `demerit i=A1234567X di=18`
+* `demerit i=A1234567X di=18 rm=Visitor during quiet hours`
+* `demerit i=A0312075X di=28 rm=Common pantry left dirty`
+
+<box type="info" seamless>
+
+**Current scope note:** HallLedger records resident demerit incidents and their accumulated totals. It does not yet automatically enforce semester-based or lifetime housing sanctions.
+
+</box>
+
 ### Deleting a resident : `delete`
 
 Deletes the resident identified by student ID from HallLedger.
@@ -264,10 +304,11 @@ Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **[Add](#adding-a-person-add)**    | `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT` <br> e.g., `add n=James Lee p=+65 98765432 e=james@example.com i=A1234567X r=15R ec=+65 98765432`
 **[Clear](#clearing-all-entries--clear)**  | `clear`
-**[Delete](#deleting-a-person--delete)** | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`
-**[Edit](#editing-a-person--edit)**   | `edit STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [i=STUDENT_ID] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g.,`edit A1234567X n=James Lee e=jameslee@example.com`
+**[Delete](#deleting-a-resident--delete)** | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`
+**[Edit](#editing-a-person--edit)**   | `edit STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [i=STUDENT_ID] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit A1234567X n=James Lee e=jameslee@example.com`
 **[Tag](#tagging-a-student-tag)**    | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`<br> e.g., `tag i=A1234567X m=CS y=Y3`
 **[Find](#locating-persons--find)**   | Method 1:<br> `find NAME_KEYWORDS [MORE_NAME_KEYWORDS]`<br> e.g., `find James Jake`<br><br>Method 2:<br> `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=Y1`
+**[Demerit List](#listing-demerit-rules-demeritlist)** | `demeritlist`
+**[Add Demerit](#adding-a-demerit-record-demerit)** | `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`<br> e.g., `demerit i=A1234567X di=18 rm=Visitor during quiet hours`
 **[List](#listing-all-persons--list)**   | `list`
 **[Help](#viewing-help--help)**   | `help`
-
