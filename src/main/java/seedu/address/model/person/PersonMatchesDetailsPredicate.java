@@ -36,7 +36,7 @@ public record PersonMatchesDetailsPredicate(FilterDetails filterDetails) impleme
                 & isFuzzyMatch(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
                 & isExactMatch(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
                 & isFuzzyMatch(person.getStudentId().value, filterDetails.getStudentIdKeywords())
-                & isExactMatch(person.getEmergencyContact().value, filterDetails.getEmergencyContactKeywords())
+                & isFuzzyMatch(person.getEmergencyContact().value, filterDetails.getEmergencyContactKeywords())
                 & matchesExactTags(person, filterDetails.getTagYearKeywords())
                 & matchesFuzzyTags(person, filterDetails.getTagMajorKeywords())
                 & matchesExactTags(person, filterDetails.getTagGenderKeywords());
