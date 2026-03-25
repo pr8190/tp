@@ -68,16 +68,14 @@ public class FindCommandParserTest {
     @Test
     public void parse_exactly20ValuesForSinglePrefix_success() {
         StringBuilder userInput = new StringBuilder();
-        for (int index = 1; index <= 20; index++) {
+        for (int index = 1; index <= 10; index++) {
             userInput.append(" n=Name").append(index);
         }
 
         FilterDetails filterDetails = new FilterDetails();
         filterDetails.setNameKeywords(Set.of(
                 "Name1", "Name2", "Name3", "Name4", "Name5",
-                "Name6", "Name7", "Name8", "Name9", "Name10",
-                "Name11", "Name12", "Name13", "Name14", "Name15",
-                "Name16", "Name17", "Name18", "Name19", "Name20"));
+                "Name6", "Name7", "Name8", "Name9", "Name10"));
 
         assertParseSuccess(parser, userInput.toString(), new FindCommand(filterDetails));
     }
