@@ -66,7 +66,7 @@ public class FilterPanelField extends UiPart<Region> {
 
         addKeywordIfAbsent(trimmedKeyword);
         renderKeywords();
-        onKeywordsChanged.handle(List.copyOf(keywords))
+        onKeywordsChanged.handle(List.copyOf(keywords));
 		keywordInputField.clear();
 	}
 
@@ -78,7 +78,6 @@ public class FilterPanelField extends UiPart<Region> {
 
     private void renderKeywords() {
 		keywordsFlowPane.getChildren().clear();
-		keywords.forEach(keyword -> keywordsFlowPane.getChildren().add(new FilterPanelTag(keyword).getRoot()));
         keywords.forEach(keyword -> keywordsFlowPane.getChildren()
                 .add(new FilterPanelTag(keyword, this::handleDeleteTag).getRoot()));
     }
