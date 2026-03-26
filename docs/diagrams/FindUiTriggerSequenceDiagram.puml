@@ -1,7 +1,7 @@
 @startuml
 !include style.puml
 
-' Override para evitar texto en negrita heredado de style.puml
+'' Make the text not bold
 skinparam DefaultFontStyle plain
 skinparam SequenceParticipantFontStyle plain
 skinparam SequenceMessageFontStyle plain
