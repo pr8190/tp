@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Scene?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.stage.*?>
 
-<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-         title="Address App" minWidth="1000.0" minHeight="700.0" onCloseRequest="#handleExit">
+<fx:root minHeight="700.0" minWidth="1000.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
@@ -20,11 +16,12 @@
     <Scene>
       <stylesheets>
         <URL value="@DarkTheme.css" />
+        <URL value="@Extensions.css" />
       </stylesheets>
 
       <VBox maxHeight="1.7976931348623157E308" styleClass="stack-pane">
         <!-- Menu Bar -->
-        <MenuBar fx:id="menuBar" minHeight="0.0" VBox.vgrow="NEVER">
+        <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
           <Menu mnemonicParsing="false" text="File">
             <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
           </Menu>
@@ -40,10 +37,9 @@
           </padding>
         </StackPane>
 
-        <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS">
+        <SplitPane dividerPositions="0.5" orientation="VERTICAL" VBox.vgrow="ALWAYS">
             <!-- Result Display -->
-            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="300" minHeight="100" prefHeight="100"
-                       styleClass="stack-pane">
+            <StackPane fx:id="resultDisplayPlaceholder" maxHeight="300" minHeight="100" prefHeight="100" styleClass="stack-pane">
                 <padding>
                     <Insets bottom="5" left="10" right="10" top="5" />
                 </padding>
@@ -56,10 +52,10 @@
             <SplitPane dividerPositions="0.65" VBox.vgrow="ALWAYS">
                 <items>
                     <!-- Left side: tab / directory section placeholder -->
-                    <StackPane fx:id="tabSectionPlaceholder" VBox.vgrow="ALWAYS" minWidth ="400.0" />
+                    <StackPane fx:id="tabSectionPlaceholder" minWidth="400.0" VBox.vgrow="ALWAYS" />
 
                     <!-- Right side: person list section -->
-                    <StackPane fx:id="listSectionPlaceholder" VBox.vgrow="ALWAYS" minWidth="400.0" />
+                    <StackPane fx:id="listSectionPlaceholder" minWidth="400.0" VBox.vgrow="ALWAYS" />
                 </items>
             </SplitPane>
         </SplitPane>

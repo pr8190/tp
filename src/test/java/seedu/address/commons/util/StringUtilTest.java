@@ -149,6 +149,9 @@ public class StringUtilTest {
 
         // Not substring and distance > 2
         assertFalse(StringUtil.fuzzyMatchesIgnoresCase("abc", "xyz"));
+
+        // Distance = 2 but query is short, so should return false
+        assertFalse(StringUtil.fuzzyMatchesIgnoresCase("ab", "acde"));
     }
 
     //---------------- Tests for fuzzyMatchesAnyIgnoreCase --------------------------------------
@@ -165,6 +168,9 @@ public class StringUtilTest {
 
         // Fuzzy match (2 edits)
         assertTrue(StringUtil.fuzzyMatchesAnyIgnoreCase("kitti", wordSet));
+
+        // Substring match (query is 4 chars, target is 2 chars)
+        assertTrue(StringUtil.fuzzyMatchesAnyIgnoreCase("abcd", Set.of("ab")));
 
         // Substring match
         assertTrue(StringUtil.fuzzyMatchesAnyIgnoreCase("unconstitutional", wordSet));

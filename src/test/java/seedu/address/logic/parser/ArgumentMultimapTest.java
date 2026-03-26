@@ -118,4 +118,5 @@ class ArgumentMultimapTest {
         map.put(PREFIX_PHONE, "value");
         assertFalse(map.hasEmptyPrefixArguments());
     }
+
 }

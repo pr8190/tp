@@ -11,63 +11,60 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0">
-      <padding>
-        <Insets top="3.0" right="5.0" bottom="3.0" left="15.0" />
-      </padding>
-
-      <HBox spacing="0.5" alignment="CENTER_LEFT">
-        <Label fx:id="id" styleClass="cell_big_label">
-          <minWidth>
-            <!-- Ensures that the label text is never truncated -->
-            <Region fx:constant="USE_PREF_SIZE" />
-          </minWidth>
-        </Label>
-        <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
-      </HBox>
-
-      <FlowPane fx:id="tags">
-        <VBox.margin>
-          <Insets bottom="2.0" />
-        </VBox.margin>
-      </FlowPane>
-
-      <GridPane hgap="4.0" vgap="0.0">
+    <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
-          <ColumnConstraints minWidth="80" />
-          <ColumnConstraints hgrow="ALWAYS" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
         </columnConstraints>
 
-        <!-- Phone -->
-        <Label text="Phone:" styleClass="cell_small_label" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-        <Label fx:id="phone" styleClass="cell_small_label" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+        <VBox alignment="CENTER_LEFT" minHeight="120" GridPane.columnIndex="0">
+            <padding>
+                <Insets top="3.0" right="5.0" bottom="3.0" left="15.0" />
+            </padding>
 
-        <!-- Student ID -->
-        <Label text="Student ID:" styleClass="cell_small_label" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-        <Label fx:id="studentId" styleClass="cell_small_label" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+            <HBox spacing="0.5" alignment="CENTER_LEFT">
+                <Label fx:id="id" styleClass="cell_big_label">
+                    <minWidth>
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="name" text="$first" styleClass="cell_big_label" />
+            </HBox>
 
-        <!-- Email -->
-        <Label text="Email:" styleClass="cell_small_label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-        <Label fx:id="email" styleClass="cell_small_label" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+            <FlowPane fx:id="tags">
+                <VBox.margin>
+                    <Insets bottom="2.0" />
+                </VBox.margin>
+            </FlowPane>
 
-        <!-- Room -->
-        <Label text="Room:" styleClass="cell_small_label" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-        <Label fx:id="roomNumber" styleClass="cell_small_label" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+            <GridPane hgap="4.0" vgap="0.0">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="110" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
 
-        <!-- Emergency Contact -->
-        <Label text="Emergency Contact:" styleClass="cell_small_label" GridPane.rowIndex="4" GridPane.columnIndex="0" />
-        <Label fx:id="emergencyContact" styleClass="cell_small_label" GridPane.rowIndex="4" GridPane.columnIndex="1" />
-      </GridPane>
-    </VBox>
-  </GridPane>
+                <Label text="Phone:" styleClass="cell_small_label" GridPane.rowIndex="0" GridPane.columnIndex="0" />
+                <Label fx:id="phone" styleClass="cell_small_label" GridPane.rowIndex="0" GridPane.columnIndex="1" />
 
-  <stylesheets>
-    <URL value="@DarkTheme.css" />
-    <URL value="@PersonList.css" />
-  </stylesheets>
+                <Label text="Student ID:" styleClass="cell_small_label" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+                <Label fx:id="studentId" styleClass="cell_small_label" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+
+                <Label text="Email:" styleClass="cell_small_label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+                <Label fx:id="email" styleClass="cell_small_label" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+
+                <Label text="Room:" styleClass="cell_small_label" GridPane.rowIndex="3" GridPane.columnIndex="0" />
+                <Label fx:id="roomNumber" styleClass="cell_small_label" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+
+                <Label text="Emergency Contact:" styleClass="cell_small_label" GridPane.rowIndex="4" GridPane.columnIndex="0" />
+                <Label fx:id="emergencyContact" styleClass="cell_small_label" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+
+                <Label text="Demerit Points:" styleClass="cell_small_label" GridPane.rowIndex="5" GridPane.columnIndex="0" />
+                <Label fx:id="demeritPoints" styleClass="cell_small_label" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+            </GridPane>
+        </VBox>
+    </GridPane>
+
+    <stylesheets>
+        <URL value="@DarkTheme.css" />
+        <URL value="@PersonList.css" />
+    </stylesheets>
 </HBox>

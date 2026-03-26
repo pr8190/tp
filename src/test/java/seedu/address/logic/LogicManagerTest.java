@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,7 +49,7 @@ public class LogicManagerTest {
     @TempDir
     public Path temporaryFolder;
 
-    private Model model = new ModelManager();
+    private final Model model = new ModelManager();
     private Logic logic;
 
     @BeforeEach
@@ -108,6 +110,20 @@ public class LogicManagerTest {
         assertEquals(1, logic.getFilteredPersonList().size());
         assertEquals(ALICE, logic.getFilteredPersonList().get(0));
         assertEquals(Set.of("Alice"), logic.getFilterDetails().getNameKeywords());
+    }
+
+    @Test
+    public void executeFilter_tooManyNameKeywords_throwsCommandException() {
+        FilterDetails filterDetails = new FilterDetails();
+        Set<String> overLimit = IntStream.rangeClosed(1, FilterDetails.MAX_VALUES_PER_PREFIX + 1)
+                .mapToObj(index -> "Name" + index)
+                .collect(Collectors.toSet());
+        filterDetails.setNameKeywords(overLimit);
+
+        String expectedMessage = String.format(
+                FilterDetails.MESSAGE_TOO_MANY_PREFIX_VALUES, "[n=]", FilterDetails.MAX_VALUES_PER_PREFIX);
+
+        assertThrows(CommandException.class, expectedMessage, () -> logic.executeFilter(filterDetails));
     }
 
     /**

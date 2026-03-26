@@ -26,6 +26,9 @@ import seedu.address.model.FilterDetails;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
+    private static Set<String> toSet(List<String> values) {
+        return new HashSet<>(values);
+    }
 
     /**
      * Builds a {@link FilterDetails} instance from the values in {@code argMultimap}.
@@ -70,10 +73,9 @@ public class FindCommandParser implements Parser<FindCommand> {
         requireNonNull(args);
 
         // Tokenize the arguments
-        ArgumentTokenizer tokenizer = new ArgumentTokenizer();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
-                PREFIX_EMERGENCY_CONTACT, PREFIX_TAG, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER)
+                        PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
+                        PREFIX_EMERGENCY_CONTACT, PREFIX_TAG, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER)
                 .removeEmptyValuesAndPrefixes();
 
         // Any preamble text is invalid for find because this command is prefix-only.
@@ -87,11 +89,11 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         FilterDetails filterDetails = buildFilterDetails(argMultimap);
+        try {
+            filterDetails.validateKeywordLimits();
+        } catch (IllegalArgumentException exception) {
+            throw new ParseException(exception.getMessage());
+        }
         return new FindCommand(filterDetails);
     }
-
-    private static Set<String> toSet(List<String> values) {
-        return new HashSet<>(values);
-    }
-
 }

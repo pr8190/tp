@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      stylesheets="@DarkTheme.css"
+      spacing="10" styleClass="panel-container"
+      VBox.vgrow="ALWAYS">
+
+    <Label text="Dashboard Overview"
+           styleClass="panel-heading" />
+
+
+    <HBox spacing="8" styleClass="panel-subheading">
+        <Label text="Total Number of Residents: " styleClass="label-header"/>
+        <Label fx:id="totalCountLabel" text="0" styleClass="label-total-residence"/>
+    </HBox>
+
+    <HBox spacing="16">
+
+        <!-- LEFT: Gender breakdown (horizontal) -->
+        <VBox spacing="8"
+              styleClass="panel-subheading">
+            <Label text="Gender Breakdown" styleClass="label-header"/>
+
+            <HBox spacing="10" style="-fx-alignment: CENTER_LEFT; -fx-min-width: 100;">
+                <VBox styleClass="label-gender">
+                    <Label text="♂ Male" styleClass="label" style="-fx-padding:0 0 10 0"/>
+                    <Label fx:id="maleCountLabel" text="0" styleClass="label" style="-fx-alignment:CENTER"/>
+                </VBox>
+
+                <VBox styleClass="label-gender">
+                    <Label text="♀ Female" styleClass="label" style="-fx-padding:0 0 10 0"/>
+                    <Label fx:id="femaleCountLabel" text="0" styleClass="label" style="-fx-alignment:CENTER"/>
+                </VBox>
+
+                <VBox styleClass="label-gender">
+                    <Label text="⚧ Other" styleClass="label" style="-fx-padding:0 0 10 0"/>
+                    <Label fx:id="otherCountLabel" text="0" styleClass="label" style="-fx-alignment:CENTER"/>
+                </VBox>
+            </HBox>
+        </VBox>
+
+        <!-- RIGHT: Year groups (vertical) -->
+        <VBox spacing="8"
+              styleClass="panel-subheading">
+            <Label text="Year Groups"
+                   styleClass="label-header"/>
+
+            <HBox spacing="8" styleClass="label-year">
+                <Label text="Y1" styleClass="label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="y1CountLabel" text="0" styleClass="label"/>
+            </HBox>
+
+            <HBox spacing="8" styleClass="label-year">
+                <Label text="Y2" styleClass="label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="y2CountLabel" text="0" styleClass="label"/>
+            </HBox>
+
+            <HBox spacing="8" styleClass="label-year">
+                <Label text="Y3" styleClass="label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="y3CountLabel" text="0" styleClass="label"/>
+            </HBox>
+
+            <HBox spacing="8" styleClass="label-year">
+                <Label text="Y4" styleClass="label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="y4CountLabel" text="0" styleClass="label"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>

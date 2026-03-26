@@ -5,8 +5,7 @@
 ![Ui](docs/images/Ui.png)
 
 
-* Hall Ledger (HL) is a desktop application for managing student records for hall residents. The app assists 
-  residential assistants in managing CCA points, merits/demerits, room assignments, and other student details.
+* Hall Ledger (HL) is a desktop application for managing student records for hall residents. The app assists residential assistants in managing CCA points, merits/demerits, room assignments, and other student details.
 
 -------------------------------------------------------------------------------
 
@@ -22,8 +21,7 @@
 -------------------------------------------------------------------------------
 
 ### Project Characteristics
-* The project simulates an ongoing software project for a desktop application (called Hall Ledger) used for managing 
-  student records for those living in halls.
+* The project simulates an ongoing software project for a desktop application (called Hall Ledger) used for managing student records for those living in halls.
 * It is written in OOP fashion. It provides a reasonably well-written code base bigger (around 6 KLoC) than what students usually write in beginner-level SE modules, without being overwhelmingly big.
 * It comes with a reasonable level of user and developer documentation.
 -------------------------------------------------------------------------------

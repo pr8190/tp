@@ -1,122 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import org.kordamp.ikonli.javafx.*?>
-
-<TitledPane expanded="false" minWidth="320.0" styleClass="filter-pane" stylesheets="@DarkTheme.css"
-            text="Filter &amp; Sort" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<TitledPane xmlns:fx="http://javafx.com/fxml/1" animated="true" minWidth="320.0" styleClass="filter-pane" stylesheets="@DarkTheme.css"
+            text="Filter" xmlns="http://javafx.com/javafx/17.0.12">
     <graphic>
-        <FontIcon iconLiteral="dashicons-filter" iconSize="16" styleClass="filter-icon" />
+        <FontIcon iconLiteral="dashicons-filter" iconSize="16" styleClass="filter-icon"/>
     </graphic>
     <content>
         <ScrollPane fitToWidth="true" styleClass="edge-to-edge">
             <VBox minHeight="0.0" spacing="15.0" styleClass="pane-without-border">
                 <padding>
-                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
                 </padding>
 
-                <VBox spacing="5.0">
-                    <Label styleClass="label-bright" text="Search by Name" />
-                    <TextField fx:id="nameFilterField" onAction="#handleNameFieldEntered" promptText="E.g: Alex" />
-               <HBox>
-                  <children>
-                     <Label styleClass="label-small" text="Keywords:" />
-                     <FlowPane fx:id="nameTags" rowValignment="TOP" HBox.hgrow="ALWAYS">
-                        <HBox.margin>
-                           <Insets left="3.0" />
-                        </HBox.margin></FlowPane>
-                  </children>
-               </HBox>
-                </VBox>
+                <StackPane fx:id="nameFilterFieldPlaceholder"/>
 
                 <GridPane hgap="20.0" vgap="15.0">
-                   <columnConstraints>
-                      <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
-                      <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
-                   </columnConstraints>
-                   <rowConstraints>
-                      <RowConstraints vgrow="SOMETIMES" />
-                      <RowConstraints vgrow="SOMETIMES" />
-                      <RowConstraints vgrow="SOMETIMES" />
-                   </rowConstraints>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0"/>
+                        <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="SOMETIMES"/>
+                    </rowConstraints>
 
-                   <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                       <Label styleClass="label-bright" text="Phone" />
-                       <TextField fx:id="tagFilterField" promptText="E.g: +65 12345678" />
-                   </VBox>
-                   <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                       <Label styleClass="label-bright" text="Email" />
-                       <TextField fx:id="emailFilterField" promptText="E.g: hi@email.com" />
-                   </VBox>
+                    <StackPane fx:id="phoneFilterFieldPlaceholder" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <StackPane fx:id="emailFilterFieldPlaceholder" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-                   <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                       <Label styleClass="label-bright" text="Student ID" />
-                       <TextField fx:id="studentIdFilterField" promptText="E.g: A1234567B" />
-                   </VBox>
-                   <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                       <Label styleClass="label-bright" text="Room number" />
-                       <TextField fx:id="roomNumberFilterField" promptText="E.g: 12A" />
-                   </VBox>
+                    <StackPane fx:id="studentIdFilterFieldPlaceholder" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <StackPane fx:id="roomNumberFilterFieldPlaceholder" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-                   <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                       <Label styleClass="label-bright" text="Major" />
-                       <TextField fx:id="majorFilterField" promptText="E.g: CS" />
-                   </VBox>
-                   <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                       <Label styleClass="label-bright" text="Emergency contact" />
-                       <TextField fx:id="emergencyContactFilterField" promptText="E.g: +65 87654321" />
-                   </VBox>
+                    <StackPane fx:id="majorFilterFieldPlaceholder" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <StackPane fx:id="emergencyContactFilterFieldPlaceholder" GridPane.columnIndex="1"
+                               GridPane.rowIndex="2"/>
                 </GridPane>
 
                 <GridPane hgap="20.0" vgap="15.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.333" />
-                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.333" />
-                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.333" />
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" percentWidth="50.0"/>
                     </columnConstraints>
                     <children>
-                        <VBox spacing="5.0" GridPane.columnIndex="0">
-                            <Label styleClass="label-bright" text="Floor" />
-                            <ComboBox fx:id="floorFilterComboBox" maxWidth="Infinity" />
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="1">
-                            <Label styleClass="label-bright" text="Year" />
-                            <ComboBox fx:id="yearFilterComboBox" maxWidth="Infinity" />
-                        </VBox>
-                        <VBox spacing="5.0" GridPane.columnIndex="2">
-                            <Label styleClass="label-bright" text="Gender" />
-                            <ComboBox fx:id="genderFilterComboBox" maxWidth="Infinity" />
-                        </VBox>
+                        <StackPane fx:id="yearFilterFieldPlaceholder" GridPane.columnIndex="0"/>
+                        <StackPane fx:id="genderFilterFieldPlaceholder" GridPane.columnIndex="1"/>
                     </children>
-               <rowConstraints>
-                  <RowConstraints />
-               </rowConstraints>
+                    <rowConstraints>
+                        <RowConstraints/>
+                    </rowConstraints>
                 </GridPane>
-
-                <VBox spacing="5.0">
-                    <children>
-                        <Label styleClass="label-bright" text="Sort By">
-                            <graphic>
-                                <FontIcon iconColor="white" iconLiteral="dashicons-sort" iconSize="16" />
-                            </graphic>
-                        </Label>
-                        <GridPane hgap="20.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" percentWidth="60.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" percentWidth="40.0" />
-                           </columnConstraints>
-                           <children>
-                                <ComboBox fx:id="sortByComboBox" maxWidth="Infinity" GridPane.hgrow="ALWAYS" />
-                                <ComboBox fx:id="sortOrderComboBox" maxWidth="Infinity" GridPane.columnIndex="1" />
-                           </children>
-                     <rowConstraints>
-                        <RowConstraints />
-                     </rowConstraints>
-                        </GridPane>
-                    </children>
-                </VBox>
             </VBox>
         </ScrollPane>
     </content>

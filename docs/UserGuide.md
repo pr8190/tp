@@ -6,7 +6,7 @@
 
 # Hall Ledger User Guide
 
-Hall Ledger (HL) is a **desktop app for managing residents in an NUS hostel, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HL can get your administration management tasks done faster than traditional GUI apps.
+**Hall Ledger (HL)** is a desktop application that helps **Resident Assistants (RAs) efficiently manage residents in NUS halls**. It is optimised for users who prefer typing commands, while still offering an intuitive visual interface for viewing resident data at a glance.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -29,13 +29,17 @@ Hall Ledger (HL) is a **desktop app for managing residents in an NUS hostel, opt
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+   * `list` : Lists all residents.
 
-   * `add n=John Doe p=+6598765432 e=johnd@example.com i=A1234567X r=1A ec=+65 12345678` : Adds a contact named `John Doe` to the Hall Ledger.
+   * `add n=John Doe p=+6598765432 e=johnd@example.com i=A1234567X r=1A ec=+65 12345678` : Adds a resident named `John Doe` to HallLedger.
 
-   * `delete i=A1234567X` : Deletes the resident with student id A1234567X.
+   * `demeritlist` : Shows the indexed demerit rules available in HallLedger.
 
-   * `clear` : Deletes all contacts.
+   * `demerit i=A1234567X di=18 rm=Visitor during quiet hours` : Adds a demerit record to the resident with student ID `A1234567X`.
+
+   * `delete i=A1234567X` : Deletes the resident with student ID `A1234567X`.
+
+   * `clear` : Deletes all residents.
 
    * `exit` : Exits the app.
 
@@ -105,7 +109,7 @@ Adds **Major**, **Year** and **Gender** tags to an existing student.
 Format: `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`
 
 * Adds or edits tags for the student uniquely identified by *STUDENT_ID*.
-* *STUDENT_ID* must in valid format and exist in the Hall Ledger
+* *STUDENT_ID* must be in a valid format and exist in the Hall Ledger
 * At least one of the optional tag fields (m=, y=, g=) must be provided.
 * Existing tags are replaced **(not cumulative)**.
 * Each student can have **at most** **one** Year, **one** Major, and **one** Gender tag at any time.
@@ -117,7 +121,7 @@ Examples:
 
 ### Editing a person : `edit`
 
-Edits an existing student in the _Hall Ledger_.y
+Edits an existing student in the _Hall Ledger_.
 
 Format: `edit STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]​`
 
@@ -135,9 +139,7 @@ Finds persons who match multiple attributes such as name, phone number, email or
 
 Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
-* Prefix-only command: preamble text is not supported.
-    * e.g. `find Alice Bob` is invalid. Use `find n=Alice n=Bob`.
-* Case-insensitive and order-independent across prefixes.
+* Fields are case-insensitive and order-independent.
     * e.g. `find n=Alice y=Y1` gives the same result as `find y=Y1 n=ALICE`.
 * Different prefixes are combined with AND.
     * e.g. `find n=Alice p=9123 y=Y1` returns residents that satisfy all 3 filters.
@@ -146,7 +148,8 @@ Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EM
     * e.g. `find n=Hans Bo n=Anna Lee` can return residents matching either `n=` value.
 * Each `n=` value is treated as one value as typed; it is not split by spaces.
     * e.g. `find n=Hans Bo` keeps `Hans Bo` as one name filter value.
-
+* A maximum of 10 values can be provided for each prefix.
+* All fields except [g=GENDER] follow fuzzy matching rules. Read more about fuzzy matching here: [Fuzzy Matching Details](FuzzyMatching.md).
 Examples:
 
 * `find n=John Doe` returns residents whose names fuzzy-match `John Doe`.
@@ -155,7 +158,47 @@ Examples:
   Male or Others.
 * `find ec=+84 e=gmail` returns persons whose emergency contact contains `+84`, and whose email contains `gmail`.
 
-Read more about fuzzy matching here: [Fuzzy Matching Details](FuzzyMatching.md).
+### Listing demerit rules: `demeritlist`
+
+Shows the indexed demerit rules available in HallLedger.
+
+Format: `demeritlist`
+
+- Displays the demerit rule catalogue with the rule index and point tiers.
+- Use the displayed rule index together with the `demerit` command when recording a resident’s demerit incident.
+
+Example:
+* `demeritlist`
+
+### Adding a demerit record: `demerit`
+
+Adds a demerit record to an existing resident.
+
+Format: `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`
+
+* The case and order of the attributes and their keywords do not matter. 
+  * e.g. `find n=Alice y=Y1` will give the same search 
+    result as `find y=Y1 n=ALICE`
+* Using different search parameters forces  the result to match all rules simultaneously. 
+  * e.g. `find n=Alice p=91234567 y=Y1` returns persons whose name is Alice, whose phone number is 91234567, and 
+    who are also in Year 1.
+* Conversely, searching multiple values under the same parameter returns results that can match any of those values.
+    * e.g. `find y=Y2 y=Y3` returns persons in Year 2 or Year 3.
+    * e.g: `find n=Hans Bo n=Anna` will return `Hans Gruber`, `Bo Yang`, `Anna Lee` etc.
+* Substring matching and fuzzy matching is supported for the Name, Phone, Email, and Student ID fields.
+    * e.g. `p=9123` matches `+65 91234567`
+    * e.g: `n=Liz` matches `Lizah`, `Lis`, `Elizabeth`, etc.
+
+Examples:
+* `demerit i=A1234567X di=18`
+* `demerit i=A1234567X di=18 rm=Visitor during quiet hours`
+* `demerit i=A0312075X di=28 rm=Common pantry left dirty`
+
+<box type="info" seamless>
+
+**Current scope note:** HallLedger records resident demerit incidents and their accumulated totals. It does not yet automatically enforce semester-based or lifetime housing sanctions.
+
+</box>
 
 ### Deleting a resident : `delete`
 
@@ -235,10 +278,11 @@ Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **[Add](#adding-a-person-add)**    | `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT` <br> e.g., `add n=James Lee p=+65 98765432 e=james@example.com i=A1234567X r=15R ec=+65 98765432`
 **[Clear](#clearing-all-entries--clear)**  | `clear`
-**[Delete](#deleting-a-person--delete)** | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`
-**[Edit](#editing-a-person--edit)**   | `edit STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [i=STUDENT_ID] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g.,`edit A1234567X n=James Lee e=jameslee@example.com`
+**[Delete](#deleting-a-resident--delete)** | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`
+**[Edit](#editing-a-person--edit)**   | `edit STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [i=STUDENT_ID] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit A1234567X n=James Lee e=jameslee@example.com`
 **[Tag](#tagging-a-student-tag)**    | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`<br> e.g., `tag i=A1234567X m=CS y=Y3`
 **[Find](#locating-persons--find)**   | Method 1:<br> `find NAME_KEYWORDS [MORE_NAME_KEYWORDS]`<br> e.g., `find James Jake`<br><br>Method 2:<br> `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=Y1`
+**[Demerit List](#listing-demerit-rules-demeritlist)** | `demeritlist`
+**[Add Demerit](#adding-a-demerit-record-demerit)** | `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`<br> e.g., `demerit i=A1234567X di=18 rm=Visitor during quiet hours`
 **[List](#listing-all-persons--list)**   | `list`
 **[Help](#viewing-help--help)**   | `help`
-

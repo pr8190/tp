@@ -1,9 +1,15 @@
 package seedu.address.ui;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.Logger;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
@@ -19,11 +25,11 @@ public class HelpWindow extends UiPart<Stage> {
             "• add - add n=NAME i=STUDENT_ID r=ROOM_NUMBER p=PHONE_NUMBER "
                     + "e=EMAIL ec=EMERGENCY_CONTACT\n\n"
                     + "• delete - delete i=STUDENT_ID\n\n"
-                    + "• edit - edit <INDEX> [n=NEW_NAME] [i=NEW_ID] [p=NEW_PHONE] "
+                    + "• edit - edit i=STUDENT_ID [n=NEW_NAME] [i=NEW_ID] [p=NEW_PHONE] "
                     + "[e=NEW_EMAIL] [r=NEW_ROOM_NUMBER] [ec=NEW_E_CONTACT]\n\n"
                     + "• find - find [n=NAME] [i=STUDENT_ID] [r=ROOM_NUMBER] [p=PHONE] "
                     + "[e=EMAIL] [t=TAG]\n\n"
-                    + "• tag - tag <INDEX> [y=YEAR] [m=MAJOR] [g=GENDER]\n\n"
+                    + "• tag - tag i=STUDENT_ID [y=YEAR] [m=MAJOR] [g=GENDER]\n\n"
                     + "• list - list\n\n"
                     + "• clear - clear\n\n"
                     + "• help - help\n\n"
@@ -38,6 +44,9 @@ public class HelpWindow extends UiPart<Stage> {
     @FXML
     private Label guideText;
 
+    @FXML
+    private TextField link;
+
     /**
      * Creates a new HelpWindow.
      *
@@ -51,7 +60,11 @@ public class HelpWindow extends UiPart<Stage> {
         root.setResizable(false);
 
         helpContent.setText(HELP_CONTENT);
-        guideText.setText("Refer to the HallLedger User Guide for more details:\n" + USERGUIDE_URL);
+        guideText.setText("Refer to the HallLedger User Guide for more details:\n");
+
+        link.setText(USERGUIDE_URL);
+        link.setEditable(false); // Make it read-only
+        link.setFocusTraversable(false);
     }
 
     /**
@@ -91,5 +104,20 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void focus() {
         getRoot().requestFocus();
+    }
+
+    /**
+     * Opens the guide link in a browser
+     * @param event
+     */
+    @FXML
+    public void handleLinkClick(Event event) {
+        try {
+            //Open link in browser
+            logger.fine("Opened link in browser");
+            Desktop.getDesktop().browse(new URI((link.getText())));
+        } catch (URISyntaxException | IOException e) {
+            logger.info("The URL is not correct");
+        }
     }
 }

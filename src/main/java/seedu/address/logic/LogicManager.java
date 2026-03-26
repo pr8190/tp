@@ -88,6 +88,12 @@ public class LogicManager implements Logic {
     public CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
         assert(filterDetails != null);
 
+        try {
+            filterDetails.validateKeywordLimits();
+        } catch (IllegalArgumentException exception) {
+            throw new CommandException(exception.getMessage(), exception);
+        }
+
         logger.info("----------------[FILTER DETAILS FROM UI] " + filterDetails);
         Command command = new FindCommand(filterDetails);
         CommandResult commandResult = command.execute(model);

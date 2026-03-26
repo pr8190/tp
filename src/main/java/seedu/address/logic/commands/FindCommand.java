@@ -41,7 +41,7 @@ public class FindCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        logger.info("[FIND COMMAND][" + predicate.toString() + "]");
+        logger.info("[FIND COMMAND][" + predicate + "]");
         model.setFilterDetails(filterDetails);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(

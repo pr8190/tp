@@ -8,45 +8,44 @@ pageNav: 3
 
 This page explains how Hall Ledger matches search keywords when you use `find`.
 
-## 1. Name fuzzy matching (`find Alice` or `find n=Alice`)
+## 1. What counts as a fuzzy match?
 
-Name matching compares each word in a resident's name against your input keywords.
+Hall Ledger uses fuzzy matching to make search more forgiving.
 
-For each keyword-to-name-word comparison, Hall Ledger applies these rules in order:
+In simple terms, your keyword is treated as a match when:
 
-| Priority | Rule | What it means |
-| --- | --- | --- |
-| 1 | Exact | Same word, ignoring upper/lower case. |
-| 2 | Contains | The keyword appears inside a name word. |
-| 3 | Typo-tolerant | For words with length >= 4, up to 2 small typing mistakes are allowed. |
+1. It is the same text (ignoring uppercase/lowercase), or
+2. It appears inside the target text, or
+3. It is very close to the target text with a small typo (for longer words).
 
-### Examples
+For short keywords (3 letters or less), Hall Ledger only uses exact/contains matching.
+This prevents too many unrelated results.
 
-- Keyword `alice` matches name words: `Alice`, `ALICE`, `malice`
-- Keyword `alex` matches `alxe` (letters swapped by mistake)
-- Keyword `alex` matches 'alrc' (2 typos: 'x' changed to 'r', 'e' changed to 'c')
-- Keyword `abc` does **not** match `acd` (too short for typo-tolerant matching and not a substring)
+Examples:
 
-## 2. Prefix-based `find` matching behavior
+- `ali` matches `Alice`.
+- `ALEX` matches `alex`.
+- `sitten` can still match `kitten` (small typo).
+- `ann` does **not** match `ana`.
 
-When using prefixed search, each field has its own matching strategy:
+## 2. Fields and their match types
 
 | Prefix | Field | Match type | Practical meaning |
 | --- | --- | --- | --- |
-| `n=` | Name | Fuzzy | Uses the 3 name rules above (exact, contains, typo-tolerant). |
-| `p=` | Phone | Fuzzy (contains) | Input can match part of the phone value. |
-| `e=` | Email | Fuzzy (contains) | Input can match part of the email value. |
-| `i=` | Student ID | Fuzzy (contains) | Input can match part of the student ID. |
-| `ec=` | Emergency contact | Fuzzy (contains) | Input can match part of the emergency contact value. |
-| `r=` | Room number | Exact | Must match the full room value (case-insensitive). |
-| `y=` | Year tag | Exact | Must match the full year tag. |
-| `g=` | Gender tag | Exact | Must match the full gender tag. |
-| `m=` | Major tag | Fuzzy (contains) | Input can match part of the major tag. |
+| `n=` | Name | Fuzzy | Checks each word in the name. Example: `n=alex` matches `Alex Tan`. |
+| `p=` | Phone | Fuzzy | Partial phone matches are allowed. Example: `p=9123` matches `+65 91234567`. |
+| `e=` | Email | Fuzzy | Partial email matches are allowed. Example: `e=@gmail` matches `alex@gmail.com`. |
+| `i=` | Student ID | Fuzzy | Partial ID matches are allowed. Example: `i=1234` matches `A1234567X`. |
+| `ec=` | Emergency contact | Fuzzy | Partial contact matches are allowed. |
+| `r=` | Room number | Fuzzy | Partial room matches are allowed. Example: `r=12` matches `12A`. |
+| `y=` | Year tag | Fuzzy | Partial year tag matches are allowed. Example: `y=1` matches `Y1`. |
+| `g=` | Gender tag | Exact | Must match the full value (case-insensitive). Example: `g=male` matches `Male`. |
+| `m=` | Major tag | Fuzzy | Partial major matches are allowed. Example: `m=computer sci` matches `Computer Science`. |
 
 ## 3. AND/OR rules in prefixed `find`
 
 - **Different prefixes** are combined with **AND**.
-  - Example: `find n=Alice y=Y1` returns only residents matching both conditions.
+  - Example: `find n=Alice y=Y1 m=Computer Science` returns only residents matching all conditions.
 - **Repeated same prefix** values are combined with **OR**.
   - Example: `find y=Y2 y=Y3` returns residents in Year 2 or Year 3.
 
@@ -56,4 +55,3 @@ All `find` matching is case-insensitive.
 
 - `find n=alice` and `find n=ALICE` behave the same.
 - `find e=GMAIL` matches `gmail.com`.
-
