@@ -40,7 +40,7 @@
       "src": "DeveloperGuide.md",
       "title": "Developer Guide",
       "headings": {
-        "ab-3-developer-guide": "AB-3 Developer Guide",
+        "hallledger-developer-guide": "HallLedger Developer Guide",
         "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
@@ -51,6 +51,7 @@
         "storage-component": "Storage component",
         "common-classes": "Common classes",
         "implementation": "Implementation",
+        "demerit-point-tracking": "Demerit point tracking",
         "proposed-undo-redo-feature": "[Proposed] Undo/redo feature",
         "proposed-data-archiving": "[Proposed] Data archiving",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
@@ -63,6 +64,7 @@
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for manual testing",
         "launch-and-shutdown": "Launch and shutdown",
         "deleting-a-person": "Deleting a person",
+        "demerit-commands": "Demerit commands",
         "saving-data": "Saving data"
       },
       "headingKeywords": {}
@@ -80,9 +82,8 @@
       "title": "Fuzzy Matching Details",
       "headings": {
         "fuzzy-matching-details": "Fuzzy Matching Details",
-        "1-name-fuzzy-matching-find-alice-or-find-n-alice": "1. Name fuzzy matching (find Alice or find n=Alice)",
-        "examples": "Examples",
-        "2-prefix-based-find-matching-behavior": "2. Prefix-based find matching behavior",
+        "1-what-counts-as-a-fuzzy-match": "1. What counts as a fuzzy match?",
+        "2-fields-and-their-match-types": "2. Fields and their match types",
         "3-and-or-rules-in-prefixed-find": "3. AND/OR rules in prefixed find",
         "4-case-sensitivity": "4. Case sensitivity"
       },
@@ -129,6 +130,8 @@
         "tagging-a-student-tag": "Tagging a student: tag",
         "editing-a-person-edit": "Editing a person : edit",
         "locating-persons-find": "Locating persons: find",
+        "listing-demerit-rules-demeritlist": "Listing demerit rules: demeritlist",
+        "adding-a-demerit-record-demerit": "Adding a demerit record: demerit",
         "deleting-a-resident-delete": "Deleting a resident : delete",
         "clearing-all-entries-clear": "Clearing all entries : clear",
         "exiting-the-program-exit": "Exiting the program : exit",

@@ -15,9 +15,11 @@ UniquePersonList -right-> Person
 Person -up-> "0..3" Tag
 
 Person *--> Name
+Person *--> StudentId
 Person *--> Phone
 Person *--> Email
-Person *--> Address
+Person *--> RoomNumber
+Person *--> EmergencyContact
 Person *--> Remark
 Tag -right-> TagType
 @enduml
