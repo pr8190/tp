@@ -58,21 +58,25 @@ public class RemarkCommand extends Command {
 
         Remark newRemark = new Remark(remark);
 
-        Person remarkedPerson = new Person(
+        Person remarkedPerson = createRemarkedPerson(personToRemark, newRemark);
+
+        model.setPerson(personToRemark, remarkedPerson);
+
+        return new CommandResult(String.format(REMARK_SUCCESS, Messages.format(remarkedPerson)));
+
+    }
+
+    public static Person createRemarkedPerson(Person personToRemark, Remark remark) {
+        return new Person(
                 personToRemark.getName(),
                 personToRemark.getPhone(),
                 personToRemark.getEmail(),
                 personToRemark.getStudentId(),
                 personToRemark.getRoomNumber(),
                 personToRemark.getEmergencyContact(),
-                newRemark,
+                remark,
                 personToRemark.getTags()
         );
-
-        model.setPerson(personToRemark, remarkedPerson);
-
-        return new CommandResult(String.format(REMARK_SUCCESS, Messages.format(remarkedPerson)));
-
     }
 
     @Override
@@ -89,6 +93,4 @@ public class RemarkCommand extends Command {
         return studentId.equals(otherRemarkCommand.studentId)
                 && remark.equals(otherRemarkCommand.remark);
     }
-
-
 }
