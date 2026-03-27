@@ -151,6 +151,11 @@ public class ModelManager implements Model {
                 .findFirst();
     }
 
+    @Override
+    public void showAllPersons() {
+        setFilterDetails(new FilterDetails());
+        filteredPersons.setPredicate(person -> true);
+    }
     //=========== Filter Details Accessors =============================================================
 
     @Override
