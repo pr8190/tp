@@ -21,6 +21,7 @@ public class ClearCommand extends Command {
         requireNonNull(model);
         int numberOfPersons = model.getAddressBook().getPersonList().size();
         model.setAddressBook(new AddressBook());
+        model.showAllPersons();
         return new CommandResult(getMessageSuccess(numberOfPersons));
     }
 }
