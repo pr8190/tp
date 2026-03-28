@@ -38,19 +38,20 @@ public class TagCommandParser implements Parser<TagCommand> {
         }
 
         StudentId studentId = ParserUtil.parseStudentId(argumentMultimap.getValue(PREFIX_STUDENT_ID).get());
+        Map<TagType, Tag> tags = parseTags(argumentMultimap);
 
+        return new TagCommand(studentId, tags);
+    }
+
+    private Map<TagType, Tag> parseTags(ArgumentMultimap argumentMultimap) throws ParseException {
         Map<TagType, Tag> tags = new HashMap<>();
-
         try {
             argumentMultimap.getValue(CliSyntax.PREFIX_TAG_GENDER)
                     .ifPresent(gender -> tags.put(TagType.GENDER, new Tag(TagType.GENDER, gender)));
-
             argumentMultimap.getValue(CliSyntax.PREFIX_TAG_MAJOR)
                     .ifPresent(major -> tags.put(TagType.MAJOR, new Tag(TagType.MAJOR, major)));
-
             argumentMultimap.getValue(CliSyntax.PREFIX_TAG_YEAR)
                     .ifPresent(year -> tags.put(TagType.YEAR, new Tag(TagType.YEAR, year)));
-
         } catch (IllegalArgumentException e) {
             throw new ParseException(e.getMessage());
         }
@@ -58,7 +59,6 @@ public class TagCommandParser implements Parser<TagCommand> {
         if (tags.isEmpty()) {
             throw new ParseException(TagCommand.TAG_NOT_ADDED);
         }
-
-        return new TagCommand(studentId, tags);
+        return tags;
     }
 }

@@ -5,7 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tag in the address book.
- * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
+ * Guarantees: immutable; name is valid as declared in
  */
 public class Tag {
 
@@ -37,7 +37,7 @@ public class Tag {
      */
     public static boolean isValidTagName(String test, TagType type) {
         requireNonNull(type);
-        return test != null && type.isValidTagName(test);
+        return type.isValidTagName(test);
     }
 
     /**

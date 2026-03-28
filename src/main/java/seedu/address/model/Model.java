@@ -1,12 +1,14 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.StudentId;
 
 /**
  * The API of the Model component.
@@ -86,6 +88,8 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    Optional<Person> getPersonByStudentId(StudentId studentId);
 
     // ================ Filter Details Accessors ========================================================
     /**

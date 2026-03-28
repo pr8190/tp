@@ -51,20 +51,8 @@ public class DemeritCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        Person personToUpdate = null;
-        for (Person person : lastShownList) {
-            if (person.getStudentId().equals(targetStudentId)) {
-                personToUpdate = person;
-                break;
-            }
-        }
-
-        if (personToUpdate == null) {
-            throw new CommandException(String.format(MESSAGE_STUDENT_NOT_FOUND, targetStudentId));
-        }
+        Person personToUpdate = model.getPersonByStudentId(targetStudentId)
+                .orElseThrow(() -> new CommandException(String.format(MESSAGE_STUDENT_NOT_FOUND, targetStudentId)));
 
         DemeritRule rule = DemeritRuleCatalogue.findByIndex(ruleIndex)
                 .orElseThrow(() -> new CommandException(String.format(MESSAGE_RULE_NOT_FOUND, ruleIndex)));
@@ -113,10 +101,9 @@ public class DemeritCommand extends Command {
         if (other == this) {
             return true;
         }
-        if (!(other instanceof DemeritCommand)) {
+        if (!(other instanceof DemeritCommand otherCommand)) {
             return false;
         }
-        DemeritCommand otherCommand = (DemeritCommand) other;
         return targetStudentId.equals(otherCommand.targetStudentId)
                 && ruleIndex == otherCommand.ruleIndex
                 && remark.equals(otherCommand.remark);

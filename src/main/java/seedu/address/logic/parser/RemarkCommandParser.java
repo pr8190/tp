@@ -26,7 +26,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
                         CliSyntax.PREFIX_STUDENT_ID,
                         CliSyntax.PREFIX_REMARK);
 
-        if (!argumentMultimap.getValue(PREFIX_STUDENT_ID).isPresent() || !argumentMultimap.getPreamble().isEmpty()) {
+        if (argumentMultimap.getValue(PREFIX_STUDENT_ID).isEmpty() || !argumentMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 

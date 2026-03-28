@@ -1,12 +1,12 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_PERSON_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_GENDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_MAJOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_YEAR;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import seedu.address.logic.Messages;
@@ -56,25 +56,25 @@ public class TagCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        Person personToTag = model.getPersonByStudentId(studentId)
+                .orElseThrow(() -> new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId)));
 
-        Person personToTag = null;
-        for (Person person : lastShownList) {
-            if (person.getStudentId().equals(studentId)) {
-                personToTag = person;
-                break;
-            }
-        }
+        Person taggedPerson = createTaggedPerson(personToTag, tags);
 
-        if (personToTag == null) {
-            throw new CommandException(String.format(
-                    "ResidentNotFound: No resident found with student ID %s.", studentId));
-        }
+        model.setPerson(personToTag, taggedPerson);
+        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
 
+        return new CommandResult(String.format(TAG_SUCCESS, Messages.format(taggedPerson)));
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code tsggedPerson}
+     */
+    public static Person createTaggedPerson(Person personToTag, Map<TagType, Tag> tags) {
         HashMap<TagType, Tag> updatedTags = new HashMap<>(personToTag.getTags());
         updatedTags.putAll(tags);
 
-        Person taggedPerson = new Person(
+        return new Person(
                 personToTag.getName(),
                 personToTag.getPhone(),
                 personToTag.getEmail(),
@@ -85,10 +85,5 @@ public class TagCommand extends Command {
                 updatedTags,
                 personToTag.getDemeritIncidents()
         );
-
-        model.setPerson(personToTag, taggedPerson);
-        model.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_PERSONS);
-
-        return new CommandResult(String.format(TAG_SUCCESS, Messages.format(taggedPerson)));
     }
 }

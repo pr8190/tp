@@ -12,7 +12,6 @@ public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
 
-
     public String getMessageSuccess(int numberOfPersons) {
         return "All " + numberOfPersons + " resident(s) have been removed from the Hall Ledger";
     }

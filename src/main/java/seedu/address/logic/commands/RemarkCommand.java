@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
-import java.util.List;
+import static seedu.address.logic.commands.DeleteCommand.MESSAGE_PERSON_NOT_FOUND;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -20,11 +19,13 @@ public class RemarkCommand extends Command {
 
     public static final String COMMAND_WORD = "remark";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a remark to the selected person.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Adds a remark to the selected person.\n"
             + "Parameters: i=STUDENT_ID rm=REMARK\n"
-            + "Example: " + COMMAND_WORD + " i=A1234567Z rm=Is vegetarian";
+            + "Example: " + COMMAND_WORD
+            + " i=A1234567Z rm=Is vegetarian";
 
-    public static final String REMARK_SUCCESS = "Added Remark to Resident: %1$s";
+    public static final String MESSAGE_SUCCESS = "Added Remark to Resident: %1$s";
 
     private final StudentId studentId;
     private final String remark;
@@ -41,38 +42,32 @@ public class RemarkCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        Person personToRemark = null;
-        for (Person person : lastShownList) {
-            if (person.getStudentId().equals(studentId)) {
-                personToRemark = person;
-                break;
-            }
-        }
-
-        if (personToRemark == null) {
-            throw new CommandException("No person with the given student ID found.");
-        }
+        Person personToRemark = model.getPersonByStudentId(studentId)
+                .orElseThrow(() -> new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId)));
 
         Remark newRemark = new Remark(remark);
 
-        Person remarkedPerson = new Person(
+        Person remarkedPerson = createRemarkedPerson(personToRemark, newRemark);
+
+        model.setPerson(personToRemark, remarkedPerson);
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(remarkedPerson)));
+    }
+
+    /**
+     * Creates and returns a {@code Person} with the details of {@code remarkedPerson}
+     */
+    public static Person createRemarkedPerson(Person personToRemark, Remark remark) {
+        return new Person(
                 personToRemark.getName(),
                 personToRemark.getPhone(),
                 personToRemark.getEmail(),
                 personToRemark.getStudentId(),
                 personToRemark.getRoomNumber(),
                 personToRemark.getEmergencyContact(),
-                newRemark,
+                remark,
                 personToRemark.getTags()
         );
-
-        model.setPerson(personToRemark, remarkedPerson);
-
-        return new CommandResult(String.format(REMARK_SUCCESS, Messages.format(remarkedPerson)));
-
     }
 
     @Override
@@ -81,14 +76,11 @@ public class RemarkCommand extends Command {
             return true;
         }
 
-        if (!(other instanceof RemarkCommand)) {
+        if (!(other instanceof RemarkCommand otherRemarkCommand)) {
             return false;
         }
 
-        RemarkCommand otherRemarkCommand = (RemarkCommand) other;
         return studentId.equals(otherRemarkCommand.studentId)
                 && remark.equals(otherRemarkCommand.remark);
     }
-
-
 }

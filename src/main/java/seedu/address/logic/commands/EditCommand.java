@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_RESIDENT_NOT_FOUND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -10,7 +11,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -76,14 +76,8 @@ public class EditCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        Person personToEdit = lastShownList.stream()
-            .filter(person -> person.getStudentId().equals(targetStudentId))
-            .findFirst()
-            .orElseThrow(() -> new CommandException(
-                String.format(Messages.MESSAGE_RESIDENT_NOT_FOUND, targetStudentId)));
+        Person personToEdit = model.getPersonByStudentId(targetStudentId)
+               .orElseThrow(() -> new CommandException(String.format(MESSAGE_RESIDENT_NOT_FOUND, targetStudentId)));
 
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
@@ -132,11 +126,10 @@ public class EditCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand)) {
+        if (!(other instanceof EditCommand otherEditCommand)) {
             return false;
         }
 
-        EditCommand otherEditCommand = (EditCommand) other;
         return targetStudentId.equals(otherEditCommand.targetStudentId)
                 && editPersonDescriptor.equals(otherEditCommand.editPersonDescriptor);
     }
