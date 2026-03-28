@@ -10,9 +10,6 @@
 
 <fx:root minHeight="700.0" minWidth="1000.0" onCloseRequest="#handleExit" title="Hall Ledger" type="javafx.stage.Stage"
          xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-  <icons>
-    <Image url="@/images/hall-ledger-icon-32x32.png" />
-  </icons>
   <scene>
     <Scene>
       <stylesheets>
