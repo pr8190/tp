@@ -66,7 +66,7 @@ public class PersonMatchesDetailsPredicateTest {
     }
 
     @Test
-    public void test_tagMajorKeyword_fuzzyMatchWorks() {
+    public void test_tagMajorKeyword_fuzzyMatchTrue() {
         FilterDetails filterDetails = new FilterDetails();
         filterDetails.setTagMajorKeywords(Set.of("CS Mazhs"));
         PersonMatchesDetailsPredicate predicate = new PersonMatchesDetailsPredicate(filterDetails);
@@ -76,7 +76,7 @@ public class PersonMatchesDetailsPredicateTest {
     }
 
     @Test
-    public void test_emergencyContactKeyword_fuzzyMatchWorks() {
+    public void test_emergencyContactKeyword_fuzzyMatchTrue() {
         FilterDetails filterDetails = new FilterDetails();
         filterDetails.setEmergencyContactKeywords(Set.of("+65 98765433"));
         PersonMatchesDetailsPredicate predicate = new PersonMatchesDetailsPredicate(filterDetails);
@@ -111,7 +111,7 @@ public class PersonMatchesDetailsPredicateTest {
     }
 
     @Test
-    public void test_roomKeyword_noMatch_returnsFalse() {
+    public void test_roomKeyword_noMatch() {
         FilterDetails filterDetails = new FilterDetails();
         filterDetails.setRoomNumberKeywords(Set.of(VALID_ROOM_NUMBER_BOB));
 
@@ -120,7 +120,7 @@ public class PersonMatchesDetailsPredicateTest {
     }
 
     @Test
-    public void test_studentIdKeyword_noMatch_returnsFalse() {
+    public void test_studentIdKeyword_noMatch() {
         FilterDetails filterDetails = new FilterDetails();
         filterDetails.setStudentIdKeywords(Set.of(VALID_STUDENTID_BOB));
 
@@ -129,7 +129,7 @@ public class PersonMatchesDetailsPredicateTest {
     }
 
     @Test
-    public void test_tagYearKeyword_noMatch_returnsFalse() {
+    public void test_tagYearKeyword_noMatch() {
         FilterDetails filterDetails = new FilterDetails();
         filterDetails.setTagYearKeywords(Set.of("Y9"));
 
