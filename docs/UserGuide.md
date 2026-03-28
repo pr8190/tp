@@ -135,28 +135,27 @@ Examples:
 
 ### Locating persons: `find`
 
-Finds persons who match multiple attributes such as name, phone number, email or major.
+Finds residents using one or more fields such as name, phone, email, room, student ID, emergency contact, year, major, and gender.
 
 Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
-* Fields are case-insensitive and order-independent.
+* Matching ignores letter case, and field order does not matter.
     * e.g. `find n=Alice y=Y1` gives the same result as `find y=Y1 n=ALICE`.
-* Different prefixes are combined with AND.
-    * e.g. `find n=Alice p=9123 y=Y1` returns residents that satisfy all 3 filters.
-* Repeating the same prefix is OR-based.
-    * e.g. `find y=Y2 y=Y3` returns Year 2 or Year 3 residents.
-    * e.g. `find n=Hans Bo n=Anna Lee` can return residents matching either `n=` value.
-* Each `n=` value is treated as one value as typed; it is not split by spaces.
-    * e.g. `find n=Hans Bo` keeps `Hans Bo` as one name filter value.
-* A maximum of 10 values can be provided for each prefix.
-* All fields except [g=GENDER] follow fuzzy matching rules. Read more about fuzzy matching here: [Fuzzy Matching Details](FuzzyMatching.md).
+* If you use different fields together, a resident must satisfy all of them.
+    * e.g. `find n=Alice p=9123 y=Y1` returns residents who match name, phone, and year.
+* If you repeat the same field, matching any one of those values is enough.
+    * e.g. `find y=Y2 y=Y3` returns residents in Year 2 or Year 3.
+    * e.g. `find n=Hans Bo n=Anna Lee` returns residents matching either `n=` value.
+* You can provide up to 10 values per field.
+* `g=GENDER` uses full-value matching (case-insensitive). Other fields use fuzzy-friendly matching.
+    * See [Fuzzy Matching Details](FuzzyMatching.md).
+
 Examples:
 
-* `find n=John Doe` returns residents whose names fuzzy-match `John Doe`.
+* `find n=John Doe` returns residents whose names match `John Doe`.
 * `find n=Alex n=David` returns residents matching either name value.
-* `find m=CS m=Economics g=Male g=Others` returns persons majoring in CS or Economics, and whose gender is listed as 
-  Male or Others.
-* `find ec=+84 e=gmail` returns persons whose emergency contact contains `+84`, and whose email contains `gmail`.
+* `find m=CS m=Economics g=Male g=Others` returns residents whose major is `CS` or `Economics`, and whose gender is `Male` or `Others`.
+* `find ec=+84 e=gmail` returns residents whose emergency contact matches `+84` and email matches `gmail`.
 
 ### Listing demerit rules: `demeritlist`
 
