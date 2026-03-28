@@ -278,9 +278,9 @@ Action     | Format, Examples
 **[Add](#adding-a-person-add)**    | `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT` <br> e.g., `add n=James Lee p=+65 98765432 e=james@example.com i=A1234567X r=15R ec=+65 98765432`
 **[Clear](#clearing-all-entries--clear)**  | `clear`
 **[Delete](#deleting-a-resident--delete)** | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`
-**[Edit](#editing-a-person--edit)**   | `edit STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [i=STUDENT_ID] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit A1234567X n=James Lee e=jameslee@example.com`
+**[Edit](#editing-a-person--edit)**   | `edit i=STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [i=STUDENT_ID] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit A1234567X n=James Lee e=jameslee@example.com`
 **[Tag](#tagging-a-student-tag)**    | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`<br> e.g., `tag i=A1234567X m=CS y=Y3`
-**[Find](#locating-persons--find)**   | Method 1:<br> `find NAME_KEYWORDS [MORE_NAME_KEYWORDS]`<br> e.g., `find James Jake`<br><br>Method 2:<br> `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=Y1`
+**[Find](#locating-persons--find)**   | `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=Y1`
 **[Demerit List](#listing-demerit-rules-demeritlist)** | `demeritlist`
 **[Add Demerit](#adding-a-demerit-record-demerit)** | `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`<br> e.g., `demerit i=A1234567X di=18 rm=Visitor during quiet hours`
 **[List](#listing-all-persons--list)**   | `list`
