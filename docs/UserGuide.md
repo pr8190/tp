@@ -137,6 +137,8 @@ Examples:
 
 Finds residents using one or more fields such as name, phone, email, room, student ID, emergency contact, year, major, and gender.
 
+***Using the command line***
+
 Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
 * Matching ignores letter case, and field order does not matter.
@@ -148,7 +150,6 @@ Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EM
     * e.g. `find n=Hans Bo n=Anna Lee` returns residents matching either `n=` value.
 * You can provide up to 10 values per field.
 * `g=GENDER` uses full-value matching (case-insensitive). Other fields use fuzzy-friendly matching.
-    * See [Fuzzy Matching Details](FuzzyMatching.md).
 
 Examples:
 
@@ -156,6 +157,29 @@ Examples:
 * `find n=Alex n=David` returns residents matching either name value.
 * `find m=CS m=Economics g=Male g=Others` returns residents whose major is `CS` or `Economics`, and whose gender is `Male` or `Others`.
 * `find ec=+84 e=gmail` returns residents whose emergency contact matches `+84` and email matches `gmail`.
+
+Result of running `find n=Alice Pauline` from the command line (matching resident(s) are shown in the list view):
+
+![Find Y2](images/find-y2.png)
+
+***Using the user interface***
+
+* Open the **Filter** panel to show the filter controls.
+
+* Enter one or more keywords in any field, then press Enter to apply the filter.
+
+* You can combine multiple keywords across multiple fields. The same matching behavior as the command-line `find`
+  applies.
+
+* To remove a keyword, click the `x` beside that keyword.
+
+![Filled filter panel](images/filled-filter-panel.png)
+
+<box type="info" seamless>
+
+For full matching behavior and examples, see [Fuzzy Matching Details](FuzzyMatching.md).
+
+</box>
 
 ### Listing demerit rules: `demeritlist`
 
