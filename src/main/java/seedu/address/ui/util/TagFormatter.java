@@ -3,6 +3,9 @@ package seedu.address.ui.util;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
+/**
+ * Utility class for formatting tag values for display in the UI.
+ */
 public class TagFormatter {
     private static final String YEAR_PREFIX = "Y";
 

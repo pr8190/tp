@@ -8,8 +8,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagType;
 import seedu.address.ui.util.TagFormatter;
 
 /**
