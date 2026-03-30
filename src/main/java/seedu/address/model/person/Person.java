@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
+import javafx.scene.control.Label;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.demerit.DemeritIncident;
 import seedu.address.model.tag.Tag;

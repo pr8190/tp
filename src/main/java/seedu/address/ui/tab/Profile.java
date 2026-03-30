@@ -10,6 +10,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
+import seedu.address.ui.util.TagFormatter;
 
 /** Student profile component of the Student Details Tab. */
 public class Profile extends UiPart<Region> {
@@ -56,7 +57,8 @@ public class Profile extends UiPart<Region> {
             tags.getChildren().clear();
             newValue.getTags().values().stream()
                     .sorted(Comparator.comparing(tag -> tag.tagName))
-                    .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                    .forEach(tag -> tags.getChildren().add(
+                            new Label(TagFormatter.formatTagValue(tag))));
 
         });
     }

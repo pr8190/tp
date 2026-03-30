@@ -10,6 +10,7 @@ import javafx.scene.layout.Region;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
+import seedu.address.ui.util.TagFormatter;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -59,14 +60,8 @@ public class PersonCard extends UiPart<Region> {
 
         person.getTags().values().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(createTagLabel(tag)));
-    }
-
-    private Label createTagLabel(Tag tag) {
-        Label tagLabel = new Label(tag.tagName);
-        if (tag.tagType == TagType.YEAR) {
-            tagLabel.setText(YEAR_PREFIX + tag.tagName);
-        }
-        return tagLabel;
+                .forEach(tag -> tags.getChildren().add(
+                        new Label(TagFormatter.formatTagValue(tag))
+                ));
     }
 }
