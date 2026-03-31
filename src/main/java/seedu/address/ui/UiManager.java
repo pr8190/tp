@@ -20,7 +20,9 @@ public class UiManager implements Ui {
     public static final String ALERT_DIALOG_PANE_FIELD_ID = "alertDialogPane";
 
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
-    private static final String ICON_APPLICATION = "/images/address_book_32.png";
+    private static final String ICON_APPLICATION_16x16 = "/images/hall-ledger-icon-16x16.png";
+    private static final String ICON_APPLICATION_32x32 = "/images/hall-ledger-icon-32x32.png";
+    private static final String ICON_APPLICATION_48x48 = "/images/hall-ledger-icon-48x48.png";
 
     private final Logic logic;
     private MainWindow mainWindow;
@@ -57,7 +59,11 @@ public class UiManager implements Ui {
         logger.info("Starting UI...");
 
         //Set the application icon.
-        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        primaryStage.getIcons().addAll(
+                getImage(ICON_APPLICATION_16x16),
+                getImage(ICON_APPLICATION_32x32),
+                getImage(ICON_APPLICATION_48x48)
+        );
 
         try {
             mainWindow = new MainWindow(primaryStage, logic);

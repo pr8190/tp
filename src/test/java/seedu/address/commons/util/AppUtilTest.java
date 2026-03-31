@@ -11,7 +11,7 @@ public class AppUtilTest {
     @Test
     @Disabled("Requires JavaFX toolkit - fails in headless environment")
     public void getImage_exitingImage() {
-        assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
+        assertNotNull(AppUtil.getImage("/images/hall-ledger-icon-32x32.png"));
     }
 
     @Test

@@ -8,10 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.stage.*?>
 
-<fx:root minHeight="700.0" minWidth="1000.0" onCloseRequest="#handleExit" title="Address App" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-  <icons>
-    <Image url="@/images/address_book_32.png" />
-  </icons>
+<fx:root minHeight="700.0" minWidth="1000.0" onCloseRequest="#handleExit" title="Hall Ledger" type="javafx.stage.Stage"
+         xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
   <scene>
     <Scene>
       <stylesheets>
