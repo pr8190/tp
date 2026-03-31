@@ -127,7 +127,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = new EditCommand(secondPerson.getStudentId(), descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_ROOM_OCCUPIED);
     }
 
     @Test
@@ -139,7 +139,7 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(firstPerson.getStudentId(),
                 new EditPersonDescriptorBuilder(secondPerson).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_ROOM_OCCUPIED);
     }
 
     @Test
