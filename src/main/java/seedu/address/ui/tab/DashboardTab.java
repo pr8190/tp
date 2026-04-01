@@ -13,6 +13,9 @@ import seedu.address.ui.UiPart;
  */
 public class DashboardTab extends UiPart<Region> {
     private static final String FXML = "DashboardTab.fxml";
+    private static final String MALE_PRONOUN = "he/him";
+    private static final String FEMALE_PRONOUN = "she/her";
+    private static final String OTHER_PRONOUN = "they/them";
     private final Logic logic;
 
     @FXML private Label totalCountLabel;
@@ -27,7 +30,8 @@ public class DashboardTab extends UiPart<Region> {
     @FXML private Label y4CountLabel;
     @FXML private Label y5CountLabel;
     @FXML private Label y6CountLabel;
-
+    private Label[] yearLabels = {y1CountLabel, y2CountLabel, y3CountLabel,
+        y4CountLabel, y5CountLabel, y6CountLabel};
     /**
      * Creates a {@code DashboardTab} with the given {@code Logic}.
      *
@@ -48,9 +52,9 @@ public class DashboardTab extends UiPart<Region> {
         long totalCount = list.size();
 
         // ---Gender groups via tags---
-        long male = countByTag(list, "he") + countByTag(list, "him");
-        long female = countByTag(list, "she") + countByTag(list, "her");
-        long other = countByTag(list, "they") + countByTag(list, "them");
+        long male = countByTag(list, MALE_PRONOUN);
+        long female = countByTag(list, FEMALE_PRONOUN);
+        long other = countByTag(list, OTHER_PRONOUN);
 
         totalCountLabel.setText(String.valueOf(totalCount));
         maleCountLabel.setText(String.valueOf(male));
@@ -58,12 +62,9 @@ public class DashboardTab extends UiPart<Region> {
         otherCountLabel.setText(String.valueOf(other));
 
         // --- Year groups via tags ---
-        y1CountLabel.setText(String.valueOf(countByTag(list, "1")));
-        y2CountLabel.setText(String.valueOf(countByTag(list, "2")));
-        y3CountLabel.setText(String.valueOf(countByTag(list, "3")));
-        y4CountLabel.setText(String.valueOf(countByTag(list, "4")));
-        y5CountLabel.setText(String.valueOf(countByTag(list, "5")));
-        y6CountLabel.setText(String.valueOf(countByTag(list, "6")));
+        for (int i = 0; i < yearLabels.length; i++) {
+            yearLabels[i].setText(String.valueOf(countByTag(list, String.valueOf(i + 1))));
+        }
     }
 
     /**
