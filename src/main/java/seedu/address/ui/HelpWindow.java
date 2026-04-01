@@ -56,14 +56,14 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage owner, Stage root) {
         super(FXML, root);
         root.initOwner(owner);
-        root.initModality(Modality.WINDOW_MODAL);
+        root.initModality(Modality.NONE);
         root.setResizable(false);
 
         helpContent.setText(HELP_CONTENT);
         guideText.setText("Refer to the HallLedger User Guide for more details:\n");
 
         link.setText(USERGUIDE_URL);
-        link.setEditable(false); // Make it read-only
+        link.setEditable(false);
         link.setFocusTraversable(false);
     }
 
@@ -107,15 +107,15 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the guide link in a browser
-     * @param event
+     * Opens the guide link in a browser.
+     *
+     * @param event The click event.
      */
     @FXML
     public void handleLinkClick(Event event) {
         try {
-            //Open link in browser
             logger.fine("Opened link in browser");
-            Desktop.getDesktop().browse(new URI((link.getText())));
+            Desktop.getDesktop().browse(new URI(link.getText()));
         } catch (URISyntaxException | IOException e) {
             logger.info("The URL is not correct");
         }
