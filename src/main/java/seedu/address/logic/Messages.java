@@ -15,6 +15,7 @@ public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
+    public static final String MESSAGE_UNKNOWN_PREFIX = "Unknown prefix(es) detected! \n%1$s";
     public static final String MESSAGE_EMPTY_ARGUMENT = "Command has empty parameter(s)!";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX =
             "ResidentNotFound: No resident found with student ID A0404041X.";
