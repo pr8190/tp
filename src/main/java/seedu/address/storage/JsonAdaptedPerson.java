@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.demerit.DemeritIncident;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmergencyContact;
 import seedu.address.model.person.Name;
@@ -37,6 +38,7 @@ class JsonAdaptedPerson {
     private final String emergencyContact;
     private final String remark;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final List<JsonAdaptedDemeritIncident> demeritIncidents = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -49,7 +51,9 @@ class JsonAdaptedPerson {
                              @JsonProperty("roomNumber") String roomNumber,
                              @JsonProperty("emergencyContact") String emergencyContact,
                              @JsonProperty("remark") String remark,
-                             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                             @JsonProperty("demeritIncidents")
+                             List<JsonAdaptedDemeritIncident> demeritIncidents) {
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -59,6 +63,9 @@ class JsonAdaptedPerson {
         this.remark = remark;
         if (tags != null) {
             this.tags.addAll(tags);
+        }
+        if (demeritIncidents != null) {
+            this.demeritIncidents.addAll(demeritIncidents);
         }
     }
 
@@ -70,11 +77,14 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         studentId = source.getStudentId().value;
-        roomNumber = source.getRoomNumber() != null ? source.getRoomNumber().value : null;
-        emergencyContact = source.getEmergencyContact() != null ? source.getEmergencyContact().value : null;
-        remark = source.getRemark().remark;
+        roomNumber = source.getRoomNumber().value;
+        emergencyContact = source.getEmergencyContact().value;
+        remark = source.getRemark().toString();
         tags.addAll(source.getTags().values().stream()
                 .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
+        demeritIncidents.addAll(source.getDemeritIncidents().stream()
+                .map(JsonAdaptedDemeritIncident::new)
                 .collect(Collectors.toList()));
     }
 
@@ -133,13 +143,9 @@ class JsonAdaptedPerson {
         if (!EmergencyContact.isValidEmergencyContact(emergencyContact)) {
             throw new IllegalValueException(EmergencyContact.MESSAGE_CONSTRAINTS);
         }
-
         final EmergencyContact modelEmergencyContact = new EmergencyContact(emergencyContact);
 
-        Remark modelRemark = new Remark("");
-        if (remark != null) {
-            modelRemark = new Remark(remark);
-        }
+        final Remark modelRemark = new Remark(remark == null ? "" : remark);
 
         final HashMap<TagType, Tag> modelTags = new HashMap<>();
         for (JsonAdaptedTag jsonAdaptedTag : tags) {
@@ -151,7 +157,49 @@ class JsonAdaptedPerson {
             modelTags.put(tagType, tag);
         }
 
+        final List<DemeritIncident> modelDemeritIncidents = new ArrayList<>();
+        for (JsonAdaptedDemeritIncident jsonAdaptedDemeritIncident : demeritIncidents) {
+            modelDemeritIncidents.add(jsonAdaptedDemeritIncident.toModelType());
+        }
+
         return new Person(modelName, modelPhone, modelEmail, modelStudentId, modelRoomNumber,
-                modelEmergencyContact, modelRemark, modelTags);
+                modelEmergencyContact, modelRemark, modelTags, modelDemeritIncidents);
+    }
+
+    /**
+     * Jackson-friendly version of {@link DemeritIncident}.
+     */
+    private static class JsonAdaptedDemeritIncident {
+        private final int ruleIndex;
+        private final String ruleTitle;
+        private final int offenceNumber;
+        private final int pointsApplied;
+        private final String remark;
+
+        @JsonCreator
+        public JsonAdaptedDemeritIncident(@JsonProperty("ruleIndex") int ruleIndex,
+                                          @JsonProperty("ruleTitle") String ruleTitle,
+                                          @JsonProperty("offenceNumber") int offenceNumber,
+                                          @JsonProperty("pointsApplied") int pointsApplied,
+                                          @JsonProperty("remark") String remark) {
+            this.ruleIndex = ruleIndex;
+            this.ruleTitle = ruleTitle;
+            this.offenceNumber = offenceNumber;
+            this.pointsApplied = pointsApplied;
+            this.remark = remark;
+        }
+
+        JsonAdaptedDemeritIncident(DemeritIncident source) {
+            this.ruleIndex = source.getRuleIndex();
+            this.ruleTitle = source.getRuleTitle();
+            this.offenceNumber = source.getOffenceNumber();
+            this.pointsApplied = source.getPointsApplied();
+            this.remark = source.getRemark();
+        }
+
+        DemeritIncident toModelType() {
+            return new DemeritIncident(ruleIndex, ruleTitle, offenceNumber, pointsApplied,
+                    remark == null ? "" : remark);
+        }
     }
 }
