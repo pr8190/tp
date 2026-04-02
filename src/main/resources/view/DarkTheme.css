@@ -35,6 +35,21 @@
     -fx-opacity: 1;
 }
 
+/* the tags */
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#tags .label {
+    -fx-text-fill: dark-grey;
+    -fx-background-color: primary-yellow;
+    -fx-padding: 1 5 1 5;
+    -fx-border-radius: 3;
+    -fx-background-radius: 3;
+    -fx-font-size: 11;
+}
+
 .label-small {
     -fx-font-size: 9pt;
     -fx-font-family: "SansSerif";
@@ -42,7 +57,7 @@
     -fx-opacity: 0.8;
 }
 
-.text-field {
+.text-field, .label-remark {
     -fx-font-size: 10pt;
     -fx-font-family: "SansSerif";
     -fx-background-color: medium-grey;
@@ -57,6 +72,45 @@
     -fx-border-color: transparent transparent primary-yellow transparent;
     -fx-text-fill: white;
     -fx-text-inner-color: white;
+}
+
+.label-remark {
+    -fx-font-size: 12pt;
+    -fx-text-fill: primary-yellow;
+}
+
+.label-remark:focused {
+    -fx-font-size: 12pt;
+    -fx-text-fill: primary-yellow;
+    -fx-border-color: transparent;
+}
+
+.text-area.label-remark,
+.text-area.label-remark:focused {
+    -fx-background-color: derive(medium-grey);
+    -fx-text-fill: primary-yellow;
+    -fx-font-size: 11pt;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: derive(primary-yellow);
+    -fx-highlight-text-fill: white;
+}
+
+.text-area.label-remark .content {
+    -fx-background-color: medium-grey;
+    -fx-background-insets: 0;
+}
+
+.label-field {
+    -fx-text-fill: derive(light-grey, 50%);
+    -fx-background-color: transparent;
+    -fx-padding : 0;
+}
+
+.label-field:focused {
+    -fx-border-color: transparent;
+    -fx-text-fill: derive(light-grey, 50%);
 }
 
 /* Base icon color */
@@ -236,11 +290,36 @@
     -fx-border-width: 0px 0px 0px 0px;
 }
 
+.undecorated-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.undecorated-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
 .result-display {
     -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
     -fx-font-family: "SansSerif";
-    -fx-font-size: 13pt;
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
+}
+
+#resultDisplay,
+#resultDisplay:focused {
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .result-display .label {
@@ -323,8 +402,6 @@
  */
 .button {
     -fx-padding: 5 22 5 22;
-    -fx-border-color: light-grey;
-    -fx-border-width: 2;
     -fx-background-radius: 0;
     -fx-background-color: dark-grey;
     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
@@ -344,11 +421,8 @@
 }
 
 .button:focused {
-    -fx-border-color: white, white;
-    -fx-border-width: 1, 1;
-    -fx-border-style: solid, segments(1, 1);
-    -fx-border-radius: 0, 0;
-    -fx-border-insets: 1 1 1 1, 0;
+    -fx-background-color: #454545;
+    -fx-text-fill: white;
 }
 
 .button:disabled,
@@ -446,7 +520,9 @@
 
 #resultDisplay .content {
     -fx-background-color: medium-grey;
+    -fx-background-insets: 0;
     -fx-background-radius: 0;
+    -fx-border-color: transparent;
     -fx-padding: 5px 10px 5px 20px;
 }
 
@@ -490,6 +566,84 @@
     -fx-border-width: 0 0 2 0;
     -fx-padding: 0 0 8 0;
     -fx-font-weight: bold;
+    -fx-background-color: transparent; /* Makes the background transparent */
+}
+
+.panel-heading:focused {
+    -fx-text-fill: primary-yellow;
+    -fx-highlight-fill: primary-yellow;
+}
+
+.panel-subheading {
+    -fx-background-color:  derive(dark-grey, 20%);
+    -fx-padding: 14;
+    -fx-background-radius: 8;
+    -fx-min-width: 165;
+    -fx-font-family: "SansSerif";
+}
+
+.panel-subheading .label-gender {
+    -fx-font-size: 18px;
+    -fx-padding: 5 5 5 5;
+    -fx-background-color:  derive(medium-grey, 30%);
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+    -fx-min-width: 50;
+    -fx-font-family: "SansSerif";
+}
+
+.panel-subheading .label-gender:hover {
+    -fx-background-color: derive(medium-grey, 50%);
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+}
+
+.panel-subheading .label-year {
+    -fx-font-size: 18px;
+    -fx-padding: 10 10 10 10;
+    -fx-background-color:  derive(medium-grey, 30%);
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+    -fx-min-width: 50;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-family: "SansSerif";
+}
+
+.panel-subheading .label-year:hover {
+    -fx-background-color: derive(medium-grey, 50%);
+    -fx-background-radius: 8;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.panel-subheading .label-total-residence {
+    -fx-font-size: 18px;
+    -fx-padding: 10 10 10 10;
+    -fx-background-color:  derive(medium-grey, 30%);
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+    -fx-min-width: 50;
+    -fx-font-family: "SansSerif";
+}
+
+.panel-subheading .label-total-residence:hover {
+    -fx-background-color: derive(medium-grey, 50%);
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+}
+
+.panel-subheading .label {
+    -fx-font-size: 18px;
+    -fx-min-width: 30;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "SansSerif";
+}
+
+.panel-subheading .label-header{
+    -fx-font-size: 18px;
+    -fx-text-fill: derive(primary-yellow, +5%);
+    -fx-font-weight: bold;
+    -fx-padding: 10 10 10 10;
+    -fx-font-family: "SansSerif";
 }
 
 /* === BUTTONS === */
@@ -499,11 +653,15 @@
     -fx-font-weight: bold;
     -fx-font-size: 11pt;
     -fx-padding: 8 20 8 20;
-    -fx-background-radius: 4;
 }
 
 .btn-save:hover {
     -fx-background-color: derive(primary-yellow, -10%);
+}
+
+.btn-save:focused {
+    -fx-background-color: derive(primary-yellow, +5%);
+    -fx-text-fill: dark-grey;
 }
 
 .btn-danger {
@@ -512,7 +670,6 @@
     -fx-font-weight: bold;
     -fx-font-size: 11pt;
     -fx-padding: 8 20 8 20;
-    -fx-background-radius: 4;
 }
 
 .btn-danger:hover {
@@ -571,18 +728,39 @@
 }
 
 /* Name flow pane tags in filter panel */
-#nameTags {
+.filter-panel-flow-pane {
     -fx-hgap: 8;
     -fx-vgap: 5;
 }
 
-#nameTags .label {
-    -fx-text-fill: white;
+.nameTags {
     -fx-background-color: secondary-blue;
-    -fx-padding: 2 6 2 6;
-    -fx-border-radius: 3;
+    -fx-padding: 4 6 4 8;
     -fx-background-radius: 3;
-    -fx-font-size: 13;
+    -fx-border-radius: 3;
+    -fx-alignment: center-left;
+}
+
+.nameTags .label {
+    -fx-text-fill: white;
+    -fx-font-size: 12;
+    -fx-padding: 0;
+}
+
+.nameTags .button {
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-size: 8pt;
+    -fx-text-fill: white;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+    -fx-cursor: hand;
+}
+
+.nameTags .button:hover {
 }
 
 /* List Section background color */
