@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -35,9 +34,7 @@ public class PersonUtil {
         sb.append(PREFIX_STUDENT_ID + person.getStudentId().value + " ");
         sb.append(PREFIX_ROOM_NUMBER + person.getRoomNumber().value + " ");
         sb.append(PREFIX_EMERGENCY_CONTACT + person.getEmergencyContact().value + " ");
-        person.getTags().values().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
-        );
+
         return sb.toString();
     }
 

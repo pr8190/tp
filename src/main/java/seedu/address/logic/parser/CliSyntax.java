@@ -12,7 +12,6 @@ public class CliSyntax {
     public static final Prefix PREFIX_STUDENT_ID = new Prefix("i=");
     public static final Prefix PREFIX_ROOM_NUMBER = new Prefix("r=");
     public static final Prefix PREFIX_EMERGENCY_CONTACT = new Prefix("ec=");
-    public static final Prefix PREFIX_TAG = new Prefix("t=");
     public static final Prefix PREFIX_TAG_YEAR = new Prefix("y=");
     public static final Prefix PREFIX_TAG_MAJOR = new Prefix("m=");
     public static final Prefix PREFIX_TAG_GENDER = new Prefix("g=");
