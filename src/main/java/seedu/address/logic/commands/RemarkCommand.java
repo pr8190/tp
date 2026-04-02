@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_PERSON_NOT_FOUND;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -11,9 +12,7 @@ import seedu.address.model.person.Remark;
 import seedu.address.model.person.StudentId;
 
 /**
- * Adds a remark to a resident in the hall ledger.
- * The resident is identified using the index number from the displayed resident list.
- * Existing remarks will be overwritten by the newly provided remark.
+ * Adds a remark to a resident identified using unique StudentId.
  */
 public class RemarkCommand extends Command {
 
@@ -28,13 +27,16 @@ public class RemarkCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Added Remark to Resident: %1$s";
 
     private final StudentId studentId;
-    private final String remark;
+    private final Remark remark;
 
     /**
-     * @param studentId of the person in the filtered person list to edit
-     * @param remark remark to add to the person
+     * @param studentId of the person to edit
+     * @param remark to add to the person
      */
-    public RemarkCommand(StudentId studentId, String remark) {
+    public RemarkCommand(StudentId studentId, Remark remark) {
+        requireNonNull(studentId);
+        requireNonNull(remark);
+
         this.studentId = studentId;
         this.remark = remark;
     }
@@ -45,19 +47,17 @@ public class RemarkCommand extends Command {
         Person personToRemark = model.getPersonByStudentId(studentId)
                 .orElseThrow(() -> new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId)));
 
-        Remark newRemark = new Remark(remark);
+        Person editedPerson = createEditedPerson(personToRemark, remark);
 
-        Person remarkedPerson = createRemarkedPerson(personToRemark, newRemark);
+        model.setPerson(personToRemark, editedPerson);
 
-        model.setPerson(personToRemark, remarkedPerson);
-
-        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(remarkedPerson)));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code remarkedPerson}
+     * Creates and returns a {@code Person} with the details of {@code personToRemark} edited with {@code remark}.
      */
-    public static Person createRemarkedPerson(Person personToRemark, Remark remark) {
+    private static Person createEditedPerson(Person personToRemark, Remark remark) {
         return new Person(
                 personToRemark.getName(),
                 personToRemark.getPhone(),
@@ -82,5 +82,13 @@ public class RemarkCommand extends Command {
 
         return studentId.equals(otherRemarkCommand.studentId)
                 && remark.equals(otherRemarkCommand.remark);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("studentId", studentId)
+                .add("remark", remark)
+                .toString();
     }
 }

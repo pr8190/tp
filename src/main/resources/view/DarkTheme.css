@@ -85,6 +85,23 @@
     -fx-border-color: transparent;
 }
 
+.text-area.label-remark,
+.text-area.label-remark:focused {
+    -fx-background-color: derive(medium-grey);
+    -fx-text-fill: primary-yellow;
+    -fx-font-size: 11pt;
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: derive(primary-yellow);
+    -fx-highlight-text-fill: white;
+}
+
+.text-area.label-remark .content {
+    -fx-background-color: medium-grey;
+    -fx-background-insets: 0;
+}
+
 .label-field {
     -fx-text-fill: derive(light-grey, 50%);
     -fx-background-color: transparent;
@@ -92,8 +109,8 @@
 }
 
 .label-field:focused {
-     -fx-border-color: transparent;
-     -fx-text-fill: derive(light-grey, 50%);
+    -fx-border-color: transparent;
+    -fx-text-fill: derive(light-grey, 50%);
 }
 
 /* Base icon color */
@@ -210,7 +227,7 @@
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color:
-        transparent transparent derive(-fx-base, 80%) transparent;
+            transparent transparent derive(-fx-base, 80%) transparent;
     -fx-border-insets: 0 10 1 0;
 }
 
@@ -273,11 +290,36 @@
     -fx-border-width: 0px 0px 0px 0px;
 }
 
+.undecorated-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.undecorated-scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
 .result-display {
     -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
     -fx-font-family: "SansSerif";
-    -fx-font-size: 13pt;
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
+}
+
+#resultDisplay,
+#resultDisplay:focused {
+    -fx-border-color: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
 }
 
 .result-display .label {
@@ -478,7 +520,9 @@
 
 #resultDisplay .content {
     -fx-background-color: medium-grey;
+    -fx-background-insets: 0;
     -fx-background-radius: 0;
+    -fx-border-color: transparent;
     -fx-padding: 5px 10px 5px 20px;
 }
 

@@ -85,55 +85,60 @@ public class FilterPanel extends UiPart<Region> {
     }
 
     /**
-     * Binds a filter field to its respective keywords, extracted from {@link ReadOnlyFilterDetails}.
+     * Binds a Filter Panel field to the keywords it is supposed to display
      *
      * <p>When users edit tags in the field, this method sets the {@link ReadOnlyFilterDetails} via
-     * {@link #applyAndExecute(KeywordSetter, Set)}.
+     * {@link #applyKeywordsAndExecuteFilter(KeywordSetter, ObservableSet, Set)}.
      *
-     * <p>When {@code sourceKeywords} changes from elsewhere, this method updates the field UI through a listener so
-     * both UI and Model stay synchronized.
+     * <p>When {@code sourceKeywords} are changes from logic or model, the field UI is updated through a listener
      *
      * @param placeholder   target UI container
      * @param title         section label
      * @param promptText    placeholder text
-     * @param sourceKeywords observable keyword set from {@link ReadOnlyFilterDetails} for this criterion.
+     * @param sourceKeywords observable keyword set from {@link ReadOnlyFilterDetails} for this field.
      * @param keywordSetter setter that writes updated keywords.
      */
     private void bindField(StackPane placeholder, String title, String promptText,
                            ObservableSet<String> sourceKeywords, KeywordSetter keywordSetter) {
-        // Create a FilterPanelField
         FilterPanelField field = new FilterPanelField(
                 title,
                 promptText,
-                // When the field updates, apply the change and execute filtering with the new criteria
-                keywords -> applyAndExecute(keywordSetter, new LinkedHashSet<>(keywords)));
+                // When the field updates, apply the change and execute filtering with the new keywords
+                keywords -> applyKeywordsAndExecuteFilter(
+                        keywordSetter,
+                        sourceKeywords,
+                        new LinkedHashSet<>(keywords)));
 
         field.setKeywords(List.copyOf(sourceKeywords));
         placeholder.getChildren().setAll(field.getRoot());
 
-        // Listen for changes in the source keyword set and update the field accordingly
-        sourceKeywords.addListener((SetChangeListener<? super String>) change ->
+        // Listen for changes in the source keyword set and update the field UI accordingly
+        sourceKeywords.addListener((SetChangeListener<? super String>) ignoredChange ->
                 field.setKeywords(List.copyOf(sourceKeywords)));
     }
 
     /**
-     * Applies one criterion update to a fresh {@link FilterDetails} copy and executes filtering.
+     * Applies one field type update to a fresh {@link FilterDetails} copy then executes filtering.
      *
-     * @param keywordSetter   strategy that updates exactly one keyword set in the copied details.
-     * @param updatedKeywords user-edited keywords for the target criterion.
+     * @param keywordSetter   method that sets old Filter Details keywords to new ones
+     * @param updatedKeywords updated keywords from UI
      *
-     *                        <p>This method preserves untouched criteria by copying from the current read-only
-     *                        details first, then mutating only the requested field via {@code keywordSetter}.
      */
-    private void applyAndExecute(KeywordSetter keywordSetter, Set<String> updatedKeywords) {
+    private List<String> applyKeywordsAndExecuteFilter(
+            KeywordSetter keywordSetter,
+            ObservableSet<String> sourceKeywords,
+            Set<String> updatedKeywords) {
         FilterDetails newFilterDetails = new FilterDetails(filterDetails);
         keywordSetter.set(newFilterDetails, updatedKeywords);
 
         try {
             filterExecutor.execute(newFilterDetails);
         } catch (CommandException e) {
-            // No-op: MainWindow#executeCommand handles user-visible errors.
+            // Rebuild UI from last accepted values.
+            return List.copyOf(sourceKeywords);
         }
+
+        return List.copyOf(sourceKeywords);
     }
 
     /**

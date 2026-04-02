@@ -16,7 +16,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 
 /**
- * Applies a demerit rule to a resident identified by student ID.
+ * Applies a demerit rule to a resident identified by StudentId.
  */
 public class DemeritCommand extends Command {
 

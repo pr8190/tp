@@ -10,7 +10,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 
 /**
- * Deletes a resident identified by student ID from HallLedger.
+ * Deletes a resident identified by StudentId from HallLedger.
  */
 public class DeleteCommand extends Command {
 

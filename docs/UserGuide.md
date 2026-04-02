@@ -60,7 +60,7 @@
   e.g `n=NAME [e=EMAIL]` can be used as `n=John Doe e=johnd@example.com` or as `n=John Doe`.
 
 * Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t=TAG]…​` can be used as ` ` (i.e. 0 times), `t=friend`, `t=friend t=family` etc.
+  e.g. `[t=TAG]…​` can be used as ` ` (i.e. 0 times), `t=friend`, `t=friend t=family` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n=NAME p=PHONE_NUMBER`, `p=PHONE_NUMBER n=NAME` is also acceptable.
@@ -84,7 +84,6 @@ Example:
 When the command is entered, HallLedger opens a Help window containing a quick reference list of supported commands. The Help window also includes a reference to the HallLedger User Guide for more detailed explanations.
 
 ![Help window](images/helpWindow.png)
-
 
 ### Adding a person: `add`
 
@@ -123,15 +122,15 @@ Examples:
 
 Edits an existing student in the _Hall Ledger_.
 
-Format: `edit STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]​`
+Format: `edit STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`
 
 * Edits the student with the specified STUDENT_ID. STUDENT_ID is used to uniquely identify each student in the displayed student's list. The STUDENT_ID must be a valid student ID e.g. `A1234567X`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
 Examples:
-*  `edit A1234567X p=91234567 e=johndoe@example.com` Edits the phone number and email address of the resident with student ID `A1234567X` to be `91234567` and `johndoe@example.com` respectively.
-*  `edit A8765432Y n=Betsy Crower ec=98765432` Edits the name and emergency contact of the resident with student ID `A8765432Y` to be `Betsy Crower` and `98765432` respectively.
+* `edit A1234567X p=91234567 e=johndoe@example.com` edits the phone number and email address of the resident with student ID `A1234567X` to be `91234567` and `johndoe@example.com` respectively.
+* `edit A8765432Y n=Betsy Crower ec=98765432` edits the name and emergency contact of the resident with student ID `A8765432Y` to be `Betsy Crower` and `98765432` respectively.
 
 ### Locating persons: `find`
 
@@ -142,12 +141,12 @@ Finds residents using one or more fields such as name, phone, email, room, stude
 Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
 * Matching ignores letter case, and field order does not matter.
-    * e.g. `find n=Alice y=Y1` gives the same result as `find y=Y1 n=ALICE`.
+  * e.g. `find n=Alice y=Y1` gives the same result as `find y=Y1 n=ALICE`.
 * If you use different fields together, a resident must satisfy all of them.
-    * e.g. `find n=Alice p=9123 y=Y1` returns residents who match name, phone, and year.
+  * e.g. `find n=Alice p=9123 y=Y1` returns residents who match name, phone, and year.
 * If you repeat the same field, matching any one of those values is enough.
-    * e.g. `find y=Y2 y=Y3` returns residents in Year 2 or Year 3.
-    * e.g. `find n=Hans Bo n=Anna Lee` returns residents matching either `n=` value.
+  * e.g. `find y=Y2 y=Y3` returns residents in Year 2 or Year 3.
+  * e.g. `find n=Hans Bo n=Anna Lee` returns residents matching either `n=` value.
 * You can provide up to 10 values per field.
 * `g=GENDER` uses full-value matching (case-insensitive). Other fields use fuzzy-friendly matching.
 
@@ -165,12 +164,9 @@ Result of running `find n=Alice Pauline` from the command line (matching residen
 ***Using the user interface***
 
 * Open the **Filter** panel to show the filter controls.
-
 * Enter one or more keywords in any field, then press Enter to apply the filter.
-
 * You can combine multiple keywords across multiple fields. The same matching behavior as the command-line `find`
   applies.
-
 * To remove a keyword, click the `x` beside that keyword.
 
 ![Filled filter panel](images/filled-filter-panel.png)
@@ -181,22 +177,33 @@ For full matching behavior and examples, see [Fuzzy Matching Details](FuzzyMatch
 
 </box>
 
-
 ### Adding a remark: `remark`
 
 Adds a remark to an existing resident.
 
 Format: `remark i=STUDENT_ID rm=REMARK`
 
-- Remark can be viewed in the resident's profile tab.
-- If a remark already exists for the resident, it will be **overwritten** by the new remark.
-- Empty remark (`rm=`) will **clear** the existing remark.
+* Remark can be viewed in the resident's profile tab.
+* If a remark already exists for the resident, it will be **overwritten** by the new remark.
+* Empty remark (`rm=`) will **clear** the existing remark.
 
-Example:
+Examples:
 * Add/update a remark:
   `remark i=A1234567X rm=Allergic to peanuts`
 * Clear a remark:
   `remark i=A1234567X rm=`
+
+### Listing demerit rules: `demeritlist`
+
+Shows the indexed demerit rules available in HallLedger.
+
+Format: `demeritlist`
+
+* Displays the demerit rule catalogue together with the rule index and point tiers.
+* Use the displayed rule index together with the `demerit` command when recording a resident’s demerit incident.
+
+Example:
+* `demeritlist`
 
 ### Adding a demerit record: `demerit`
 
@@ -204,18 +211,12 @@ Adds a demerit record to an existing resident.
 
 Format: `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`
 
-* The case and order of the attributes and their keywords do not matter.
-  * e.g. `find n=Alice y=Y1` will give the same search
-    result as `find y=Y1 n=ALICE`
-* Using different search parameters forces  the result to match all rules simultaneously.
-  * e.g. `find n=Alice p=91234567 y=Y1` returns persons whose name is Alice, whose phone number is 91234567, and
-    who are also in Year 1.
-* Conversely, searching multiple values under the same parameter returns results that can match any of those values.
-    * e.g. `find y=Y2 y=Y3` returns persons in Year 2 or Year 3.
-    * e.g: `find n=Hans Bo n=Anna` will return `Hans Gruber`, `Bo Yang`, `Anna Lee` etc.
-* Substring matching and fuzzy matching is supported for the Name, Phone, Email, and Student ID fields.
-    * e.g. `p=9123` matches `+65 91234567`
-    * e.g: `n=Liz` matches `Lizah`, `Lis`, `Elizabeth`, etc.
+* Applies the demerit rule identified by `RULE_INDEX` to the resident identified by `STUDENT_ID`.
+* `STUDENT_ID` must refer to an existing resident in HallLedger.
+* `RULE_INDEX` must match one of the indexed rules shown by `demeritlist`.
+* If the same resident receives the same rule again, HallLedger automatically applies the next offence tier for that rule.
+* `rm=` is optional and can be used to store a short context note for that incident.
+* The resident’s displayed total demerit points will update after the command succeeds.
 
 Examples:
 * `demerit i=A1234567X di=18`
@@ -269,8 +270,8 @@ HallLedger data are saved automatically as a JSON file `[JAR file location]/data
 <box type="warning" seamless>
 
 **Caution:**
-If your changes to the data file makes its format invalid, HallLedger will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the HallLedger to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+If your changes to the data file make its format invalid, HallLedger will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+Furthermore, certain edits can cause HallLedger to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 </box>
 
@@ -282,13 +283,13 @@ _Details coming soon ..._
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?
-**A** : Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**Q**: How do I transfer my data to another Computer?  
+**A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HallLedger home folder.
 
-**Q**: Can I edit the data file manually?<br>
+**Q**: Can I edit the data file manually?  
 **A**: Yes. HallLedger stores data locally in a human-editable text file. However, manual edits should be done carefully, because invalid edits may prevent HallLedger from loading the data correctly.
 
-**Q**: How do I go back to seeing the list of all students after running `find`?<br>
+**Q**: How do I go back to seeing the list of all students after running `find`?  
 **A**: Run the `list` command to see the full list of students again.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -304,14 +305,14 @@ _Details coming soon ..._
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**[Add](#adding-a-person-add)**    | `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT` <br> e.g., `add n=James Lee p=+65 98765432 e=james@example.com i=A1234567X r=15R ec=+65 98765432`
-**[Clear](#clearing-all-entries--clear)**  | `clear`
+**[Add](#adding-a-person-add)** | `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT` <br> e.g., `add n=James Lee p=+65 98765432 e=james@example.com i=A1234567X r=15R ec=+65 98765432`
+**[Clear](#clearing-all-entries--clear)** | `clear`
 **[Delete](#deleting-a-resident--delete)** | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`
-**[Edit](#editing-a-person--edit)**   | `edit i=STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [i=STUDENT_ID] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit A1234567X n=James Lee e=jameslee@example.com`
-**[Tag](#tagging-a-student-tag)**    | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`<br> e.g., `tag i=A1234567X m=CS y=Y3`
-**[Find](#locating-persons--find)**   | `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=Y1`
-**[Remark](#adding-a-remark-remark)**   | `remark i=STUDENT_ID rm=REMARK`<br> e.g., `remark i=A030303X rm=Allergic to peanuts`
+**[Edit](#editing-a-person--edit)** | `edit STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit A1234567X n=James Lee e=jameslee@example.com`
+**[Tag](#tagging-a-student-tag)** | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`<br> e.g., `tag i=A1234567X m=CS y=Y3`
+**[Find](#locating-persons-find)** | `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=Y1`
+**[Remark](#adding-a-remark-remark)** | `remark i=STUDENT_ID rm=REMARK`<br> e.g., `remark i=A1234567X rm=Allergic to peanuts`
 **[Demerit List](#listing-demerit-rules-demeritlist)** | `demeritlist`
 **[Add Demerit](#adding-a-demerit-record-demerit)** | `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`<br> e.g., `demerit i=A1234567X di=18 rm=Visitor during quiet hours`
-**[List](#listing-all-persons--list)**   | `list`
-**[Help](#viewing-help--help)**   | `help`
+**[List](#listing-all-persons-list)** | `list`
+**[Help](#viewing-help--help)** | `help`

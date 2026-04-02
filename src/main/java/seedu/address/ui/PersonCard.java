@@ -4,6 +4,8 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -22,21 +24,21 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label name;
+    private TextField name;
     @FXML
     private Label id;
     @FXML
-    private Label phone;
+    private TextField phone;
     @FXML
-    private Label studentId;
+    private TextField studentId;
     @FXML
-    private Label email;
+    private TextField email;
     @FXML
-    private Label roomNumber;
+    private TextField roomNumber;
     @FXML
-    private Label emergencyContact;
+    private TextField emergencyContact;
     @FXML
-    private Label demeritPoints;
+    private TextField demeritPoints;
     @FXML
     private FlowPane tags;
 
@@ -55,10 +57,30 @@ public class PersonCard extends UiPart<Region> {
         emergencyContact.setText(person.getEmergencyContact().value);
         demeritPoints.setText(String.valueOf(person.getTotalDemeritPoints()));
 
+        handleClickOnTextField();
+
         person.getTags().values().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(
                         new Label(TagFormatter.formatTagValue(tag))
                 ));
+    }
+
+    /**
+     * Handles the click event on the text fields to make it a click on the card pane instead
+     */
+    private void handleClickOnTextField() {
+        phone.addEventFilter(MouseEvent.MOUSE_PRESSED,
+                event -> cardPane.fireEvent(event.copyFor(cardPane, cardPane)));
+        studentId.addEventFilter(MouseEvent.MOUSE_PRESSED,
+                event -> cardPane.fireEvent(event.copyFor(cardPane, cardPane)));
+        email.addEventFilter(MouseEvent.MOUSE_PRESSED,
+                event -> cardPane.fireEvent(event.copyFor(cardPane, cardPane)));
+        roomNumber.addEventFilter(MouseEvent.MOUSE_PRESSED,
+                event -> cardPane.fireEvent(event.copyFor(cardPane, cardPane)));
+        emergencyContact.addEventFilter(MouseEvent.MOUSE_PRESSED,
+                event -> cardPane.fireEvent(event.copyFor(cardPane, cardPane)));
+        demeritPoints.addEventFilter(MouseEvent.MOUSE_PRESSED,
+                event -> cardPane.fireEvent(event.copyFor(cardPane, cardPane)));
     }
 }

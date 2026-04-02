@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Region?>
-<?import javafx.scene.layout.VBox?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <GridPane HBox.hgrow="ALWAYS">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
@@ -18,16 +13,16 @@
 
         <VBox alignment="CENTER_LEFT" minHeight="120" GridPane.columnIndex="0">
             <padding>
-                <Insets top="3.0" right="5.0" bottom="3.0" left="15.0" />
+                <Insets bottom="3.0" left="15.0" right="5.0" top="3.0" />
             </padding>
 
-            <HBox spacing="0.5" alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="0.5">
                 <Label fx:id="id" styleClass="cell_big_label">
                     <minWidth>
                         <Region fx:constant="USE_PREF_SIZE" />
                     </minWidth>
                 </Label>
-                <Label fx:id="name" text="$first" styleClass="cell_big_label" />
+                <TextField fx:id="name" editable="false" styleClass="cell_big_field" />
             </HBox>
 
             <FlowPane fx:id="tags">
@@ -42,25 +37,55 @@
                     <ColumnConstraints hgrow="ALWAYS" />
                 </columnConstraints>
 
-                <Label text="Phone:" styleClass="cell_small_label" GridPane.rowIndex="0" GridPane.columnIndex="0" />
-                <Label fx:id="phone" styleClass="cell_small_label" GridPane.rowIndex="0" GridPane.columnIndex="1" />
+                <Label styleClass="cell_small_label" text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <TextField fx:id="phone" editable="false" styleClass="cell_small_field"
+                               HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
-                <Label text="Student ID:" styleClass="cell_small_label" GridPane.rowIndex="1" GridPane.columnIndex="0" />
-                <Label fx:id="studentId" styleClass="cell_small_label" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+                <Label styleClass="cell_small_label" text="Student ID:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <TextField fx:id="studentId" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
-                <Label text="Email:" styleClass="cell_small_label" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-                <Label fx:id="email" styleClass="cell_small_label" GridPane.rowIndex="2" GridPane.columnIndex="1" />
+                <Label styleClass="cell_small_label" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <TextField fx:id="email" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
-                <Label text="Room:" styleClass="cell_small_label" GridPane.rowIndex="3" GridPane.columnIndex="0" />
-                <Label fx:id="roomNumber" styleClass="cell_small_label" GridPane.rowIndex="3" GridPane.columnIndex="1" />
+                <Label styleClass="cell_small_label" text="Room:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <TextField fx:id="roomNumber" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
-                <Label text="Emergency Contact:" styleClass="cell_small_label" GridPane.rowIndex="4" GridPane.columnIndex="0" />
-                <Label fx:id="emergencyContact" styleClass="cell_small_label" GridPane.rowIndex="4" GridPane.columnIndex="1" />
+                <Label styleClass="cell_small_label" text="Emergency Contact:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <TextField fx:id="emergencyContact" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
-                <Label text="Demerit Points:" styleClass="cell_small_label" GridPane.rowIndex="5" GridPane.columnIndex="0" />
-                <Label fx:id="demeritPoints" styleClass="cell_small_label" GridPane.rowIndex="5" GridPane.columnIndex="1" />
+                <Label styleClass="cell_small_label" text="Demerit Points:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <TextField fx:id="demeritPoints" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
+            <rowConstraints>
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+               <RowConstraints />
+            </rowConstraints>
             </GridPane>
         </VBox>
+      <rowConstraints>
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
 
     <stylesheets>

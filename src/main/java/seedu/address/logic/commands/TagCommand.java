@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG_YEAR;
 import java.util.HashMap;
 import java.util.Map;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,7 +19,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
 /**
- * Adds a tag to a resident in the hall ledger.
+ * Adds a tag to a resident in the address book.
  * Existing tags will be overwritten by the newly provided tags.
  */
 public class TagCommand extends Command {
@@ -35,14 +36,14 @@ public class TagCommand extends Command {
             + "Example: " + COMMAND_WORD + " i=A1234567X "
             + PREFIX_TAG_YEAR + "2 "
             + PREFIX_TAG_MAJOR + "CS "
-            + PREFIX_TAG_GENDER + "Male";
+            + PREFIX_TAG_GENDER + "he/him";
 
     public static final String MESSAGE_SUCCESS = "Added Tag to Resident: %1$s";
     public static final String MESSAGE_TAG_NOT_ADDED =
             "At least one tag must be provided.";
 
-    public final StudentId studentId;
-    public final Map<TagType, Tag> tags;
+    private final StudentId studentId;
+    private final Map<TagType, Tag> tags;
 
     /**
      * Creates a tag command.
@@ -50,12 +51,18 @@ public class TagCommand extends Command {
     public TagCommand(StudentId studentId, Map<TagType, Tag> tags) {
         requireNonNull(studentId);
         requireNonNull(tags);
+
+        if (tags.isEmpty()) {
+            throw new IllegalArgumentException(MESSAGE_TAG_NOT_ADDED);
+        }
+
         this.studentId = studentId;
         this.tags = tags;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
         Person personToTag = model.getPersonByStudentId(studentId)
                 .orElseThrow(() -> new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId)));
 
@@ -68,9 +75,9 @@ public class TagCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code tsggedPerson}
+     * Creates and returns a {@code Person} with the details of {@code taggedPerson}
      */
-    public static Person createTaggedPerson(Person personToTag, Map<TagType, Tag> tags) {
+    private static Person createTaggedPerson(Person personToTag, Map<TagType, Tag> tags) {
         HashMap<TagType, Tag> updatedTags = new HashMap<>(personToTag.getTags());
         updatedTags.putAll(tags);
 
@@ -85,5 +92,27 @@ public class TagCommand extends Command {
                 updatedTags,
                 personToTag.getDemeritIncidents()
         );
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof TagCommand otherTagCommand)) {
+            return false;
+        }
+
+        return studentId.equals(otherTagCommand.studentId)
+                && tags.equals(otherTagCommand.tags);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("studentId", studentId)
+                .add("tags", tags)
+                .toString();
     }
 }

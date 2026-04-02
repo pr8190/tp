@@ -47,10 +47,44 @@
     -fx-text-fill: white !important;
 }
 
+.cell_big_field,
+.cell_big_field:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 16px;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.cell_big_field .content {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
 .cell_small_label {
     -fx-font-family: "SansSerif";
     -fx-font-size: 12px !important;
     -fx-text-fill: white !important;
+}
+
+.cell_small_field,
+.cell_small_field:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: "SansSerif";
+    -fx-font-size: 12px;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.cell_small_field .content {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
 }
 
 /* the tags */

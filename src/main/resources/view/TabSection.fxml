@@ -14,7 +14,7 @@
                 <FontIcon iconLiteral="dashicons-groups" iconSize="20" iconColor="white"/>
             </graphic>
             <content>
-                <StackPane fx:id="studentDetailsTabPlaceholder" minHeight="500"/>
+                <StackPane fx:id="studentDetailsTabPlaceholder" minHeight="300"/>
             </content>
         </Tab>
         <Tab text="Dashboard">
@@ -22,7 +22,7 @@
                 <FontIcon iconLiteral="dashicons-dashboard" iconSize="20" iconColor="white"/>
             </graphic>
             <content>
-                <StackPane fx:id="dashboardTabPlaceholder" minHeight="500"/>
+                <StackPane fx:id="dashboardTabPlaceholder" minHeight="300"/>
             </content>
         </Tab>
     </tabs>

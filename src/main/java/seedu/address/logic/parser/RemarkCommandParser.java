@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 
 import seedu.address.logic.commands.RemarkCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.StudentId;
 
 /**
@@ -31,7 +32,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
         }
 
         StudentId studentId = ParserUtil.parseStudentId(argumentMultimap.getValue(PREFIX_STUDENT_ID).get());
-        String remark = argumentMultimap.getValue(CliSyntax.PREFIX_REMARK).orElse("");
+        Remark remark = new Remark(argumentMultimap.getValue(CliSyntax.PREFIX_REMARK).orElse(""));
 
         return new RemarkCommand(studentId, remark);
     }
