@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER"
-            styleClass="undecorated-scroll-pane"
-            stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-   <content>
-      <VBox prefWidth="439.0" spacing="10" styleClass="panel-container">
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10"
+      styleClass="panel-container"
+      stylesheets="@DarkTheme.css">
 
-          <Label styleClass="panel-heading" text="Demerit Records" />
+    <TableView fx:id="demeritTableView" styleClass="custom-table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="indexColumn" prefWidth="50.0" text="#" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="360.0" text="Description" />
+            <TableColumn fx:id="remarkColumn" prefWidth="260.0" text="Remark" />
+            <TableColumn fx:id="pointsColumn" prefWidth="80.0" text="Points" />
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </TableView>
 
-          <TableView fx:id="demeritTableView" styleClass="custom-table" VBox.vgrow="ALWAYS">
-              <columns>
-                  <TableColumn fx:id="indexColumn" prefWidth="40.0" text="#" />
-                  <TableColumn fx:id="dateColumn" prefWidth="100.0" text="Date" />
-                  <TableColumn fx:id="descriptionColumn" prefWidth="250.0" text="Description" />
-                  <TableColumn fx:id="severityColumn" prefWidth="75.0" text="Severity" />
-              </columns>
-              <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-              </columnResizePolicy>
-          </TableView>
-
-          <HBox alignment="CENTER_RIGHT" fillHeight="false">
-              <Button styleClass="btn-danger" text="Delete Selected" />
-          </HBox>
-
-      </VBox>
-   </content>
-</ScrollPane>
+</VBox>

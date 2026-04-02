@@ -14,11 +14,12 @@ import seedu.address.ui.UiPart;
 public class StudentDetailsTab extends UiPart<Region> {
 
     private static final String FXML = "StudentDetailsTab.fxml";
+
     /**
-     * The person whose details would be shown in the directory tab
-     **/
-    // TODO: Implement selectedPerson logic
+     * The person whose details would be shown in the directory tab.
+     */
     private final ObservableValue<Person> selectedPerson;
+
     @FXML
     private TabPane studentDetailsTabPane;
 
@@ -29,7 +30,7 @@ public class StudentDetailsTab extends UiPart<Region> {
     private StackPane demeritRecordsPlaceholder;
 
     /**
-     * Creates a {@code StudentDetailsTab} with the given {@code Logic}.
+     * Creates a {@code StudentDetailsTab} with the selected person observable.
      */
     public StudentDetailsTab(ObservableValue<Person> selectedPerson) {
         super(FXML);
@@ -41,7 +42,7 @@ public class StudentDetailsTab extends UiPart<Region> {
         Profile profile = new Profile(selectedPerson);
         profilePlaceholder.getChildren().add(profile.getRoot());
 
-        DemeritRecords demeritRecords = new DemeritRecords();
+        DemeritRecords demeritRecords = new DemeritRecords(selectedPerson);
         demeritRecordsPlaceholder.getChildren().add(demeritRecords.getRoot());
     }
 }
