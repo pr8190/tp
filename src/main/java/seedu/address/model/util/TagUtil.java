@@ -5,6 +5,9 @@ import java.util.HashMap;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
+/**
+ * Utility class to help with building tag sets.
+ */
 public class TagUtil {
     /**
      * Returns a tag set containing the list of strings given.
