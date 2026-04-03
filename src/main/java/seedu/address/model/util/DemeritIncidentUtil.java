@@ -7,7 +7,7 @@ import seedu.address.model.demerit.DemeritIncident;
 import seedu.address.model.demerit.DemeritRule;
 import seedu.address.model.demerit.DemeritRuleCatalogue;
 
-public class DemeritIncidentUti {
+public class DemeritIncidentUtil {
     /**
      * Returns a demerit incident list containing the given tuples:
      * (ruleIndex, offenceNumber, remark).
