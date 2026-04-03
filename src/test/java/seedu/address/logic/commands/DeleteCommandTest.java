@@ -69,17 +69,6 @@ public class DeleteCommandTest {
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
-    @Test
-    public void execute_invalidStudentIdFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-
-        Person hiddenPerson = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
-        StudentId hiddenStudentId = hiddenPerson.getStudentId();
-        DeleteCommand deleteCommand = new DeleteCommand(hiddenStudentId);
-
-        assertCommandFailure(deleteCommand, model,
-                String.format(DeleteCommand.MESSAGE_PERSON_NOT_FOUND, hiddenStudentId));
-    }
 
     @Test
     public void equals() {

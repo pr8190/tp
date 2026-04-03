@@ -63,7 +63,6 @@ public class TagCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.showAllPersons(); // Ensure the person to tag is visible before tagging
 
         Person personToTag = model.getPersonByStudentId(studentId)
                 .orElseThrow(() -> new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId)));
@@ -71,6 +70,7 @@ public class TagCommand extends Command {
         Person taggedPerson = createTaggedPerson(personToTag, tags);
 
         model.setPerson(personToTag, taggedPerson);
+        model.showAllPersons();
         model.setSelectedPerson(taggedPerson);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(taggedPerson)));

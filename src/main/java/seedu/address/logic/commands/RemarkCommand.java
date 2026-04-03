@@ -44,14 +44,15 @@ public class RemarkCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.showAllPersons(); // Ensure the person to remark is visible before adding remark
 
         Person personToRemark = model.getPersonByStudentId(studentId)
                 .orElseThrow(() -> new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId)));
 
         Person editedPerson = createEditedPerson(personToRemark, remark);
 
+
         model.setPerson(personToRemark, editedPerson);
+        model.showAllPersons();
         model.setSelectedPerson(editedPerson); // Select the edited person in the UI
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(editedPerson)));

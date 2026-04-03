@@ -53,7 +53,6 @@ public class DemeritCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        model.showAllPersons(); // ensure the person to update is visible before applying demerit
 
         Person personToUpdate = model.getPersonByStudentId(targetStudentId)
                 .orElseThrow(() -> new CommandException(String.format(MESSAGE_STUDENT_NOT_FOUND, targetStudentId)));
@@ -88,7 +87,10 @@ public class DemeritCommand extends Command {
                 updatedIncidents
         );
 
+
         model.setPerson(personToUpdate, updatedPerson);
+        model.showAllPersons();
+        model.setSelectedPerson(updatedPerson);
 
         return new CommandResult(String.format(
                 MESSAGE_ADD_DEMERIT_SUCCESS,
