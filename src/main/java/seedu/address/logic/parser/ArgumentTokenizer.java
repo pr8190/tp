@@ -61,7 +61,6 @@ public class ArgumentTokenizer {
 
         while (matcher.find()) {
             String found = matcher.group(0).trim();
-            System.out.println(found);
             if (!known.contains(found)) {
                 return found;
             }
