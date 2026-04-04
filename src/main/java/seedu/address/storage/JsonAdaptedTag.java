@@ -64,7 +64,7 @@ class JsonAdaptedTag {
             throw new IllegalValueException(MESSAGE_INVALID_TAG_TYPE);
         }
 
-        if (!Tag.isValidTagName(tagName, modelTagType)) {
+        if (!Tag.isValidTagContent(tagName, modelTagType)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
 

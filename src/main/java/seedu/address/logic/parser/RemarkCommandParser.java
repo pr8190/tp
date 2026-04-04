@@ -18,11 +18,11 @@ import seedu.address.model.person.StudentId;
 public class RemarkCommandParser implements Parser<RemarkCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the RemarkCommand
-     * and returns a RemarkCommand object for execution.
+     * Parses the given {@code args} and returns a {@link RemarkCommand} for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format
-     * or student ID is missing or invalid.
+     * @param args the raw argument string; must not be {@code null}
+     * @throws ParseException if the input is missing a student ID or contains unknown
+     *                        or duplicate prefixes
      */
     public RemarkCommand parse(String args) throws ParseException {
         requireNonNull(args);

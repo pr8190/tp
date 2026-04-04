@@ -36,7 +36,7 @@ public class TagCommandParser implements Parser<TagCommand> {
      * and returns a TagCommand object for execution.
      *
      * @throws ParseException if the user input does not conform the expected format
-     * or student ID is missing or invalid.
+     *                        or student ID is missing or invalid.
      */
     public TagCommand parse(String args) throws ParseException {
         requireNonNull(args);
