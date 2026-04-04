@@ -20,11 +20,14 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the RemarkCommand
      * and returns a RemarkCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
+     * or student ID is missing or invalid.
      */
     public RemarkCommand parse(String args) throws ParseException {
         requireNonNull(args);
         checkForUnknownPrefixes(args);
+
         ArgumentMultimap argumentMultimap =
                 ArgumentTokenizer.tokenize(args,
                         CliSyntax.PREFIX_STUDENT_ID,

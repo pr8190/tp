@@ -26,7 +26,7 @@ public enum TagType {
     /**
      * Tag representing the resident's gender pronouns.
      * Valid content is one of {@code she/her}, {@code he/him}, or {@code they/them}.
-     * Input is normalised to lowercase before validation — see {@link Tag#getNormalisedTagName}.
+     * Input is normalised to lowercase before validation — see {@link Tag#getNormalisedTagContent}.
      */
     GENDER("^(she/her|he/him|they/them)$");
 

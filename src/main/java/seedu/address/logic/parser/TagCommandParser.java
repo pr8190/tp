@@ -19,14 +19,24 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
 /**
- * Parses input arguments and creates a TagCommand object.
+ * Parses input arguments and creates a {@link TagCommand} object.
+ *
+ * <p>Expects a student ID prefix and at least one tag prefix. Recognised prefixes are:
+ * <ul>
+ *   <li>{@code PREFIX_STUDENT_ID} — identifies the target resident</li>
+ *   <li>{@code PREFIX_TAG_GENDER} — gender pronouns tag</li>
+ *   <li>{@code PREFIX_TAG_MAJOR} — academic major tag</li>
+ *   <li>{@code PREFIX_TAG_YEAR} — year of study tag</li>
+ * </ul>
  */
 public class TagCommandParser implements Parser<TagCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the TagCommand
-     * and returns an TagCommand object for execution.
+     * and returns a TagCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
+     * or student ID is missing or invalid.
      */
     public TagCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -52,6 +62,13 @@ public class TagCommandParser implements Parser<TagCommand> {
         return new TagCommand(studentId, tags);
     }
 
+    /**
+     * Parses the tags from the {@code ArgumentMultimap} and returns a Map of TagType to Tag.
+     *
+     * @param argumentMultimap the ArgumentMultimap containing the parsed arguments.
+     * @return a Map of TagType to Tag containing the parsed tags.
+     * @throws ParseException if any of the tag values are invalid or if no tags are provided.
+     */
     private Map<TagType, Tag> parseTags(ArgumentMultimap argumentMultimap) throws ParseException {
         Map<TagType, Tag> tags = new HashMap<>();
         try {
