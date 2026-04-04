@@ -30,7 +30,7 @@ public class RemarkCommand extends Command {
     private final Remark remark;
 
     /**
-     * Creates a {@code RemarkCommand} to add the specified {@code Remark}.
+     * Creates a {@code RemarkCommand} to add the specified {@code Remark}
      * to the resident identified by the given {@code StudentId}.
      */
     public RemarkCommand(StudentId studentId, Remark remark) {
@@ -57,7 +57,7 @@ public class RemarkCommand extends Command {
     }
 
     /**
-     * Creates and returns a new {@code Person} with the specified remark
+     * Creates and returns a new {@code Person} with the specified remark.
      * All other fields remain unchanged.
      *
      * @param personToRemark the original resident whose details are to be copied.

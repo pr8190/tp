@@ -46,7 +46,8 @@ public class TagCommand extends Command {
     private final Map<TagType, Tag> tags;
 
     /**
-     * Creates a tag command.
+     * Creates a {@code TagCommand} to add the specified {@code tags}
+     * to the resident identified by the given {@code StudentId}.
      */
     public TagCommand(StudentId studentId, Map<TagType, Tag> tags) {
         requireNonNull(studentId);
@@ -77,7 +78,12 @@ public class TagCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code taggedPerson}
+     * Creates and returns a new {@code Person} with the specified tags.
+     * All other fields remain unchanged.
+     *
+     * @param personToTag the original resident whose details are to be copied.
+     * @param tags the new tags to assign to the resident.
+     * @return a new {@code Person} instance with the updated tags.
      */
     private static Person createTaggedPerson(Person personToTag, Map<TagType, Tag> tags) {
         HashMap<TagType, Tag> updatedTags = new HashMap<>(personToTag.getTags());
