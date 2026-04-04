@@ -82,7 +82,7 @@ public class FilterPanel extends UiPart<Region> {
                 List.of("1", "2", "3", "4", "5", "6"),
                 filterDetails.getTagYearKeywords(), FilterDetails::setTagYearKeywords);
 
-        bindComboBoxField(genderFilterFieldPlaceholder, "Search by Gender (exact)", "E.g: he/him",
+        bindComboBoxField(genderFilterFieldPlaceholder, "Search by Gender", "E.g: he/him",
                 List.of("he/him", "she/her", "they/them"),
                 filterDetails.getTagGenderKeywords(), FilterDetails::setTagGenderKeywords);
     }
