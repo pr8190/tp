@@ -78,8 +78,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         FilterDetails filterDetails = buildFilterDetails(argMultimap);
         validateFilterKeywordLimits(filterDetails);
 
-        // Warning message indicate show users that invalid keywords are being used for a prefix that only accepts
-        // a fixed number of values (gender and year).
+        // Message warns users that invalid keywords are being used for prefixes that only accepts
+        // a fixed number of keywords (gender and year). Operation would still proceed with valid keywords.
         String warningMessage = buildWarningMessage(
                 collectInvalidGenderKeywords(argMultimap.getAllValues(PREFIX_TAG_GENDER)),
                 collectInvalidYearKeywords(argMultimap.getAllValues(PREFIX_TAG_YEAR)));
@@ -107,9 +107,9 @@ public class FindCommandParser implements Parser<FindCommand> {
      *
      * <p><b>Examples:</b>
      * <ul>
-     *   <li>Valid: "find n=Alice p=91234567" → tokenized successfully</li>
-     *   <li>Invalid: "find Alice p=91234567" → has preamble "Alice"</li>
-     *   <li>Invalid: "find n= p=" → no keywords for prefixes</li>
+     *   <li>Valid: "find n=Alice p=91234567" -> tokenized successfully</li>
+     *   <li>Invalid: "find Alice p=91234567"-> has preamble "Alice"</li>
+     *   <li>Invalid: "find n= p=" -> no keywords for prefixes</li>
      * </ul>
      *
      * @param args the raw user input to tokenize and validate
@@ -134,13 +134,13 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
-     * Builds {@code FilterDetails} from tokenized arguments, applying normalization where needed.
+     * Builds {@code FilterDetails} from tokenized arguments.
      *
      * <p><b>Processing by prefix type:</b>
      * <ul>
      *   <li><b>Simple prefixes</b> (name, email, phone, etc.): Converted to Set, duplicates removed</li>
      *   <li><b>Prefixes that only accept a fixed number of valid keywords (gender, year):</b> Normalized, then
-     *   exclude invalid keywords from {@code FilterDetails} </li>
+     *   invalid keywords are excluded from {@code FilterDetails} </li>
      * </ul>
      *
      * @param argMultimap tokenized arguments with validated format
@@ -171,11 +171,14 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
-     * Validates that no prefix has more than the maximum allowed keywords. This limit is set in
-     * {@link FilterDetails#MAX_VALUES_PER_PREFIX}.
+     /**
+     * Validates that each prefix in the filter doesn't exceed the keyword limit.
+     *
+     * <p>This method delegates to {@link FilterDetails#validateKeywordLimits()} which is
+     * responsible for checking that each prefix has at most 10 keywords.
      *
      * @param filterDetails the filter to validate
-     * @throws ParseException if any prefix exceeds the keyword limit
+     * @throws ParseException if validation fails (converted from IllegalArgumentException)
      */
     private void validateFilterKeywordLimits(FilterDetails filterDetails) throws ParseException {
         try {
@@ -209,7 +212,6 @@ public class FindCommandParser implements Parser<FindCommand> {
             warnings.add(String.format(MESSAGE_INVALID_YEAR_KEYWORDS_IGNORED, invalidYears));
         }
 
-        // Combine all warnings with newlines (empty string if no warnings)
         return String.join("\n", warnings);
     }
 
@@ -246,7 +248,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Normalizes year keywords to numeric form and excludes invalid ones.
      *
-     * <p><b>Example:</b> Input ["1", "invalid", "2"] → Output ["1", "2"]
+     * <p><b>Example:</b> Input ["1", "invalid", "2"] -> Output ["1", "2"]
      *
      * @param rawYearKeywords user-provided year keywords
      * @return set of valid normalized years, excludes invalid keywords entirely
@@ -267,7 +269,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Normalizes gender keywords to standard forms and excludes invalid ones.
      *
-     * <p><b>Example:</b> Input ["he", "invalid", "she/her"] → Output ["he/him", "she/her"]
+     * <p><b>Example:</b> Input ["he", "invalid", "she/her"] -> Output ["he/him", "she/her"]
      *
      * @param rawGenderKeywords user-provided gender keywords
      * @return set of valid normalized genders, excludes invalid keywords entirely
