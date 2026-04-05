@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" spacing="5.0" xmlns="http://javafx.com/javafx/17.0.12">
+
+<VBox spacing="5.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="titleLabel" styleClass="label-bright" stylesheets="@DarkTheme.css" text="Search by Field"/>
+        <TextField fx:id="keywordInputField" onAction="#handleFieldEntered" promptText="E.g: Field example"
+                   styleClass="filter-panel-text-field"/>
         <HBox>
             <children>
-                <ComboBox fx:id="keywordComboBox" editable="false" onAction="#handleChoiceSelected" prefHeight="25.0"
-                          prefWidth="850.0" promptText="E.g: Field example" visibleRowCount="6" HBox.hgrow="ALWAYS"
-                          styleClass="filter-panel-combo-box"/>
-            </children>
-        </HBox>
-        <HBox>
-            <children>
-                <Label fx:id="keywordsLabel" minWidth="57.0" styleClass="label-small" text="Keywords:"/>
+                <Label minWidth="57.0" styleClass="label-small" text="Keywords:"/>
                 <FlowPane fx:id="keywordsFlowPane" rowValignment="TOP" styleClass="filter-panel-flow-pane"
                           HBox.hgrow="ALWAYS">
                     <HBox.margin>
@@ -29,3 +25,4 @@
         </HBox>
     </children>
 </VBox>
+
