@@ -148,7 +148,7 @@ public class ParserUtil {
     public static Optional<String> tryNormalizeYear(String year) {
         requireNonNull(year);
         String trimmedYear = year.trim();
-        if (!TagType.YEAR.isValidTagName(trimmedYear)) {
+        if (!TagType.YEAR.isValidTagContent(trimmedYear)) {
             return Optional.empty();
         }
         return Optional.of(trimmedYear);
