@@ -24,7 +24,7 @@ public class RemarkCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " i=A1234567Z rm=Is vegetarian";
 
-    public static final String MESSAGE_SUCCESS = "Added Remark to Resident: %1$s";
+    public static final String MESSAGE_SUCCESS = "Updated Remark for Resident: %1$s";
 
     private final StudentId targetStudentId;
     private final Remark remark;
