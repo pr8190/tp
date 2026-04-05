@@ -28,8 +28,6 @@ public class FindCommand extends Command {
     private final FilterDetails filterDetails;
     private final PersonMatchesDetailsPredicate predicate;
 
-    private final Logger logger = LogsCenter.getLogger(FindCommand.class);
-
     /**
      * Creates a {@code FindCommand} using the given {@code FilterDetails}.
      */
@@ -42,6 +40,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
 
+        Logger logger = LogsCenter.getLogger(FindCommand.class);
         logger.info("[FIND COMMAND][" + predicate + "]");
 
         model.setFilterDetails(filterDetails);
