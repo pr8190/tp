@@ -17,6 +17,8 @@ public class ClearCommand extends Command {
     }
 
     public int getNumberOfPersons(Model model) {
+        assert model != null : "Model should not be null";
+
         return model.getAddressBook().getPersonList().size();
     }
 
