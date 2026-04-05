@@ -21,18 +21,20 @@ public class FilterPanelField extends AbstractFilterPanelInput {
      * @param promptText Prompt text shown in the input field.
      * @param onKeywordsChanged Callback invoked when keywords are edited from the UI.
      */
-    public FilterPanelField(String title, String promptText, AbstractFilterPanelInput.KeywordsChangedHandler onKeywordsChanged) {
+    public FilterPanelField(String title, String promptText, KeywordsChangedHandler onKeywordsChanged) {
         super(FXML, title, onKeywordsChanged);
         requireNonNull(promptText);
 
         keywordInputField.setPromptText(promptText);
     }
 
+    // Handles user input from the text field, adds the keyword and clears the field for the next input.
     @FXML
     private void handleFieldEntered() {
         tryAddKeyword(keywordInputField.getText());
     }
 
+    // Tries to add the given keyword to the list, if valid. Clears the input field regardless of success.
     @Override
     protected void clearInputControl() {
         keywordInputField.clear();
