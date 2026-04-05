@@ -24,6 +24,7 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.TagType;
+import seedu.address.model.util.PersonBuilder;
 import seedu.address.storage.JsonAddressBookStorage;
 
 /**

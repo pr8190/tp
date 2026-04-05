@@ -18,7 +18,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.util.PersonBuilder;
 
 public class TagCommandTest {
 

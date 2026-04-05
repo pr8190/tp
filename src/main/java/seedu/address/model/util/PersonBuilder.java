@@ -1,8 +1,11 @@
-package seedu.address.testutil;
+package seedu.address.model.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import seedu.address.model.demerit.DemeritIncident;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmergencyContact;
 import seedu.address.model.person.Name;
@@ -13,7 +16,6 @@ import seedu.address.model.person.RoomNumber;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
-import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Person objects.
@@ -36,6 +38,7 @@ public class PersonBuilder {
     private EmergencyContact emergencyContact;
     private Map<TagType, Tag> tags = new HashMap<>();
     private Remark remark;
+    private List<DemeritIncident> demeritIncidents = new ArrayList<>();
 
     /**
      * Creates a {@code PersonBuilder} with the default details.
@@ -62,6 +65,7 @@ public class PersonBuilder {
         emergencyContact = personToCopy.getEmergencyContact();
         remark = personToCopy.getRemark();
         tags = new HashMap<>(personToCopy.getTags());
+        demeritIncidents = new ArrayList<>(personToCopy.getDemeritIncidents());
     }
 
     /**
@@ -76,7 +80,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(Object[]... tags) {
-        this.tags = SampleDataUtil.getTagSet(tags);
+        this.tags = TagUtil.getTagSet(tags);
         return this;
     }
 
@@ -136,7 +140,21 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Parses the demerit incidents from the given tuples: (ruleIndex, offenceNumber, remark).
+     */
+    public PersonBuilder withDemeritIncidents(Object[]... incidents) {
+        this.demeritIncidents = DemeritIncidentUtil.getDemeritIncidentList(incidents);
+        return this;
+    }
+
+    /**
+     * Builds and returns the {@code Person} object.
+     *
+     * @return the built Person object
+     */
     public Person build() {
-        return new Person(name, phone, email, studentId, roomNumber, emergencyContact, remark, tags);
+        return new Person(name, phone, email, studentId, roomNumber, emergencyContact, remark, tags,
+                demeritIncidents);
     }
 }
