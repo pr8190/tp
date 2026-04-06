@@ -76,7 +76,7 @@ public class DashboardTab extends UiPart<Region> {
     static long countByTag(javafx.collections.ObservableList<? extends Person> list, String tagName) {
         return list.stream()
                 .filter(p -> p.getTags().values().stream()
-                        .anyMatch(t -> t.tagName.equalsIgnoreCase(tagName)))
+                        .anyMatch(t -> t.tagContent.equalsIgnoreCase(tagName)))
                 .count();
     }
 }

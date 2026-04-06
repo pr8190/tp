@@ -20,7 +20,7 @@ public class Tag {
             + "\nGender tags can be: she/her, he/him or they/them"
             + "\nYear tags should be a positive integer between 1 and 6 inclusive.";
 
-    public final String tagName;
+    public final String tagContent;
     public final TagType tagType;
 
     /**
@@ -35,7 +35,7 @@ public class Tag {
 
         checkArgument(isValidTagContent(tagContent, tagType), MESSAGE_CONSTRAINTS);
 
-        this.tagName = tagContent;
+        this.tagContent = tagContent;
         this.tagType = tagType;
     }
 
@@ -53,8 +53,8 @@ public class Tag {
         return type.isValidTagContent(test);
     }
 
-    public String getTagName() {
-        return tagName;
+    public String getTagContent() {
+        return tagContent;
     }
 
     public TagType getTagType() {
@@ -69,17 +69,17 @@ public class Tag {
         if (!(other instanceof Tag otherTag)) {
             return false;
         }
-        return tagType == otherTag.tagType && tagName.equals(otherTag.tagName);
+        return tagType == otherTag.tagType && tagContent.equals(otherTag.tagContent);
     }
 
     @Override
     public int hashCode() {
-        return tagName.hashCode();
+        return tagContent.hashCode();
     }
 
     @Override
     public String toString() {
-        return '[' + tagName + ']';
+        return '[' + tagContent + ']';
     }
 
 }

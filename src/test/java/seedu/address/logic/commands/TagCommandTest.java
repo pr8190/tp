@@ -72,7 +72,7 @@ public class TagCommandTest {
         Map<TagType, Tag> resultTags = model.getFilteredPersonList().get(0).getTags();
         assertEquals(new Tag(TagType.YEAR, "2"), resultTags.get(TagType.YEAR));
         assertEquals(new Tag(TagType.MAJOR, "CS"), resultTags.get(TagType.MAJOR));
-        assertEquals(new Tag(TagType.GENDER, "He/Him"), resultTags.get(TagType.GENDER));
+        assertEquals(new Tag(TagType.GENDER, "he/him"), resultTags.get(TagType.GENDER));
     }
 
     @Test

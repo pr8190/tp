@@ -17,8 +17,8 @@ public class TagFormatter {
      */
     public static String formatTagValue(Tag tag) {
         if (tag.getTagType() == TagType.YEAR) {
-            return YEAR_PREFIX + tag.getTagName();
+            return YEAR_PREFIX + tag.getTagContent();
         }
-        return tag.getTagName();
+        return tag.getTagContent();
     }
 }

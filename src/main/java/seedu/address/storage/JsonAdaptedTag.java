@@ -19,7 +19,7 @@ class JsonAdaptedTag {
     private static final String MESSAGE_INVALID_TAG_TYPE = "Tag must be alphanumeric. "
             + "Only gender tags may contain '/' eg: she/her or he/him or they/them"
             + "Year must be an integer between 1 to 6 (inclusive)";
-    private final String tagName;
+    private final String tagContent;
     private final String tagType;
 
     /**
@@ -29,7 +29,7 @@ class JsonAdaptedTag {
     public JsonAdaptedTag(@JsonProperty("tagType") String tagType,
                           @JsonProperty("tagName") String tagName) {
 
-        this.tagName = tagName;
+        this.tagContent = tagName;
         this.tagType = tagType;
     }
 
@@ -39,12 +39,12 @@ class JsonAdaptedTag {
     public JsonAdaptedTag(Tag source) {
 
         this.tagType = source.tagType.name();
-        tagName = source.tagName;
+        tagContent = source.tagContent;
     }
 
 
-    public String getTagName() {
-        return tagName;
+    public String getTagContent() {
+        return tagContent;
     }
 
     /**
@@ -64,11 +64,11 @@ class JsonAdaptedTag {
             throw new IllegalValueException(MESSAGE_INVALID_TAG_TYPE);
         }
 
-        if (!Tag.isValidTagContent(tagName, modelTagType)) {
+        if (!Tag.isValidTagContent(tagContent, modelTagType)) {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
 
-        return new Tag(modelTagType, tagName);
+        return new Tag(modelTagType, tagContent);
     }
 
 }

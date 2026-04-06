@@ -56,7 +56,7 @@ public class Messages {
                 .append("; Tags: ");
         person.getTags().entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
-                .map(e -> "[" + e.getValue().getTagName() + "]")
+                .map(e -> "[" + e.getValue().getTagContent() + "]")
                 .forEach(tag -> builder.append(tag));
         return builder.toString();
     }
