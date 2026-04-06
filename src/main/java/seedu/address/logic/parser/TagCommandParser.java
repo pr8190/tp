@@ -89,6 +89,16 @@ public class TagCommandParser implements Parser<TagCommand> {
         value.ifPresent(v ->
                 tags.put(type, v.isEmpty()
                         ? null // sentinel to indicate tag removal if the user provided an empty string
-                        : new Tag(type, v)));
+                        : new Tag(type, tryNormalizeTagContent(v, type))));
+    }
+
+    private String tryNormalizeTagContent(String content, TagType type) {
+        if (type == TagType.GENDER) {
+            return ParserUtil.tryNormalizeGender(content).orElse(content);
+        } else if (type == TagType.YEAR) {
+            return ParserUtil.tryNormalizeYear(content).orElse(content);
+        } else {
+            return content;
+        }
     }
 }
