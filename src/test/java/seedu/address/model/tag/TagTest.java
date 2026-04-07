@@ -73,10 +73,10 @@ public class TagTest {
     }
 
     @Test
-    public void isValidTagContent_nullContent_returnsTrue() {
-        assertTrue(Tag.isValidTagContent(null, TagType.YEAR));
-        assertTrue(Tag.isValidTagContent(null, TagType.MAJOR));
-        assertTrue(Tag.isValidTagContent(null, TagType.GENDER));
+    public void isValidTagContent_nullContent_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> Tag.isValidTagContent(null, TagType.YEAR));
+        assertThrows(NullPointerException.class, () -> Tag.isValidTagContent(null, TagType.MAJOR));
+        assertThrows(NullPointerException.class, () -> Tag.isValidTagContent(null, TagType.GENDER));
     }
 
     @Test
@@ -119,7 +119,8 @@ public class TagTest {
         assertTrue(Tag.isValidTagContent("Computer Science", TagType.MAJOR));
         assertTrue(Tag.isValidTagContent("Business & Economics", TagType.MAJOR));
         assertTrue(Tag.isValidTagContent("A", TagType.MAJOR));
-        assertTrue(Tag.isValidTagContent("123", TagType.MAJOR));
+        assertTrue(Tag.isValidTagContent("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijkl"
+                + "mnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTU", TagType.MAJOR));
     }
 
     @Test
@@ -148,7 +149,7 @@ public class TagTest {
     @Test
     public void equals_differentType_returnsFalse() {
         Tag tag1 = new Tag(TagType.YEAR, "1");
-        Tag tag2 = new Tag(TagType.MAJOR, "1");
+        Tag tag2 = new Tag(TagType.MAJOR, "Computer Science");
         assertNotEquals(tag1, tag2);
     }
 
