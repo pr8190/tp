@@ -25,5 +25,13 @@
                 <StackPane fx:id="dashboardTabPlaceholder" minHeight="300"/>
             </content>
         </Tab>
+        <Tab text="Demerit List">
+            <graphic>
+                <FontIcon iconLiteral="dashicons-list-view" iconSize="20" iconColor="white"/>
+            </graphic>
+            <content>
+                <StackPane fx:id="demeritListTabPlaceholder" minHeight="300"/>
+            </content>
+        </Tab>
     </tabs>
 </TabPane>

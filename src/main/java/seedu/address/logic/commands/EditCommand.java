@@ -80,6 +80,8 @@ public class EditCommand extends Command {
 
         Person personToEdit = getPersonByStudentIdOrThrow(model, targetStudentId);
 
+        assert editPersonDescriptor != null;
+
         if (editPersonDescriptor.getRoomNumber().isPresent()) {
             RoomNumber newRoom = editPersonDescriptor.getRoomNumber().get();
             boolean roomTakenByOther = model.getPersonByRoomNumber(newRoom)

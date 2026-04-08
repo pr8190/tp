@@ -53,11 +53,14 @@ public class ArgumentTokenizer {
      * @return           The first unknown prefix found, or an empty string if no unknown prefix is found
      */
     public static String checkForUnknownPrefixes(String argsString, Prefix... prefixes) {
+        assert argsString != null : "Arguments string to check should not be null";
+        assert prefixes != null : "Prefixes to check against should not be null";
+
         Pattern pattern = Pattern.compile("[^= ]*=");
         Matcher matcher = pattern.matcher(argsString.trim());
         List<String> known = Arrays.stream(prefixes)
                 .map(Prefix::getPrefix)
-                .collect(Collectors.toList());
+                .toList();
 
         while (matcher.find()) {
             String found = matcher.group(0).trim();

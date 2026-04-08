@@ -48,6 +48,7 @@ public class AddCommandParser implements Parser<AddCommand> {
     }
 
     private Person createNewPerson(ArgumentMultimap argMultimap) throws ParseException {
+        assert argMultimap != null;
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());

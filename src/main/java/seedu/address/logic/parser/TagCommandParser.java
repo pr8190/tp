@@ -21,13 +21,9 @@ import seedu.address.model.tag.TagType;
 /**
  * Parses input arguments and creates a {@link TagCommand} object.
  *
- * <p>Expects a student ID prefix and at least one tag prefix. Recognised prefixes are:
- * <ul>
- *   <li>{@code PREFIX_STUDENT_ID} — identifies the target resident</li>
- *   <li>{@code PREFIX_TAG_GENDER} — gender pronouns tag</li>
- *   <li>{@code PREFIX_TAG_MAJOR} — academic major tag</li>
- *   <li>{@code PREFIX_TAG_YEAR} — year of study tag</li>
- * </ul>
+ * <p>Requires {@code PREFIX_STUDENT_ID} and at least one tag prefix.
+ * Recognised tag prefixes: {@code PREFIX_TAG_GENDER}, {@code PREFIX_TAG_MAJOR},
+ * {@code PREFIX_TAG_YEAR}.
  */
 public class TagCommandParser implements Parser<TagCommand> {
 
@@ -89,6 +85,14 @@ public class TagCommandParser implements Parser<TagCommand> {
         return tags;
     }
 
+    /**
+     * Helper method to put a tag into the tags map if the value is present.
+     * If the value is an empty string, it will put a null value to indicate tag removal.
+     *
+     * @param tags the map of tags to update
+     * @param value the optional value of the tag to add or remove
+     * @param type the type of the tag
+     */
     private void putTagIfPresent(Map<TagType, Tag> tags, Optional<String> value, TagType type) {
         value.ifPresent(v ->
                 tags.put(type, v.isEmpty()
@@ -96,6 +100,13 @@ public class TagCommandParser implements Parser<TagCommand> {
                         : new Tag(type, tryNormalizeTagContent(v, type))));
     }
 
+    /**
+     * Tries to normalize the tag content based on the tag type using ParserUtil.
+     *
+     * @param content the original tag content provided by the user
+     * @param type the type of the tag (GENDER, MAJOR, YEAR)
+     * @return the normalized tag content if normalization is successful; otherwise, the original content
+     */
     private String tryNormalizeTagContent(String content, TagType type) {
         if (type == TagType.GENDER) {
             return ParserUtil.tryNormalizeGender(content).orElse(content);

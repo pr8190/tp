@@ -7,6 +7,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import seedu.address.logic.Logic;
 import seedu.address.ui.tab.DashboardTab;
+import seedu.address.ui.tab.DemeritListTab;
 import seedu.address.ui.tab.StudentDetailsTab;
 
 /**
@@ -32,7 +33,7 @@ public class TabSection extends UiPart<Region> {
     private StackPane dashboardTabPlaceholder;
 
     @FXML
-    private StackPane settingsTabPlaceholder;
+    private StackPane demeritListTabPlaceholder;
 
     /**
      * Creates a {@code TabSection} with the given {@code Logic}.
@@ -54,5 +55,8 @@ public class TabSection extends UiPart<Region> {
         //Add DashboardTab
         DashboardTab dashboardTab = new DashboardTab(logic);
         dashboardTabPlaceholder.getChildren().add(dashboardTab.getRoot());
+
+        DemeritListTab demeritListTab = new DemeritListTab();
+        demeritListTabPlaceholder.getChildren().add(demeritListTab.getRoot());
     }
 }

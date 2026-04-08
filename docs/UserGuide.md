@@ -26,8 +26,8 @@
 6. [Tagging a Resident](#6-tagging-a-resident)
    6.1. [Adding or Editing Tags](#61-adding-or-editing-tags)
    6.2. [Clearing Tags](#62-clearing-tags)
-7. [Adding a Remark to a Resident](#7-adding-a-remark-to-a-resident)
-   7.1. [Adding or Editing a Remark](#71-adding-or-editing-a-remark)
+7. [Adding a Remark to a Resident](#7-adding-a-remark-remark)  
+   7.1. [Adding or Editing a Remark](#71-adding-or-editing-a-remark)  
    7.2. [Clearing a Remark](#72-clearing-a-remark)
 8. [Adding a Demerit Record to a Resident](#8-adding-a-demerit-record-to-a-resident)
    8.1. [Listing Demerit Rules](#81-listing-demerit-rules)
@@ -42,7 +42,7 @@
 16. [Format Errors](#16-format-errors)
 17. [FAQ](#17-faq)
 18. [Known Issues](#18-known-issues)
-19. [Command Summary](#19-command-summary)
+19. [Command Summary](#command-summary)
 
 ---
 
@@ -132,30 +132,36 @@ Examples:
 > 
 > A newly added person will not have any tags
 
-### Tagging a student: `tag`
+### Listing all persons : `list`
 
-Adds **Major**, **Year** and **Gender** tags to an existing student.
+Shows a list of all persons in the address book.
+
+Format: `list`
+
+### Tagging a resident: `tag`
+
+Adds **Major**, **Year** and **Gender** tags to an existing resident.
 
 Format: `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`
 
-* Adds or edits tags for the student uniquely identified by *STUDENT_ID*.
+* Adds or edits tags for the resident uniquely identified by *STUDENT_ID*.
 * *STUDENT_ID* must be in a valid format and exist in the Hall Ledger
 * At least one of the optional tag fields (m=, y=, g=) must be provided.
 * Existing tags are replaced **(not cumulative)**.
-* Each student can have **at most** **one** Year, **one** Major, and **one** Gender tag at any time.
-* Re-tagging a student will **overwrite** previously assigned tags with the new values provided.
+* Each resident can have **at most** **one** Year, **one** Major, and **one** Gender tag at any time.
+* Re-tagging a resident will **overwrite** previously assigned tags with the new values provided.
 
 Examples:
 * `tag i=A0123456N y=Y3 m=Information Systems`: Assigns Year 3 and Information Systems as the student’s tags (any existing tags are replaced).
-* `tag i=A0101010X g=Female`: Updates the student’s Gender to Female and leaves other tags unchanged.
+* `tag i=A0101010X g=Female`: Updates the resident’s Gender to Female and leaves other tags unchanged.
 
 ### Editing a person : `edit`
 
-Edits an existing student in the _Hall Ledger_.
+Edits an existing resident in the _Hall Ledger_.
 
 Format: `edit STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`
 
-* Edits the student with the specified STUDENT_ID. STUDENT_ID is used to uniquely identify each student in the displayed student's list. The STUDENT_ID must be a valid student ID e.g. `A1234567X`.
+* Edits the resident with the specified STUDENT_ID. STUDENT_ID is used to uniquely identify each resident in the displayed resident's list. The STUDENT_ID must be a valid student ID e.g. `A1234567X`.
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 
@@ -250,21 +256,34 @@ Entering a command in the command box will reset the Filter panel.
 
 </box>
 
-### Adding a remark: `remark`
+### 7. Adding a remark: `remark`
 
-Adds a remark to an existing resident.
+Remarks are **optional short notes** that can be added to a resident’s profile.
+They can be used to store important information about the resident that does not fit into the other fields, such as allergies, medical conditions, or other special notes. 
 
-Format: `remark i=STUDENT_ID rm=REMARK`
+**Command:** `remark`
 
-* Remark can be viewed in the resident's profile tab.
-* If a remark already exists for the resident, it will be **overwritten** by the new remark.
-* Empty remark (`rm=`) will **clear** the existing remark.
+#### 7.1 Adding or Editing a Remark
+ 
+**Usage:** `remark i=STUDENT_ID rm=REMARK`
 
-Examples:
-* Add/update a remark:
-  `remark i=A1234567X rm=Allergic to peanuts`
-* Clear a remark:
-  `remark i=A1234567X rm=`
+- If a remark already exists for the resident, it will be **overwritten** by the new remark.
+- There is no character limit for remarks, but keeping them concise is recommended for readability.
+- Remarks can contain any content. However, avoid using special characters that may interfere with the command format (e.g., `=` or `i=`), as they may cause issues when editing or clearing remarks.
+
+Example usages:
+- `remark i=A1234567X rm=Allergic to peanuts`
+- `remark i=A1121212X rm=Has asthma, needs inhaler nearby`
+---
+
+#### 7.2 Clearing a Remark
+ 
+**Usage:** `remark i=STUDENT_ID rm=`
+
+- Providing an empty `rm=` field clears the existing remark for the specified resident.
+
+Example usage:
+- `remark i=A1121212X rm=`
 
 ### Listing demerit rules: `demeritlist`
 
@@ -358,10 +377,6 @@ Furthermore, certain edits can cause HallLedger to behave in unexpected ways (e.
 
 For more details on editing the JSON file, please refer to our [Developer Guide](DeveloperGuide.md)
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -372,8 +387,8 @@ _Details coming soon ..._
 **Q**: Can I edit the data file manually?  
 **A**: Yes. HallLedger stores data locally in a human-editable text file. However, manual edits should be done carefully, because invalid edits may prevent HallLedger from loading the data correctly.
 
-**Q**: How do I go back to seeing the list of all students after running `find`?  
-**A**: Run the `list` command to see the full list of students again.
+**Q**: How do I go back to seeing the list of all residents after running `find`?  
+**A**: Run the `list` command to see the full list of residents again.
 
 --------------------------------------------------------------------------------------------------------------------
 

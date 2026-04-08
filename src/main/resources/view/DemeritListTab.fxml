@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10"
+      styleClass="panel-container"
+      stylesheets="@DarkTheme.css, @DemeritRecords.css">
+
+    <TableView fx:id="demeritTableView" styleClass="custom-table" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="indexColumn" minWidth="20.0" text="#" />
+            <TableColumn fx:id="descriptionColumn" minWidth="300.0" text="Description" />
+            <TableColumn fx:id="firstColumn" minWidth="40.0" text="1st" />
+            <TableColumn fx:id="secondColumn" minWidth="40.0" text="2nd" />
+            <TableColumn fx:id="thirdColumn" minWidth="40.0" text="3rd" />
+        </columns>
+        <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+        </columnResizePolicy>
+    </TableView>
+
+</VBox>

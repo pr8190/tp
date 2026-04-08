@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 import seedu.address.ui.UiPart;
 
 /**
- * Demerit Records component of the Student Details Tab.
+ * Displays the selected resident's total demerit points and demerit incident history.
  */
 public class DemeritRecords extends UiPart<Region> {
 
@@ -47,7 +47,9 @@ public class DemeritRecords extends UiPart<Region> {
     private TableColumn<DemeritRecordRow, String> pointsColumn;
 
     /**
-     * Creates a {@code DemeritRecords} component bound to the selected person.
+     * Creates a demerit records panel bound to the currently selected resident.
+     *
+     * @param selectedPerson observable selected resident
      */
     public DemeritRecords(ObservableValue<Person> selectedPerson) {
         super(FXML);
@@ -58,7 +60,7 @@ public class DemeritRecords extends UiPart<Region> {
     }
 
     /**
-     * Sets up the table columns.
+     * Initialises the table columns and their corresponding cell factories.
      */
     private void initialiseColumns() {
         indexColumn.setCellValueFactory(cellData ->
@@ -82,7 +84,9 @@ public class DemeritRecords extends UiPart<Region> {
     }
 
     /**
-     * Creates a table cell that wraps long text instead of truncating it with ellipsis.
+     * Returns a table cell that wraps long text instead of truncating it.
+     *
+     * @return a wrapping table cell
      */
     private TableCell<DemeritRecordRow, String> createWrappingCell() {
         return new TableCell<>() {
@@ -113,7 +117,9 @@ public class DemeritRecords extends UiPart<Region> {
     }
 
     /**
-     * Creates a centered cell for short values such as index and points.
+     * Returns a centered table cell for short values such as row numbers and point totals.
+     *
+     * @return a centered table cell
      */
     private TableCell<DemeritRecordRow, String> createCenteredCell() {
         return new TableCell<>() {
@@ -136,14 +142,16 @@ public class DemeritRecords extends UiPart<Region> {
     }
 
     /**
-     * Updates the view whenever the selected person changes.
+     * Binds the panel to changes in the selected resident.
      */
     private void bindSelectionListener() {
         selectedPerson.addListener((observable, oldValue, newValue) -> updateView(newValue));
     }
 
     /**
-     * Updates both the total points summary and the incident table.
+     * Updates the summary label and incident table for the given resident.
+     *
+     * @param person currently selected resident
      */
     private void updateView(Person person) {
         updateTotalPointsLabel(person);
@@ -151,7 +159,9 @@ public class DemeritRecords extends UiPart<Region> {
     }
 
     /**
-     * Updates the total demerit points label for the selected person.
+     * Updates the total demerit points label for the given resident.
+     *
+     * @param person currently selected resident
      */
     private void updateTotalPointsLabel(Person person) {
         int totalPoints = person == null ? 0 : person.getTotalDemeritPoints();
@@ -159,7 +169,9 @@ public class DemeritRecords extends UiPart<Region> {
     }
 
     /**
-     * Rebuilds the table rows for the given person.
+     * Rebuilds the demerit incident table for the given resident.
+     *
+     * @param person currently selected resident
      */
     private void updateTable(Person person) {
         demeritTableView.getItems().clear();
@@ -185,7 +197,10 @@ public class DemeritRecords extends UiPart<Region> {
     }
 
     /**
-     * Formats a readable description for one demerit incident.
+     * Returns a readable description for the given demerit incident.
+     *
+     * @param incident incident to describe
+     * @return formatted incident description
      */
     private String formatDescription(DemeritIncident incident) {
         return String.format("[%d] %s (offence %d)",
@@ -195,7 +210,7 @@ public class DemeritRecords extends UiPart<Region> {
     }
 
     /**
-     * Table row model for demerit records.
+     * Represents one row in the demerit records table.
      */
     private record DemeritRecordRow(String index, String description, String remark, String points) {
     }

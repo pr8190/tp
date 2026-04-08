@@ -13,7 +13,7 @@ import seedu.address.model.person.StudentId;
  */
 public class ModelUtil {
 
-    /* *
+    /**
      * Returns the person with the given student ID from the model, or throws a CommandException if not found.
      *
      * @param model the model to search for the person

@@ -52,10 +52,10 @@ public class HelpWindow extends UiPart<Stage> {
     private TextField link;
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a help window with the given owner and backing stage.
      *
-     * @param owner Stage to use as the owner of the HelpWindow.
-     * @param root Stage to use as the root of the HelpWindow.
+     * @param owner owner of the help window
+     * @param root stage backing the help window
      */
     public HelpWindow(Stage owner, Stage root) {
         super(FXML, root);
@@ -73,16 +73,16 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Creates a new HelpWindow.
+     * Creates a help window owned by the given stage.
      *
-     * @param owner Stage to use as the owner of the HelpWindow.
+     * @param owner owner of the help window
      */
     public HelpWindow(Stage owner) {
         this(owner, new Stage());
     }
 
     /**
-     * Shows the help window.
+     * Shows the help window and centres it on screen.
      */
     public void show() {
         logger.fine("Showing HallLedger help window.");
@@ -91,7 +91,9 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns true if the help window is currently being shown.
+     * Returns whether the help window is currently visible.
+     *
+     * @return true if the help window is showing
      */
     public boolean isShowing() {
         return getRoot().isShowing();
@@ -105,16 +107,16 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Focuses on the help window.
+     * Requests focus for the help window.
      */
     public void focus() {
         getRoot().requestFocus();
     }
 
     /**
-     * Opens the guide link in a browser.
+     * Opens the user guide link in the default browser.
      *
-     * @param event The click event.
+     * @param event click event from the link field
      */
     @FXML
     public void handleLinkClick(Event event) {

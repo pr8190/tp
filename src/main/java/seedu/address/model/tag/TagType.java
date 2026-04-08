@@ -8,10 +8,20 @@ import java.util.Optional;
 /**
  * Represents the category of a {@link Tag} in the hall ledger.
  *
- * <p>Each {@code TagType} defines its own validation regex that determines what
- * content is considered valid for tags of that type.
+ * <p>Each {@code TagType} defines how its associated tag content is validated.
+ * Validation is performed using either:
+ * <ul>
+ *   <li>a fixed set of allowed values (closed set), or</li>
+ *   <li>a regular expression (open set).</li>
+ * </ul>
  *
- * <p>Guarantees: immutable; each constant's validation regex is fixed at compile time.
+ * <p>Exactly one validation strategy is defined per {@code TagType}.
+ *
+ * <p>Guarantees:
+ * <ul>
+ *   <li>Immutable: each enum constant is stateless and thread-safe.</li>
+ *   <li>Validation rules are fixed at compile time.</li>
+ * </ul>
  */
 public enum TagType {
 
@@ -23,15 +33,19 @@ public enum TagType {
 
     /**
      * Tag representing the resident's academic major.
-     * Valid content is an alphanumeric string; internal spaces between words are permitted,
-     * but leading and trailing spaces are not.
+     * Valid content must satisfy the following rules:
+     * <ul>
+     *   <li>1 to 100 characters long</li>
+     *   <li>Alphabetic characters and {@code &} only</li>
+     * </ul>
+     *
+     * <p>Examples: {@code Computer Science}, {@code Philosophy}, {@code Economics & Finance}
      */
     MAJOR(null, "^(?=.{1,100}$)[A-Za-z&]+( [A-Za-z&]+)*$"),
 
     /**
      * Tag representing the resident's gender pronouns.
      * Valid content is one of {@code she/her}, {@code he/him}, or {@code they/them}.
-     * Input is normalised to lowercase before validation — see {@link Tag#getNormalisedTagContent}.
      */
     GENDER(List.of("she/her", "he/him", "they/them"), null);
 
@@ -44,10 +58,17 @@ public enum TagType {
     }
 
     /**
-     * Checks if the given tag content matches the specified tag type's validation regex.
+     * Validates the given tag content against this {@code TagType}'s rules.
      *
-     * @param tagContent the tag content to validate, or null if no tag is present.
-     * @return true if {@code tagContent} is null or matches the validation regex, false otherwise.
+     * <p>Validation behaviour:
+     * <ul>
+     *   <li>If {@code allowedValues} is defined, the content must match one of the values exactly.</li>
+     *   <li>Otherwise, the content must match the defined regular expression.</li>
+     * </ul>
+     *
+     * @param tagContent the tag content to validate (must not be {@code null})
+     * @return {@code true} if the content is valid for this tag type, {@code false} otherwise
+     * @throws IllegalStateException if neither validation strategy is defined
      */
     public boolean isValidTagContent(String tagContent) {
         requireNonNull(tagContent);
@@ -66,6 +87,12 @@ public enum TagType {
         return tagContent.matches(validationRegex);
     }
 
+    /**
+     * Returns the allowed values for this tag type, if defined.
+     *
+     * @return an {@link Optional} containing an immutable copy of the allowed values,
+     *         or {@link Optional#empty()} if this tag type uses regex validation
+     */
     public Optional<List<String>> getAllowedValues() {
         return allowedValues == null
                 ? Optional.empty()

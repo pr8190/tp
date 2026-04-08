@@ -20,8 +20,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
 /**
- * Adds a tag to a resident in the address book.
- * Existing tags will be overwritten by the newly provided tags.
+ * Adds a tag to a resident identified using unique StudentId.
  */
 public class TagCommand extends Command {
 
@@ -97,9 +96,13 @@ public class TagCommand extends Command {
         );
     }
 
-    /* *
-     * Computes the updated tags by applying the new tags to the existing tags.
-     * If a new tag has a null value, it indicates that the tag should be removed.
+    /**
+     * Computes the updated tags by merging the existing tags with the new tags.
+     *
+     * @param existingTags the existing tags of the resident.
+     * @param newTags the new tags to be added or updated. Tags with null values indicate removal of that tag type.
+     * @return a new map containing the merged tags, where new tags overwrite existing tags of the same type,
+     *      and tags with null values in newTags are removed from the resulting map.
      */
     private static Map<TagType, Tag> computeUpdatedTags(Map<TagType, Tag> existingTags, Map<TagType, Tag> newTags) {
 

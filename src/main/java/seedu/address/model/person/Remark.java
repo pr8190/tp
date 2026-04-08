@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Represents a Remark in the address book.
- * Guarantees: immutable;
+ * Guarantees: immutable
  */
 public class Remark {
 

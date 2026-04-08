@@ -10,7 +10,10 @@ import seedu.address.model.tag.TagType;
  */
 public class TagUtil {
     /**
-     * Returns a tag set containing the list of strings given.
+     * Builds a HashMap of TagType to Tag from an array of pairs, where each pair consists of a tag type (as a string)
+     * and tag content (as a string).
+     * @param tags an array of pairs
+     * @return a HashMap mapping each TagType to its corresponding Tag
      */
     public static HashMap<TagType, Tag> getTagSet(Object[]... tags) {
         HashMap<TagType, Tag> tagMap = new HashMap<>();
