@@ -161,13 +161,6 @@ public abstract class AbstractFilterPanelInput extends UiPart<Region> {
         List<String> validatedKeywords = onKeywordsChanged.handle(List.copyOf(proposedKeywords));
         applyValidatedKeywords(validatedKeywords);
     }
-
-    /**
-     * Handler for when the keywords in this input are edited.
-     */
-    @FunctionalInterface
-    public interface KeywordsChangedHandler {
-        List<String> handle(List<String> keywords);
-    }
 }
+
 
