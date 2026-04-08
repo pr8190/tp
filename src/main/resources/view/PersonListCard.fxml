@@ -67,12 +67,6 @@
                     <TextField fx:id="emergencyContact" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
                     <VBox HBox.hgrow="ALWAYS" />
                 </HBox>
-
-                <Label styleClass="cell_small_label" text="Demerit Points:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                <HBox GridPane.columnIndex="1" GridPane.rowIndex="5">
-                    <TextField fx:id="demeritPoints" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
-                    <VBox HBox.hgrow="ALWAYS" />
-                </HBox>
             <rowConstraints>
                <RowConstraints />
                <RowConstraints />
