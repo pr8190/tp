@@ -20,9 +20,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.FilterDetails;
 
@@ -65,7 +63,7 @@ public class MainWindow extends UiPart<Stage> {
      * Creates a {@code MainWindow} with the given stage and logic component.
      *
      * @param primaryStage primary stage of the application
-     * @param logic logic component used to execute commands and retrieve state
+     * @param logic        logic component used to execute commands and retrieve state
      */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -134,7 +132,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the accelerator of a menu item and ensures it still works
      * when focus is inside a text input control.
      *
-     * @param menuItem menu item receiving the accelerator
+     * @param menuItem       menu item receiving the accelerator
      * @param keyCombination accelerator key combination
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -226,7 +224,7 @@ public class MainWindow extends UiPart<Stage> {
      * @param commandText raw command entered by the user
      * @return the result of executing the command
      * @throws CommandException if command execution fails
-     * @throws ParseException if command parsing fails
+     * @throws ParseException   if command parsing fails
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
         try {
