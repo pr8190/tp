@@ -99,6 +99,11 @@ mark {
   }
 }
 
+.styled-text code {
+  color: #ff0000;
+  background-color: #f8f8f8; /* Optional: light gray bg */
+}
+
 /* Bootstrap medium(md) responsive breakpoint */
 @media screen and (max-width: 991.98px) {
   #site-nav {
@@ -166,5 +171,5 @@ h3,
 h4,
 h5,
 h6 {
-  color: #e46c0a;
+  color: #1d3c5e;
 }
