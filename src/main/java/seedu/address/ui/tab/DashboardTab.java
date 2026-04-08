@@ -31,6 +31,8 @@ public class DashboardTab extends UiPart<Region> {
     @FXML private Label y4CountLabel;
     @FXML private Label y5CountLabel;
     @FXML private Label y6CountLabel;
+    @FXML private Label yMissingCountLabel;
+
     private Label[] yearLabels = {y1CountLabel, y2CountLabel, y3CountLabel,
         y4CountLabel, y5CountLabel, y6CountLabel};
     /**
@@ -65,9 +67,13 @@ public class DashboardTab extends UiPart<Region> {
         unknownCountLabel.setText(String.valueOf(unknown));
 
         // --- Year groups via tags ---
+        long sum = 0;
         for (int i = 0; i < yearLabels.length; i++) {
-            yearLabels[i].setText(String.valueOf(countByTag(list, String.valueOf(i + 1))));
+            long count = countByTag(list, String.valueOf(i + 1));
+            sum += count;
+            yearLabels[i].setText(String.valueOf(count));
         }
+        yMissingCountLabel.setText(String.valueOf(totalCount - sum));
     }
 
     /**
