@@ -1,6 +1,7 @@
 package seedu.address.ui.tab;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -62,6 +63,7 @@ public class DemeritRecords extends UiPart<Region> {
     private void initialiseColumns() {
         indexColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().index()));
+        indexColumn.setComparator(Comparator.comparingInt(Integer::parseInt));
 
         descriptionColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().description()));
@@ -71,6 +73,7 @@ public class DemeritRecords extends UiPart<Region> {
 
         pointsColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().points()));
+        pointsColumn.setComparator(Comparator.comparingInt(points -> Integer.parseInt(points.replace("+", ""))));
 
         indexColumn.setCellFactory(column -> createCenteredCell());
         pointsColumn.setCellFactory(column -> createCenteredCell());
