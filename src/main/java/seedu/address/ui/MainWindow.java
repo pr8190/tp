@@ -27,9 +27,10 @@ import seedu.address.ui.executors.FilterExecutor;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
- * can be placed. Implements {@link FilterExecutor} to handle filter operations from the ListSection.
+ * can be placed. Implements {@link CommandExecutor} and {@link FilterExecutor} to handle user commands
+ * and filter operations.
  */
-public class MainWindow extends UiPart<Stage> implements FilterExecutor {
+public class MainWindow extends UiPart<Stage> implements CommandExecutor, FilterExecutor {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String MESSAGE_DELETE_CANCELLED = "Deletion cancelled.";
@@ -195,7 +196,7 @@ public class MainWindow extends UiPart<Stage> implements FilterExecutor {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -228,7 +229,8 @@ public class MainWindow extends UiPart<Stage> implements FilterExecutor {
      * @throws CommandException if command execution fails
      * @throws ParseException   if command parsing fails
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    @Override
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         try {
             if (logic.requiresDeleteConfirmation(commandText) && !showDeleteConfirmationDialog()) {
                 CommandResult cancelResult = new CommandResult(MESSAGE_DELETE_CANCELLED);
