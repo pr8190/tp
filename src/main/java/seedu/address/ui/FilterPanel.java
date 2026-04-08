@@ -80,11 +80,11 @@ public class FilterPanel extends UiPart<Region> {
                 filterDetails.getEmergencyContactKeywords(), FilterDetails::setEmergencyContactKeywords);
 
         bindComboBoxField(yearFilterFieldPlaceholder, "Search by Year", "E.g: 1",
-                List.of("1", "2", "3", "4", "5", "6"),
+                TagType.YEAR.getAllowedValues().orElseThrow(),
                 filterDetails.getTagYearKeywords(), FilterDetails::setTagYearKeywords);
 
         bindComboBoxField(genderFilterFieldPlaceholder, "Search by Gender", "E.g: he/him",
-                List.of("he/him", "she/her", "they/them"),
+                TagType.GENDER.getAllowedValues().orElseThrow(),
                 filterDetails.getTagGenderKeywords(), FilterDetails::setTagGenderKeywords);
     }
 
