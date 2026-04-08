@@ -1,3 +1,5 @@
+.
+
 .demerit-record-body-cell {
     -fx-background-color: #2b2b2b;
     -fx-border-color: #555555;
@@ -14,7 +16,7 @@
 }
 
 .demerit-total-points-label {
-    -fx-text-fill: white;
+    -fx-text-fill: primary-yellow;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 4px 0 2px 0;
