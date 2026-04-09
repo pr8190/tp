@@ -4,7 +4,7 @@
   pageNav: 3
  ---
 
-# **Hall Ledger User Guide**
+## **Hall Ledger User Guide**
 
 **Hall Ledger (HL)** is a desktop application that helps **Resident Assistants (RAs) efficiently manage residents in NUS halls**. It is optimised for users who prefer typing commands, while still offering an intuitive visual interface for viewing resident data at a glance.
 <!-- * Table of Contents -->
@@ -12,7 +12,7 @@
 ---
 <div class="section table-of-contents">
 
-## **Table of Contents**
+### **Table of Contents**
 
 1. [Quick Start](#1-quick-start)  
    1.1. [Installation Guide](#1-1-installation-guide)  
@@ -70,6 +70,20 @@
 ##### 1.2 Understanding the Interface
 When HallLedger is opened, you will see an interface like the image below. The interface consists of the following components:
 
+<img src="images/interface.png" alt="HallLedger Integer" width="80%" align="center"/>
+
+<br>
+
+<br>
+
+* **Options Box**: Lets you access basic functions such as viewing the help window and exiting the program.
+* **Command Input Box**: Lets you enter commands to execute actions. This is where you will type the commands described in this user guide.
+* **Output Box**: Shows the results of your commands, such as success messages or error messages.
+* **Resident List**: Shows a list of residents in the ledger. You can click on a resident to view their profile.
+* **Profile Tab**: Shows the details of the resident you have selected from the resident list.
+* **Filter Panel**: Lets you filter the resident list by various criteria.
+* **Other Tabs**: The other tabs (Dashboard, Demerit List and Demerit Records) show additional information about the residents and the ledger.
+
 ##### 1.3 Brief Walkthrough
 This section gives a brief walkthrough of how to get started with using HallLedger. You'll learn how to add a resident, edit their details, tag their major and finally delete them from the Ledger.
 
@@ -89,17 +103,26 @@ To start, type the following instructions into the command box (in the given ord
 --------------------------------------------------------------------------------------------------------------------
 
 ### 2. General Command Format
-The commands used in HallLedger generally follow the format: `COMMAND i=STUDENT_ID PREFIX=...` where:
+The commands used in HallLedger generally follow the format: `COMMAND i=STUDENT_ID [PREFIX=...]` where:
 * `COMMAND` is the action you want to perform (e.g. `add`, `edit`, `delete`, etc.)
 * `i=STUDENT_ID` is used to specify the resident you want to perform the action on.
+  * The student ID must start with an uppercase 'A', followed by 6-8 digits, and end with an uppercase letter (e.g. `A1234567X`).
 * `PREFIX=...` are used to specify the details of the action you want to perform. The specific prefixes used depend on the command.
+* ``[ ]`` indicates that the field is optional, and can be omitted if not needed. This is followed throughout this guide.
 
 **Example:**  
 `remark i=A1234567X rm="Allergic to peanuts"` adds the remark "Allergic to peanuts" to the resident with student ID A1234567X.
+
+<img src="images/command-format.png" alt="Command Format" width="80%" align="center"/>
+<br>
+<br>
 <box type="info">
 <b>Note:</b> This is a general command format, not all commands follow this format. For example, the `list` command does not require a student ID or any prefixes. Refer to the specific command's usage format for details.
 </box>
 </div>
+
+
+***
 
 <div class="section">
 
@@ -110,6 +133,7 @@ Adds a new person to the hall ledger.
 **Command:** `add`
 
 **Usage**: `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT`
+* All fields are required.
 
 <box type="wrong">
 <b>Duplicate student IDs and room numbers are not allowed.</b> If you try to add a resident with a student ID/room number that already exists in the ledger, HallLedger will show an error message and the command will fail.
@@ -128,16 +152,18 @@ Examples:
 
 Edits an existing resident in the _Hall Ledger_.
 
-Format: `edit i=STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`
+**Command:** `edit`
 
-* Edits the resident with the specified STUDENT_ID. STUDENT_ID is used to uniquely identify each resident in the displayed resident's list. The STUDENT_ID must be a valid student ID e.g. `A1234567X`.
+**Usage**: `edit i=STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`
+
+* Edits the resident with the specified `STUDENT_ID`.
 * At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
 
 Examples:
-* `edit i=A1234567X p=91234567 e=johndoe@example.com` edits the phone number and email address of the resident with student ID `A1234567X` to be `91234567` and `johndoe@example.com` respectively.
-* `edit i=A8765432Y n=Betsy Crower ec=98765432` edits the name and emergency contact of the resident with student ID `A8765432Y` to be `Betsy Crower` and `98765432` respectively.
- </div>
+* `edit i=A1234567X p=+6591234567 e=johndoe@example.com` edits the phone number and email address of the resident with student ID A1234567X to be +6591234567 and johndoe@example.com respectively.
+* `edit i=A8765432Y n=Betsy Crower ec=+6598765432` edits the name and emergency contact of the resident with student ID A8765432Y to be Betsy Crower and +6598765432 respectively.
+ 
+</div>
  
 ***
 
@@ -156,11 +182,11 @@ There are three types of tags in Hall Ledger:
 | **Year**            | Must be a number from 1 to 6 (inclusive).                                   | 1, 4                              | `y=`   |
 | **Gender Pronouns** | Accepts `he/him`, `she/her`, or `they/them`. Input is flexible (e.g. `he`, `her`), and will be standardised automatically. | she/her, they/them | `g=`   |
 
-<box type="info" seamless>
-For residents with double majors, you can separate the two majors with an `&` symbol (e.g. `Computer Science & Mathematics`). However, Hall Ledger will treat that as a single Major tag, and not as two separate Major tags.
+<box type="info">
+For residents with <b>double majors</b>, you can separate the two majors with an <code>&</code> symbol (e.g. <code>Computer Science & Mathematics</code>). However, Hall Ledger will treat that as a single Major tag, and not as two separate Major tags.
 </box>
 
-#### 5.1 Adding or Editing Tags
+##### 5.1 Adding or Editing Tags
 
 **Usage:** `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`
 
@@ -173,7 +199,7 @@ Usage Examples:
 * `tag i=A0123456N y=3 m=Information Systems` 
 * `tag i=A0101010X g=she/her`
 
-#### 5.2 Clearing Tags
+##### 5.2 Clearing Tags
 
 **Usage:** `tag i=STUDENT_ID [m=] [y=] [g=]`
 
@@ -217,13 +243,13 @@ Hall Ledger allows you to search for residents by:
 
 You can perform searches either through the **typed commands** or through the **filter panel**.
 
-<box type="info" seamless>
-**Tip**: You may use the `list` command to reset the resident list after performing a search with the `find` command or
+<box type="tip">
+<b>Tip</b>: You may use the <code>list</code> command to reset the resident list after performing a search with the <code>find</code> command or
 after using the Filter panel. This will allow you to see all residents again.
 </box>
 
 
-#### 7.1 Using Typed Commands
+##### 7.1 Using Typed Commands
 
 **Command:** `find`
 
@@ -248,7 +274,7 @@ criterion by repeating that field:
 * Type in the command box: `find n=Alex n=Bernice`
 * The resident list updates to show only residents whose name match either "Alex" **or** Bernice
 
-#### 7.2 Using the Filter Panel
+##### 7.2 Using the Filter Panel
 
 The Filter Panel supports the same sea behaviour as the typed `find` command.
 
@@ -272,13 +298,13 @@ The Filter Panel supports the same sea behaviour as the typed `find` command.
 
 6. To clear the filter completely, remove all keywords from all fields or type 'list' in the command box.
 
-<box type="warning" seamless>
+<box type="warning">
 
 Entering a command in the command box will reset the Filter panel.
 
 </box>
 
-<box type="info" seamless>
+<box type="tip">
 
 **Tips:**
 
@@ -304,15 +330,15 @@ You can view remarks in the resident's profile tab.
 
 **Command:** `remark`
 
-#### 8.1 Adding or Editing a Remark
+##### 8.1 Adding or Editing a Remark
  
 **Usage:** `remark i=STUDENT_ID rm=REMARK`
 
 - Adds or edits a remark for the resident uniquely identified by `STUDENT_ID`.
 - If a remark **already exists** for the resident, it will be **overwritten** by the new remark.
 - There is no character limit for remarks, but keeping them concise is recommended for readability.
-<box type="warning" seamless>
-Remarks can contain any content. However, avoid using special characters that may interfere with the command format (e.g., `=` or `i=`), as they may cause issues when editing or clearing remarks.
+<box type="warning">
+Remarks can contain any content. However, <b>avoid using special characters</b> that may interfere with the command format (e.g., <code>=</code> or <code>i=</code>), as they may cause issues when editing or clearing remarks.
 </box>
 
 Example usages:
@@ -321,7 +347,7 @@ Example usages:
 
 
 
-#### 8.2 Clearing a Remark
+##### 8.2 Clearing a Remark
  
 **Usage:** `remark i=STUDENT_ID rm=`
 
@@ -338,7 +364,7 @@ Example usage:
 
 ### 9. Adding a Demerit Record to a Resident
 
-#### 9.1 Listing Demerit Rules
+##### 9.1 Listing Demerit Rules
 
 Shows the indexed demerit rules available in Hall Ledger.
 
@@ -348,7 +374,7 @@ Shows the indexed demerit rules available in Hall Ledger.
 * You can use the displayed rule index together with the `demerit` command when recording a resident’s demerit incident.
 * This list can also be viewed in the Demerit List tab
 
-#### 9.2 Adding a Demerit Record
+##### 9.2 Adding a Demerit Record
 
 Adds a demerit record to an existing resident.
 
@@ -407,7 +433,7 @@ Clears all residents from Hall Ledger all at once.
 
 Command: `clear`
 
-<box type="warning" seamless>
+<box type="wrong">
 
 **Caution:**
 This action **permanently deletes all resident data**. We recommend creating a backup of your data file before running this command. Once cleared, the **deletion cannot be undone**.
@@ -424,7 +450,7 @@ This action **permanently deletes all resident data**. We recommend creating a b
 
 Opens the Hall Ledger Help window, which displays the available commands and their usage formats.
 
-Command: `help`
+**Command:** `help`
 <div align="center">
 <img src="images/help-window.png" alt="Help Window 2" width="500" align="center"/>      
 </div>
@@ -441,7 +467,7 @@ Command: `help`
 
 Exits the program.
 
-Command: `exit`
+**Command:** `exit`
 
 </div>
 
@@ -451,7 +477,7 @@ Command: `exit`
 
 ### 14. Saving the Data
 
-Hall Ledger automatically saves your data on your device whenever you make changes. There is no need to manually save
+Hall Ledger **automatically saves** your data on your device whenever you make changes. There is no need to manually save
 your work.
 
 When you exit the program and open it again later, all your data will still be available.
@@ -463,12 +489,13 @@ When you exit the program and open it again later, all your data will still be a
 <div class="section">
 
 ### 15. Editing the Data File
-Hall Ledger data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are
+Hall Ledger data are saved automatically as a JSON file `[JAR file location]/data/hall-ledger.json`. Advanced users are
 welcome to update data directly by editing that data file.
 
-**Caution:**
-If your changes to the data file make its format invalid, Hall Ledger will discard all data and start with an empty data
-file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
+<box type="warning">
+<b>Warning:</b> If your changes to the data file make its format invalid, Hall Ledger will discard all data and start with an empty data
+file at the next run. Hence, it is recommended to take a backup of the file before editing it.
+</box>
 Furthermore, certain edits can cause Hall Ledger to behave in unexpected ways (e.g., if a value entered is outside the
 acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
@@ -480,6 +507,7 @@ For more details on editing the JSON file, please refer to our [Developer Guide]
 --------------------------------------------------------------------------------------------------------------------
 
 <div class="section">
+
 ### 16. FAQ
 
 **Q**: How do I transfer my data to another Computer?  
@@ -499,6 +527,7 @@ carefully, because invalid edits may prevent Hall Ledger from loading the data c
 --------------------------------------------------------------------------------------------------------------------
 
 <div class="section">
+
 ### 17. Known issues
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
@@ -508,6 +537,7 @@ carefully, because invalid edits may prevent Hall Ledger from loading the data c
 --------------------------------------------------------------------------------------------------------------------
 
 <div class="section">
+
 ### 18. Command summary
 
 Action     | Format, Examples
@@ -515,7 +545,7 @@ Action     | Format, Examples
 **[Add](#3-adding-a-resident)** | `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT` <br> e.g., `add n=James Lee p=+65 98765432 e=james@example.com i=A1234567X r=15R ec=+65 98765432`
 **[Clear](#52-clearing-tags)** | `clear`
 **[Delete](#10-deleting-a-resident)** | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`
-**[Edit](#4-editing-a-resident)** | `edit i=STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit A1234567X n=James Lee e=jameslee@example.com`
+**[Edit](#4-editing-a-resident)** | `edit i=STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit i=A1234567X n=James Lee e=jameslee@example.com`
 **[Tag](#51-adding-or-editing-tags)** | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`<br> e.g., `tag i=A1234567X m=Computer Science y=3`
 **[Find](#7-finding-residents)** | `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=Y1`
 **[Remark](#81-adding-or-editing-a-remark)** | `remark i=STUDENT_ID rm=REMARK`<br> e.g., `remark i=A1234567X rm=Allergic to peanuts`
