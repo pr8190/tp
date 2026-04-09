@@ -28,7 +28,7 @@ Class ListSection
 Class StudentDetailsTab
 Class DashboardTab
 Class FilterPanel
-Class SettingsTab
+Class DemeritListTab
 }
 
 package Model <<Rectangle>> {
@@ -54,7 +54,7 @@ MainWindow *-down-> "1" StatusBarFooter
 
 TabSection *-down-> "1" StudentDetailsTab
 TabSection *-down-> "1" DashboardTab
-TabSection *-down-> "1" SettingsTab
+TabSection *-down-> "1" DemeritListTab
 
 ListSection *--> "1" FilterPanel
 ListSection *--> "1" PersonListPanel
@@ -62,7 +62,7 @@ ListSection *--> "1" PersonListPanel
 PersonListPanel -down-> "*" PersonCard
 
 PersonCard --|> UiPart
-SettingsTab --|> UiPart
+DemeritListTab --|> UiPart
 DashboardTab --|> UiPart
 StudentDetailsTab --|> UiPart
 
@@ -78,8 +78,8 @@ TabSection -[hidden]right- CommandBox
 ResultDisplay -[hidden]right- ListSection
 UiPart -[hidden]down- Model
 TabSection -[hidden]right- ResultDisplay
-DashboardTab -[hidden]right- SettingsTab
-SettingsTab -[hidden]right- StudentDetailsTab
+DashboardTab -[hidden]right- DemeritListTab
+DemeritListTab -[hidden]right- StudentDetailsTab
 
 MainWindow -[hidden]-|> UiPart
 @enduml

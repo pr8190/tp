@@ -3,6 +3,7 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam linetype polyline
 
 Package Model as ModelPackage <<Rectangle>>{
 Class "<<interface>>\nReadOnlyAddressBook" as ReadOnlyAddressBook
@@ -23,8 +24,8 @@ Class Remark
 Class RoomNumber
 Class StudentId
 Class Tag
-class Remark
-
+Class Remark
+Class DemeritIncident
 
 Class I #FFFFFF
 }
@@ -43,14 +44,15 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> StudentId
-Person *--> Phone
-Person *--> Email
-Person *--> RoomNumber
-Person *--> EmergencyContact
-Person *--> Remark
+Person *--> "1" Name
+Person *--> "1" StudentId
+Person *--> "1" Phone
+Person *--> "1" Email
+Person *--> "1" RoomNumber
+Person *--> "1" EmergencyContact
+Person *--> "0..1" Remark
 Person *--> "0..3" Tag
+Person *--> "*" DemeritIncident
 Tag --> TagType
 
 Person -[hidden]up--> I
@@ -60,6 +62,11 @@ Name -[hidden]right-> StudentId
 StudentId -[hidden]right-> Phone
 Phone -[hidden]right-> Email
 Email -[hidden]right-> RoomNumber
+RoomNumber -[hidden]right-> EmergencyContact
 
-ModelManager --> "~* filtered" Person
+EmergencyContact -[hidden]down-> Remark
+Remark -[hidden]right-> Tag
+Tag -[hidden]right-> DemeritIncident
+
+ModelManager --> "~* filtered\n\n" Person
 @enduml

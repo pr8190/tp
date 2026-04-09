@@ -21,5 +21,6 @@ Person *--> Email
 Person *--> RoomNumber
 Person *--> EmergencyContact
 Person *--> Remark
+Person *--> DemeritIncident
 Tag -right-> TagType
 @enduml
