@@ -105,11 +105,6 @@
 
 </box>
 
-
-When the command is entered, HallLedger opens a Help window containing a quick reference list of supported commands. The Help window also includes a reference to the HallLedger User Guide for more detailed explanations.
-
-![Help window](images/helpWindow.png)
-
 ### Adding a person: `add`
 
 Adds a person to the hall ledger.
@@ -124,11 +119,21 @@ Examples:
 > 
 > A newly added person will not have any tags
 
-### Listing all persons : `list`
+***
+### Editing a person : `edit`
 
-Shows a list of all persons in the address book.
+Edits an existing resident in the _Hall Ledger_.
 
-Format: `list`
+Format: `edit STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`
+
+* Edits the resident with the specified STUDENT_ID. STUDENT_ID is used to uniquely identify each resident in the displayed resident's list. The STUDENT_ID must be a valid student ID e.g. `A1234567X`.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+
+Examples:
+* `edit A1234567X p=91234567 e=johndoe@example.com` edits the phone number and email address of the resident with student ID `A1234567X` to be `91234567` and `johndoe@example.com` respectively.
+* `edit A8765432Y n=Betsy Crower ec=98765432` edits the name and emergency contact of the resident with student ID `A8765432Y` to be `Betsy Crower` and `98765432` respectively.
+***
 
 ### Tagging a resident: `tag`
 
@@ -147,62 +152,100 @@ Examples:
 * `tag i=A0123456N y=Y3 m=Information Systems`: Assigns Year 3 and Information Systems as the student’s tags (any existing tags are replaced).
 * `tag i=A0101010X g=Female`: Updates the resident’s Gender to Female and leaves other tags unchanged.
 
-### Editing a person : `edit`
+***
+### 6. Viewing and Finding Residents
 
-Edits an existing resident in the _Hall Ledger_.
+#### 6.1 Listing all residents
 
-Format: `edit STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`
+Displays all residents the resident list panel on the right.
 
-* Edits the resident with the specified STUDENT_ID. STUDENT_ID is used to uniquely identify each resident in the displayed resident's list. The STUDENT_ID must be a valid student ID e.g. `A1234567X`.
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+**Command:** `list`
 
-Examples:
-* `edit A1234567X p=91234567 e=johndoe@example.com` edits the phone number and email address of the resident with student ID `A1234567X` to be `91234567` and `johndoe@example.com` respectively.
-* `edit A8765432Y n=Betsy Crower ec=98765432` edits the name and emergency contact of the resident with student ID `A8765432Y` to be `Betsy Crower` and `98765432` respectively.
+#### 6.2 Finding residents
 
-### Locating persons: `find`
+Hall Ledger allows you to search for residents by:
+* **Name**
+* **Phone Number**
+* **Email**
+* **Room Number**
+* **Student ID**
+* **Emergency Contact**
+* **Year**
+* **Major**
+* **Gender**   
 
-Finds residents using one or more fields such as name, phone, email, room, student ID, emergency contact, year, major, and gender.
+You can perform searches either through the **typed commands** or through the **filter panel**.
 
-***Using the command line***
+<box type="info" seamless>
+**Tip**: You may use the `list` command to reset the resident list after performing a search with the `find` command or
+after using the Filter panel. This will allow you to see all residents again.
+</box>
 
-Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
-* Matching ignores letter case, and field order does not matter.
-  * e.g. `find n=Alice y=Y1` gives the same result as `find y=Y1 n=ALICE`.
-* If you use different fields together, a resident must satisfy all of them.
-  * e.g. `find n=Alice p=9123 y=Y1` returns residents who match name, phone, and year.
-* If you repeat the same field, matching any one of those values is enough.
-  * e.g. `find y=Y2 y=Y3` returns residents in Year 2 or Year 3.
-  * e.g. `find n=Hans Bo n=Anna Lee` returns residents matching either `n=` value.
-* You can provide up to 10 values per field.
-* `g=GENDER` uses full-value matching (case-insensitive). Other fields use fuzzy-friendly matching.
+#### 6.2.1 Using Typed Commands
 
-Examples:
+**Command:** `find`
 
-* `find n=John Doe` returns residents whose names match `John Doe`.
-* `find n=Alex n=David` returns residents matching either name value.
-* `find m=CS m=Economics g=Male g=Others` returns residents whose major is `CS` or `Economics`, and whose gender is `Male` or `Others`.
-* `find ec=+84 e=gmail` returns residents whose emergency contact matches `+84` and email matches `gmail`.
+**Usage:** `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
-Result of running `find n=Alice Pauline` from the command line (matching resident(s) are shown in the list view):
+**Example**
+Suppose you want to find all residents named "Alex":
 
-![Find Y2](images/find-y2.png)
+* Type in the command box: `find n=Alex`
+* The resident list updates to show all residents whose names match "Alex"
 
-***Using the user interface***
+**Example: Finding residents with different prefixes**
+Suppose you want to find residents named "Alex" who are in Year 2. You can search for both criteria at once:
 
-* Open the **Filter** panel to show the filter controls.
-* Enter one or more keywords in any field, then press Enter to apply the filter.
-* You can combine multiple keywords across multiple fields. The same matching behavior as the command-line `find`
-  applies.
-* To remove a keyword, click the `x` beside that keyword.
+* Type in the command box: `find n=Alex y=Y2`
+* The resident list updates to show only residents who match **both** the name "Alex" **and** Year 2
 
-![Filled filter panel](images/filled-filter-panel.png)
+**Example: Finding residents using multiple keywords within the same criterion**
+Suppose you want to find residents named "Alex" or "Bernice". You can search for multiple values within the same
+criterion by repeating that field:
+
+* Type in the command box: `find n=Alex n=Bernice`
+* The resident list updates to show only residents whose name match either "Alex" **or** Bernice
+
+#### 6.2.2 Using the Filter Panel
+
+The Filter Panel supports the same sea behaviour as the typed `find` command.
+
+**Steps:**
+
+1. Open the Filter panel (if it is collapsed).
+
+   ![Default filter panel](images/empty-filter-panel.png)
+
+2. Click on a filter field (e.g., "Search by Name"), then type a keyword.
+
+3. Press Enter to add the keyword. The resident list updates to show residents that match the keyword in that field.
+
+   ![Filter panel with one keyword](images/filter-panel-with-name-alex-and-bernice.png)
+
+4. Add more keywords if needed:
+    * Add more keywords in the same field to include residents that match any of the keywords in that field.
+    * Add keywords in other fields to limit results to residents that match the keywords in every field you used.
+
+5. To remove a keyword, click the `x` next to it.
+
+6. To clear the filter completely, remove all keywords from all fields or type 'list' in the command box.
+
+<box type="warning" seamless>
+
+Entering a command in the command box will reset the Filter panel.
+
+</box>
 
 <box type="info" seamless>
 
-For full matching behavior and examples, see [Fuzzy Matching Details](FuzzyMatching.md).
+**Tips:**
+
+* Matching ignores letter case, and keyword order does not matter.
+* Using more than one filter field makes the results more specific.
+* Using more keywords in one field helps you find residents matching any of those keywords.
+* Hall Ledger supports fuzzy matching, so you can still find results even when you type a partial keyword or make a
+  small typo. For more details, see [Fuzzy Matching Details](FuzzyMatching.md).
 
 </box>
 
@@ -240,6 +283,8 @@ Example usages:
 Example usage:
 - `remark i=A1121212X rm=`
 
+***
+
 ### Listing demerit rules: `demeritlist`
 
 Shows the indexed demerit rules available in HallLedger.
@@ -276,6 +321,7 @@ Examples:
 
 </box>
 
+*** 
 ### Deleting a resident : `delete`
 
 Deletes the resident identified by student ID from HallLedger.
@@ -294,7 +340,8 @@ If the command format is invalid, HallLedger will show an error message instead 
 
 ![Delete confirmation dialog](images/deleteConfirmation.png)
 
-### Clearing all residents : `clear`
+***
+### 10. Clearing all residents
 
 Clears all residents from HallLedger all at once.
 
@@ -305,7 +352,7 @@ Command: `clear`
 **Caution:**
 This action **permanently deletes all resident data**. We recommend creating a backup of your data file before running this command. Once cleared, the **deletion cannot be undone**.
 </box>
-
+***
 ### 11. Viewing help
 
 Opens the HallLedger Help window, which displays the available commands and their usage formats.
@@ -317,17 +364,21 @@ Command: `help`
 <br>
 <br>
 
+***
+
 ### Exiting the program : `exit`
 
 Exits the program.
 
 Command: `exit`
+***
 
 ### Saving the data
 
 HallLedger automatically saves your data on your device whenever you make changes. There is no need to manually save your work.
 
 When you exit the program and open it again later, all your data will still be available.
+***
 ### Editing the data file
 
 HallLedger data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
