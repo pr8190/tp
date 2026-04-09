@@ -165,7 +165,8 @@ Here's a (partial) class diagram of the `Logic` component:
 The simplified sequence diagram below illustrates the interactions within the `Logic` component, taking a delete
 command as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" width="800" alt="Interactions Inside the Logic Component for a delete command" />
+<puml src="diagrams/DeleteSequenceDiagram.puml" width="900" alt="Interactions Inside the Logic Component for a delete
+command" />
 
 <box type="info">
 
