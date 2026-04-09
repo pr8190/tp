@@ -33,6 +33,7 @@ public class DemeritCommandTest {
                 format(updatedPerson),
                 18,
                 "Visit by non-residents of the hostel or visiting a resident of another hostel during quiet hours",
+                "Stayed over",
                 6,
                 6), result.getFeedbackToUser());
     }
