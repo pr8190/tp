@@ -60,17 +60,23 @@
    * To install on Windows follow this [guide](https://se-education.org/guides/tutorials/javaInstallationWindows.html)
    * To install on MacOS, follow this [guide](https://se-education.org/guides/tutorials/javaInstallationMac.html)
    * To install on Linux, follow this [guide](https://se-education.org/guides/tutorials/javaInstallationLinux.html)
-4. Download the HallLedger application by clicking on this [link](https://github.com/AY2526S2-CS2103T-T15-1/tp/releases/download/v1.5.1/hall-ledger.jar). The download should start immedietely.
+4. Download the Hall Ledger application by clicking on
+   this [link](https://github.com/AY2526S2-CS2103T-T15-1/tp/releases/download/v1.5.1/hall-ledger.jar). The download
+   should start immedietely.
 5. On your computer, move the ``hall-ledger.jar`` file into an empty folder.
-6. Using the Terminal (refer to step 1), navigate to the folder where you placed the ``HallLedger.jar`` file. Use the [`cd`](https://www.geeksforgeeks.org/linux-unix/cd-command-in-linux-with-examples/) command for this step.
+6. Using the Terminal (refer to step 1), navigate to the folder where you placed the ``Hall Ledger.jar`` file. Use the [
+   `cd`](https://www.geeksforgeeks.org/linux-unix/cd-command-in-linux-with-examples/) command for this step.
 7. Type `java -jar hall-ledger.jar` in the Terminal and enter to start the application. 
-8. A HallLedger window similar to the below should appear in a few seconds. Note that the app will contain some sample data.
+8. A Hall Ledger window similar to the below should appear in a few seconds. Note that the app will contain some sample
+   data.
 
 
 ##### 1.2 Understanding the Interface
-When HallLedger is opened, you will see an interface like the image below. The interface consists of the following components:
 
-<img src="images/interface.png" alt="HallLedger Integer" width="80%" align="center"/>
+When Hall Ledger is opened, you will see an interface like the image below. The interface consists of the following
+components:
+
+<img src="images/interface.png" alt="Hall Ledger Integer" width="80%" align="center"/>
 
 <br>
 
@@ -85,7 +91,9 @@ When HallLedger is opened, you will see an interface like the image below. The i
 * **Other Tabs**: The other tabs (Dashboard, Demerit List and Demerit Records) show additional information about the residents and the ledger.
 
 ##### 1.3 Brief Walkthrough
-This section gives a brief walkthrough of how to get started with using HallLedger. You'll learn how to add a resident, edit their details, tag their major and finally delete them from the Ledger.
+
+This section gives a brief walkthrough of how to get started with using Hall Ledger. You'll learn how to add a resident,
+edit their details, tag their major and finally delete them from the Ledger.
 
 To start, type the following instructions into the command box (in the given order)and press Enter after each:
 1. `add n=Vera Tan i=A1234567X e=vera.tan@gmail.com p=+6598765432 r=1A ec=+6512345678` to add a resident named `Vera Tan` to the ledger.
@@ -103,7 +111,8 @@ To start, type the following instructions into the command box (in the given ord
 --------------------------------------------------------------------------------------------------------------------
 
 ### 2. General Command Format
-The commands used in HallLedger generally follow the format: `COMMAND i=STUDENT_ID [PREFIX=...]` where:
+
+The commands used in Hall Ledger generally follow the format: `COMMAND i=STUDENT_ID [PREFIX=...]` where:
 * `COMMAND` is the action you want to perform (e.g. `add`, `edit`, `delete`, etc.)
 * `i=STUDENT_ID` is used to specify the resident you want to perform the action on.
   * The student ID must start with an uppercase 'A', followed by 6-8 digits, and end with an uppercase letter (e.g. `A1234567X`).
@@ -136,7 +145,7 @@ Adds a new person to the hall ledger.
 * All fields are required.
 
 <box type="wrong">
-<b>Duplicate student IDs and room numbers are not allowed.</b> If you try to add a resident with a student ID/room number that already exists in the ledger, HallLedger will show an error message and the command will fail.
+<b>Duplicate student IDs and room numbers are not allowed.</b> If you try to add a resident with a student ID/room number that already exists in the ledger, Hall Ledger will show an error message and the command will fail.
 </box>
 
 Examples:

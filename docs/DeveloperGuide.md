@@ -4,12 +4,55 @@ title: "Developer Guide"
 pageNav: 3
 ---
 
-# Hall Ledger Developer Guide
+## **Hall Ledger Developer Guide**
 
-<!-- * Table of Contents -->
 <page-nav-print />
 
+---
+<!-- * Table of Contents -->
+
+<div class="section table-of-contents">
+
+### **Table of Contents**
+
+1. [Acknowledgements](#acknowledgements)
+2. [Setting up, getting started](#setting-up-getting-started)
+3. [Design](#design)  
+   3.1. [Architecture](#architecture)  
+   3.2. [UI component](#ui-component)  
+   3.3. [Logic component](#logic-component)  
+   3.4. [Model component](#model-component)  
+   3.5. [Storage component](#storage-component)  
+   3.6. [Common classes](#common-classes)
+4. [Implementation](#implementation)  
+   4.1. [How UI triggers command execution](#how-ui-triggers-command-execution)  
+   4.2. [Demerit point tracking](#demerit-point-tracking)  
+   4.2.1. [Rationale for the current design](#rationale-for-the-current-design)  
+   4.2.2. [Current scope note](#current-scope-note)  
+   4.3. [Demerit records UI](#demerit-records-ui)
+5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
+6. [Appendix: Requirements](#appendix-requirements)  
+   6.1. [Product scope](#product-scope)  
+   6.2. [User stories](#user-stories)  
+   6.3. [Use cases](#use-cases)  
+   6.4. [Non-Functional Requirements](#non-functional-requirements)  
+   6.5. [Glossary](#glossary)
+7. [Appendix: Instructions for Manual Testing](#appendix-instructions-for-manual-testing)  
+   7.1. [Launch and shutdown](#launch-and-shutdown)  
+   7.2. [Adding a resident](#adding-a-resident)  
+   7.3. [Finding residents](#finding-residents)  
+   7.4. [Tagging a resident](#tagging-a-resident)  
+   7.5. [Adding a remark](#adding-a-remark)  
+   7.6. [Demerit features](#demerit-features)  
+   7.7. [Deleting a resident](#deleting-a-resident)
+8. [Appendix: Planned Enhancements](#appendix-planned-enhancements)
+
+</div>
+
+
 --------------------------------------------------------------------------------------------------------------------
+
+<div class = section>
 
 ## **Acknowledgements**
 
@@ -19,13 +62,22 @@ pageNav: 3
 * dinhcodes has used co-pilot complete to help write some of the code in this project, as well as to answer 
   questions on architectural, class designs, and menial tasks such as creating css styles, but dinhcodes has made 
   sure to understand and review all code written by co-pilot.
+
+</div>
+
 --------------------------------------------------------------------------------------------------------------------
+
+<div class = section>
 
 ## **Setting up, getting started**
 
 Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
+</div>
+
 --------------------------------------------------------------------------------------------------------------------
+
+<div class = section>
 
 ## **Design**
 
@@ -39,7 +91,10 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [
+`Main`](https://github.com/AY2526S2-CS2103T-T15-1/tp/tree/master/src/main/java/seedu/address/Main.java) and [
+`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in
+charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -69,9 +124,12 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 
 The sections below give more details of each component.
 
+---
+
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [
+`Ui.java`](https://github.com/AY2526S2-CS2103T-T15-1/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 The following is a (partial) class diagram of the `UI` component:
 
 <puml src="diagrams/UiClassDiagram.puml" width="900" alt="Structure of the UI Component" />
@@ -80,7 +138,11 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 `ListSection` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the
 commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files
+that are in the `src/main/resources/view` folder. For example, the layout of the [
+`MainWindow`](https://github.com/AY2526S2-CS2103T-T15-1/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java)
+is specified in
+[`MainWindow.fxml`](https://github.com/AY2526S2-CS2103T-T15-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -89,9 +151,12 @@ The `UI` component,
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays `Person` objects residing in the `Model`.
 
+---
+
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [
+`Logic.java`](https://github.com/AY2526S2-CS2103T-T15-1/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -102,7 +167,7 @@ command as an example.
 
 <puml src="diagrams/DeleteSequenceDiagram.puml" width="800" alt="Interactions Inside the Logic Component for a delete command" />
 
-<box type="info" seamless>
+<box type="info">
 
 **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 
@@ -125,43 +190,60 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g., during testing.
 
+---
+
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+
+**API** : [
+`Model.java`](https://github.com/AY2526S2-CS2103T-T15-1/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="700" />
 
-The `Model` component,
+The `Model` component:
 
-* stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
-* stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
-* stores a `FilterDetails` object that represents the details of the most recent filter applied to the hall ledger data.
-* does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
+* stores Hall Ledger’s resident data as `Person` objects,
+* stores the currently displayed resident list as a filtered `ObservableList<Person>`,
+* stores the currently selected `Person` for UI synchronization,
+* stores a `UserPrefs` object representing user preferences,
+* stores a `FilterDetails` object representing the most recent resident filter,
+* and does not depend on the `UI`, `Logic`, or `Storage` components.
 
-<box type="info" seamless>
+Hall Ledger’s core domain entity is `Person`, which represents a resident. In addition to basic contact information, a resident can also store:
+* typed tags such as year, major, and gender,
+* a resident-level remark,
+* and demerit incidents used to compute the total demerit points.
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
+This keeps Hall Ledger’s domain model centered around hall-resident administration rather than a generic contact list.
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="800" />
-
-</box>
+---
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [
+`Storage.java`](https://github.com/AY2526S2-CS2103T-T15-1/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
-The `Storage` component,
-* can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
-* depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+The `Storage` component:
+
+* saves resident data and user preference data in JSON format,
+* reads them back into the corresponding in-memory objects,
+* depends on some classes in the `Model` component because it persists model data,
+* and is responsible for preserving Hall Ledger-specific resident information such as tags, remarks, and demerit incidents.
+
+This allows Hall Ledger to persist hall-administration data without coupling persistence logic to the model or UI layers.
+
+---
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.address.commons` package.
+Classes used by multiple components are placed in the `seedu.address.commons` package.
+
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div class = section>
 
 ## **Implementation**
 
@@ -191,8 +273,8 @@ public class MainWindow extends UiPart<Stage>
         implements CommandExecutor, FilterExecutor {
 
     public MainWindow(Logic logic) {
-        commandBox = new CommandBox(this); // 'this' implements CommandExecutor
-        filterPanel = new FilterPanel(logic.getFilterDetails(), this); // 'this' implements FilterExecutor
+        commandBox = new CommandBox(this); // MainWindow as an instance of CommandExecutor
+        filterPanel = new FilterPanel(logic.getFilterDetails(), this); // MainWindow as an instance of FilterExecutor
     }
 }
 ```
@@ -211,6 +293,8 @@ CommandResult result = filterExecutor.executeFilter(updatedFilterDetails);
 This separation keeps responsibilities clear: UI components handle user input, while command and filter execution
 remain centralized behind injected callbacks.
 
+---
+
 ### Demerit point tracking
 
 Hall Ledger stores demerit incidents as resident-level records instead of storing only a mutable running total.
@@ -227,7 +311,7 @@ The resident’s total demerit points are **derived** by summing the points appl
 The demerit feature is split into two user-facing commands:
 
 * `demeritlist` — displays the indexed demerit rule catalogue and point tiers.
-* `demerit` — applies an indexed demerit rule to a resident identified by student ID.
+* `demerit` — applies an indexed demerit rule to a resident identified by Student ID.
 
 #### Rationale for the current design
 
@@ -243,105 +327,35 @@ By storing incidents individually, Hall Ledger can:
 
 #### Current scope note
 
-Hall Ledger currently records resident demerit incidents and computes accumulated totals. It does **not** yet
+Hall Ledger currently records resident demerit incidents and computes accumulated totals. It does **not** yet 
 automatically enforce semester-based or lifetime housing sanctions tied to DPS thresholds.
 
-### \[Proposed\] Undo/redo feature
+---
 
-#### Proposed Implementation
+### Demerit records UI
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+Hall Ledger provides a dedicated **Demerit Records** tab for the currently selected resident.
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+This tab displays:
+* the resident’s accumulated total demerit points,
+* the resident’s demerit incident history,
+* the rule description,
+* incident remarks,
+* and the points applied for each incident.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+The tab updates when the selected resident changes.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+This design was chosen because:
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+* Residential assistants often need both the current total and the incident history,
+* showing only a running total would hide important context,
+* and separating demerit records into a dedicated tab keeps the interface organized.
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
-
-Step 2. The user executes a delete command to delete a resident in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
-
-Step 3. The user executes an add command to add a new resident. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
-
-<box type="info" seamless>
-
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-</box>
-
-Step 4. The user now decides that adding the resident was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-</box>
-
-The following sequence diagram shows how an undo operation goes through the `Logic` component:
-
-<puml src="diagrams/UndoSequenceDiagram-Logic.puml" alt="UndoSequenceDiagram-Logic" />
-
-<box type="info" seamless>
-
-**Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</box>
-
-Similarly, how an undo operation goes through the `Model` component is shown below:
-
-<puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
-
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-<box type="info" seamless>
-
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the earlier add command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-<puml src="diagrams/CommitActivityDiagram.puml" width="250" />
-
-#### Design considerations:
-
-**Aspect: How undo & redo executes:**
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
-
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-  * Cons: We must ensure that the implementation of each individual command is correct.
-
-_{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div class = section>
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
@@ -351,76 +365,71 @@ _{Explain here how the data archiving feature will be implemented}_
 * [Configuration guide](Configuration.md)
 * [DevOps guide](DevOps.md)
 
+</div>
+
 --------------------------------------------------------------------------------------------------------------------
+
+<div class = section>
 
 ## **Appendix: Requirements**
 
 ### Product scope
 
-Hall Ledger is a desktop application for Resident Assistants (RAs) and other hall administrators who need to manage
-resident contact records quickly and accurately. It is optimized for hall-level resident administration, where users
-frequently need to search, update, and maintain resident details such as student ID, room assignment, contact
-information, and emergency contact details.
+Hall Ledger is a desktop application for **Resident Assistants (RAs)** and other hall administrators who need to 
+manage resident records in NUS halls efficiently.
 
-Beyond basic resident record management, Hall Ledger is intended to support common hall-administration workflows such as
-tagging residents by attributes (e.g. year of study, major, gender), monitoring occupancy at the room level, tracking
-demerit incidents, and serving as a foundation for future hall-management features such as retention-related review and
-other resident administration tasks.
+Beyond basic resident record management, Hall Ledger supports common hall-administration workflows such as:
+* organizing residents by typed tags,
+* recording short operational remarks,
+* and tracking demerit incidents in a structured way.
 
-Hall Ledger is not intended to replace university-wide housing allocation systems, payment systems, or institutional
-access-control systems. Its scope is limited to block-level or hall-level resident management and operational tracking.
+Hall Ledger is **not** intended to replace university-wide housing allocation systems, payment systems, or 
+institutional access-control systems.
 
-**Target user profile:**
-* has a need to manage a significant number of resident records within a hall or block
-* is a Resident Assistant (RA), hall administrator, or student leader handling resident administration
-* frequently needs to search for residents by name, student ID, room number, or tagged attributes
-* needs quick access to resident contact details and emergency contacts
-* prefers a desktop app over manual spreadsheets or scattered notes
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI-style commands
+**Target user profile**
 
-**Value proposition:** Hall Ledger helps hall administrators manage resident records faster and with fewer errors than
-spreadsheets or manual lists, while providing a centralized and command-driven workflow tailored to hall operations.
+The target user:
+* manages many residents,
+* frequently needs quick access to resident information,
+* prefers keyboard-driven workflows where possible,
+* and wants a local desktop tool rather than scattered spreadsheets or notes.
+
+**Value proposition**
+
+Hall Ledger helps residential assistants (RAs) manage resident records faster and with fewer errors than spreadsheets 
+or ad hoc note-taking workflows, while keeping hall-specific information such as tags, remarks, and demerit incidents in one place.
+
+---
 
 ### User stories
 
-Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
+Priorities: High (`***`), Medium (`**`), Low (`*`)
 
-| Priority | As a(n) …​ | I want to …​ | So that I can…​ |
-|----------|------------|--------------|-----------------|
-| `* * *`  | new user   | see usage instructions | refer to instructions when I forget how to use the App |
-| `* * *`  | RA         | add a new student contact | keep up-to-date records of students under my care |
-| `* * *`  | RA         | list all student contacts | get an overview of students assigned to me |
-| `* * *`  | RA         | search for existing student contacts | quickly find a specific resident's information |
-| `* * *`  | RA         | delete records of students | remove entries of students no longer in hall |
-| `* * *`  | RA         | clear all current student records | quickly reset the system for a new semester |
-| `* * *`  | RA         | edit existing contacts | maintain accurate and up-to-date student resident records |
-| `* * *`  | RA         | add demerit records to a student profile | track resident behaviour incidents accurately |
-| `* * `   | RA         | view the data file in JSON | enjoy data portability without opening the app |
-| `* * *`  | RA         | filter existing contacts based on attributes (e.g., block, year) | easily view and manage specific groups of resident students |
-| `* * *`  | RA         | add custom tags to students | allow for efficient categorisation of students |
-| `* * `   | RA         | add and administer CCA point records to a student's profile | track their CCA contributions accurately |
-| `* * `   | RA         | view student CCA records | minimize chance of someone else seeing them by accident |
-| `* `     | RA         | rank students by their total accumulated points | prioritize residents based on points-related review |
-| `* *`    | RA         | view student demerit records | assess a student's overall behaviour |
-| `* `     | RA         | generate occupancy reports by block and room | plan effectively for next semester's housing allocation |
-| `* `     | RA         | export all data to a CSV file | share or analyse data externally for admin use |
+| Priority | As a ... | I want to ... | So that I can ...                                 |
+| --- |----------| --- |---------------------------------------------------|
+| `***` | RA       | add resident records | keep the resident list up to date                 |
+| `***` | RA       | edit resident records | correct outdated or incorrect information         |
+| `***` | RA       | delete resident records | remove residents who are no longer in the hall    |
+| `***` | RA       | view all residents | get a quick overview of the current resident list |
+| `***` | RA       | find residents using key fields | locate residents quickly                          |
+| `***` | RA       | tag residents by year, major, and gender | organize residents in hall-relevant ways          |
+| `***` | RA       | add remarks to residents | store short operational notes                     |
+| `***` | RA       | add demerit incidents to residents | keep track of rule breaches                       |
+| `**` | RA       | view a resident’s demerit history | understand how the current total was formed       |
+| `**` | RA       | view the demerit rule list | apply the correct rule consistently               |
 
-*{More to be added}*
+---
 
 ### Use cases
 
-(For all use cases below, the **System** is Hall Ledger and the **Actor** is the Residential Assistant (RA), unless
-specified otherwise)
-
-**Use case: UC01 - Add a new student**
+For all use cases below, the **System** is Hall Ledger and the **Actor** is the Residential Assistant (RA) unless 
+stated otherwise.
 
 **MSS**
 
-1. RA requests to add a new student, providing the student's details (e.g., name, phone, email, room number, tags).
-2. Hall Ledger adds the new student.
-3. Hall Ledger displays a success message with the added student's details.
+1. RA requests to add a new resident, providing the resident's details (e.g., name, phone, email, room number, tags).
+2. Hall Ledger adds the new resident.
+3. Hall Ledger displays a success message with the added resident's details.
 
 Use case ends.
 
@@ -430,79 +439,73 @@ Use case ends.
     * 1a1. Hall Ledger shows an error message indicating the correct format.
     Use case resumes from step 1.
 
-* 1b. A student with a provided unique identifier (Student ID, room) already exists in the system.
-    * 1b1. Hall Ledger detects the duplicate entry and displays an errors message. Use case ends.
+* 1b. A resident with a provided unique identifier (Student ID, room) that already exists in the system.
+    * 1b1. Hall Ledger detects the duplicate entry and displays an error message. Use case ends.
 
 * 1c. RA fails to provide compulsory details (name, phone, email, room number).
     * 1c1. Hall Ledger shows an error message indicating the compulsory details.
     Use case resumes from step 1.
 
-**Use case: UC02 - View a student's details (basic info, demerit records)**
+**Use case: UC02 - View a resident's details (basic info, demerit records)**
 
 **MSS**
 
-1. RA requests to list all students.
-2. Hall Ledger shows a list of students.
-3. RA identifies a specific student from the list.
-4. Hall Ledger displays the student's basic information and current demerit total in the UI.
+1. RA requests to list all residents.
+2. Hall Ledger shows the list of all residents.
+3. RA identifies a specific resident from the list.
+4. Hall Ledger displays the resident's basic information and demerit records in the UI.
+
+Use case ends.
+
+**Use case: UC03 - Edit a resident's info**
+
+**MSS**
+
+1. RA requests to edit specific details (e.g., phone, email, room number, tags) of a resident using their Student ID.
+2. Hall Ledger updates the resident's details.
+3. Hall Ledger displays a success message with the updated resident's details.
 
 Use case ends.
 
 **Extensions**
 
-* 2a. The student list is empty.
-    * 2a1. Hall Ledger indicates that the student list is empty.
-    Use case ends.
-
-**Use case: UC03 - Edit a student's info**
-
-**MSS**
-
-1. RA requests to edit specific details (e.g., phone, email, room number, tags) of a student using their student ID.
-2. Hall Ledger updates the student's details.
-3. Hall Ledger displays a success message with the updated student's details.
-
-Use case ends.
-
-**Extensions**
-
-* 1a. The given student ID does not exist.
-    * 1a1. Hall Ledger shows an error message indicating that the student was not found.
+* 1a. The given Student ID does not exist.
+    * 1a1. Hall Ledger shows an error message indicating that the resident was not found.
     Use case ends.
 
 * 1b. RA provides an invalid format for the details to be updated.
     * 1b1. Hall Ledger shows an error message indicating the correct format.
     Use case resumes from step 1.
 
-* 1c. RA provides details that are exactly the same as the existing ones, resulting in no changes.
-  Use case resumes from step 1.
-
-**Use case: UC04 - Delete or Clear student records**
+**Use case: UC04 - Delete a resident's record**
 
 **MSS**
 
-1. RA requests to delete a specific student or clear all current student records.
-2. Hall Ledger deletes the specified student or clears all data.
-3. Hall Ledger displays a success message reflecting the changes.
+1. RA requests to delete a specific resident record.
+2. Hall Ledger opens a confirmation dialog to confirm the deletion.
+3. RA confirms the action.
+4. Hall Ledger deletes the specified resident record.
+5. Hall Ledger displays a success message reflecting the changes.
 
 Use case ends.
 
 **Extensions**
 
-* 1a. The student list is already empty.
-  Use case ends.
+* 1a. The given student ID of the resident is invalid.
+    * 1a1. Hall Ledger shows an error message indicating that the resident was not found.
+      Use case ends.
 
-* 1b. If deleting, the given student ID is invalid.
-    * 1b1. Hall Ledger shows an error message.
-    Use case resumes from step 1.
+* 3a. RA cancels the deletion.
+    * 3a1. Hall Ledger aborts deletion and shows a cancellation message.
+    * Use case ends.
 
-**Use case: UC05 - Search and filter students**
+**Use case: UC05 - Search and filter residents**
 
 **MSS**
 
 1. RA requests to search by name or filter by specific attributes (e.g., room, year, tags).
 2. Hall Ledger processes the query.
-3. Hall Ledger shows a list of matching students.
+3. Hall Ledger shows a list of matching residents.
 
 Use case ends.
 
@@ -512,158 +515,202 @@ Use case ends.
     * 1a1. Hall Ledger shows an error message indicating how to use the specific command correctly.
     Use case ends.
 
-* 1b. RA provides invalid keywords for an attribute that only accept a fixed set of values (year, gender).
-    * 1b1. Hall Ledger displays a warning that invalid keywords will be ignored in search.
-      Use case ends.
+* 1b. RA provides invalid keywords for a field that only accepts a set of valid values (year, gender).
+    * 1b1. Hall Ledger shows a warning that invalid keywords in these fields would be ignored. Use case resumes from
+      step 1.
 
-* 2a. No students match the given criteria.
-    * 2a1. Hall Ledger shows an empty list and indicates that 0 students were found.
-    Use case ends.
+* 1c. RA provides more than 10 filter keywords per field.
+    * 1c1. Hall Ledger shows an error message indicating that the RA has exceeded the maximum number of keywords for
+      that field.
 
-**Use case: UC06 - Add a demerit record**
+**Use case: UC06 - Add a demerit incident**
 
 **MSS**
 
-1. RA requests to list the available demerit rules.
-2. Hall Ledger displays the indexed demerit rule catalogue.
-3. RA requests to add a demerit record to a specific student using the student's ID and the rule index.
-4. Hall Ledger records the demerit incident for that student.
-5. Hall Ledger updates the resident's total demerit points.
-6. Hall Ledger displays a success message showing the applied rule and updated total.
+1. RA requests to add a demerit incident to a resident with a remark.
+2. Hall Ledger determines the offence number for that resident and rule based on number of past offences.
+3. Hall Ledger updates the resident’s demerit records.
+4. Hall Ledger shows a success message.
 
 Use case ends.
 
 **Extensions**
 
-* 1a. No demerit rules are available.
-    * 1a1. Hall Ledger displays an empty result.
-    Use case ends.
+* 1a. RA enters an invalid student ID.
+  * 1a1. Hall Ledger shows an error message.
+  * Use case ends.
 
-* 3a. The given student ID is invalid.
-    * 3a1. Hall Ledger shows an error message indicating that the student was not found.
-    Use case resumes at step 2.
+* 1b. RA enters an invalid demerit rule index.
+  * 1b1. Hall Ledger shows an error message.
+  * Use case ends.
 
-* 3b. The given rule index does not exist.
-    * 3b1. Hall Ledger shows an error message indicating that the rule index is invalid.
-    Use case resumes at step 2.
-
-**Use case: UC07 - Export data**
-
-**MSS**
-
-1. RA requests to export all student details data to a CSV file.
-2. Hall Ledger gathers the relevant data.
-3. Hall Ledger exports the file to the user's system.
-
-Use case ends.
-
-**Extensions**
-
-* 1a. The student list is empty.
-    * 1a1. Hall Ledger indicates that there is no data to generate a report or export.
-    Use case ends.
+---
 
 ### Non-Functional Requirements
 
-1. Should work on any mainstream OS as long as it has Java 17 or above installed.
-
-2. Should be able to store up to 250 students without noticeable sluggishness in performance for typical usage.
-
-3. Should have a response time of < 3 seconds for all instructions.
-
-4. A user with above-average typing speed for regular English text (i.e., not code, not system admin commands) should be able to accomplish most tasks faster using commands than using the mouse.
-
-5. Interaction with the product should be intuitive even for non-technical users, e.g., simple error messages should be displayed and help should be easily available when needed.
-
-6. The product is not required to handle more than one user at a time.
-
-7. The product should be free to use and open source.
-
-8. The product should not need an internet connection to use.
+1. Hall Ledger should work on mainstream desktop operating systems that support Java 17.
+2. Hall Ledger should remain usable for a typical hall-level resident dataset.
+3. A fast typist should be able to complete common administrative tasks efficiently through commands.
+4. Hall Ledger should store data locally in a human-editable file.
+5. Hall Ledger should work without requiring internet access during normal usage.
+6. Hall Ledger should remain a single-user application.
+7. Hall Ledger should be able to comfortably perform with 200 residents, which is a typical hall population size.
+8. Hall Ledger should be able to provide feedback in less than 3 seconds.
+---
 
 ### Glossary
 
-* **Hall** : A residential building on campus that houses students. Each hall is made up of multiple blocks, and each block is made up of multiple rooms.
-* **RA** : Resident Assistant, a student leader who is responsible for managing a block of rooms in a hall and the students living in those rooms.
-* **CCA** : Co-Curricular Activities, which are activities that students participate in outside of their academic curriculum.
-* **DPS** : Demerit Point Structure used as the source reference for Hall Ledger’s demerit rule catalogue.
-* **Mainstream OS** : Windows, Linux, Unix, macOS.
-* **Non-technical users** : Users who are not familiar with technical jargon, command-line interfaces, or programming concepts.
+* **Resident**: A hall resident stored in Hall Ledger.
+* **RA**: Resident Assistant.
+* **Student ID**: The identifier used by Hall Ledger to target a resident.
+* **Remark**: A short resident-level operational note.
+* **Demerit incident**: A single recorded rule breach applied to a resident.
+* **Demerit rule**: A rule in the demerit catalogue that can be applied using `demerit`.
+* **DPS**: Demerit Point Structure used as the source reference for Hall Ledger’s demerit rules.
+* **Prefix**: A keyword followed by an equals sign (`=`) used to specify a field in a command. For example, `n=` is the prefix for the name field, and `i=` is the prefix for the Student ID field.
+* **Field**: A piece of information about a resident, such as name, phone number, email, room number, tags, remark, or demerit incidents.
+* **Keyword**: A string used to search for residents in the `find` command. For example, `John` is a keyword that can be used to find residents whose names contain "John".
 
---------------------------------------------------------------------------------------------------------------------
+</div>
 
-## **Appendix: Instructions for manual testing**
+---
+
+<div class = section>
+
+## Appendix: Instructions for Manual Testing
 
 Given below are instructions to test the app manually.
 
-<box type="info" seamless>
+<box type="info">
 
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+These instructions provide a starting point. Testers are expected to do exploratory testing beyond them.
 
 </box>
 
 ### Launch and shutdown
 
 1. Initial launch
+   1. Download the jar file into an empty folder.
+   2. Run the app.
+      Expected: Hall Ledger starts with sample data.
 
-   1. Download the jar file and copy it into an empty folder.
+2. Closing and reopening
+   1. Close the app.
+   2. Launch it again.
+      Expected: previously saved data and preferences are restored.
 
-   1. Double-click the jar file.<br>
-      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+---
 
-2. Saving window preferences
+### Adding a resident
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+1. Valid add
+   1. Enter
+      `add n=John Doe p=+6598765432 e=johnd@example.com i=A1234567X r=15R ec=+65 91234567`
+   2. Verify that the resident is added and the result box shows success.
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-      Expected: The most recent window size and location is retained.
+2. Invalid add
+   1. Enter an add command with an invalid field value.
+   2. Verify that Hall Ledger rejects the command.
 
-### Deleting a person
+---
 
-1. Deleting a person while all persons are being shown
+### Finding residents
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+1. Enter
+   `find n=John`
+2. Verify that the list is filtered appropriately.
 
-   1. Test case: `delete i=A1234567X`<br>
-      Expected: The matching resident is deleted from the list. Details of the deleted resident are shown in the status message. Timestamp in the status bar is updated.
+3. Enter
+   `find y=2 m=Computer Science`
+4. Verify that the list is filtered accordingly.
 
-   1. Test case: `delete i=A0000000Z`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+---
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `delete i=notAStudentId`<br>
-      Expected: Similar to previous.
+### Tagging a resident
 
-### Demerit commands
+1. Enter
+   `tag i=A1234567X y=2 m=Computer Science g=he/him`
+2. Verify that the target resident’s tags are updated.
 
-1. Listing demerit rules
+---
 
-   1. Test case: `demeritlist`<br>
-      Expected: The result box shows the indexed demerit rule catalogue.
+### Adding a remark
 
-2. Adding a demerit record
+1. Enter
+   `remark i=A1234567X rm=Peanut allergy`
+2. Verify that the resident remark is updated.
 
-   1. Prerequisites: At least one resident exists in the list.
+---
 
-   1. Test case: `demerit i=A1234567X di=18`<br>
-      Expected: A success message is shown. The resident's displayed demerit total increases according to the first-offence tier of rule 18.
+### Demerit features
 
-   1. Test case: Repeat `demerit i=A1234567X di=18`<br>
-      Expected: A success message is shown. The resident's displayed demerit total increases again according to the next offence tier.
+1. Show demerit rules
+   1. Enter `demeritlist`
+   2. Verify that Hall Ledger shows the supported rule list.
 
-   1. Test case: `demerit i=A9999999Z di=18`<br>
-      Expected: No demerit is added. An error message is shown indicating that the resident was not found.
+2. Add a demerit incident
+   1. Enter
+      `demerit i=A1234567X di=18 rm=Visitor during quiet hours`
+   2. Verify that:
+      * the command succeeds,
+      * the success message includes the remark,
+      * the resident’s demerit tab updates,
+      * and the total demerit points increase correctly.
 
-   1. Test case: `demerit i=A1234567X di=999`<br>
-      Expected: No demerit is added. An error message is shown indicating that the rule index does not exist.
+3. Repeated offence
+   1. Enter the same `demerit` command again.
+   2. Verify that the offence number and points reflect a repeated offence for that rule.
 
-### Saving data
+4. Invalid rule
+   1. Enter
+      `demerit i=A1234567X di=999`
+   2. Verify that Hall Ledger rejects the command.
 
-1. Dealing with missing/corrupted data files
+---
 
-   1. Delete or rename the `data/addressbook.json` file, then relaunch the app.<br>
-      Expected: Hall Ledger starts with sample data or an empty initialized data file instead of crashing.
+### Deleting a resident
 
-   1. Edit `data/addressbook.json` into an invalid JSON format, then relaunch the app.<br>
-      Expected: Hall Ledger detects that the data file cannot be loaded and starts safely without using the corrupted
-      data.
+1. Enter
+   `delete i=A1234567X`
+2. Verify that a confirmation dialog appears.
+3. Cancel the deletion.
+   Expected: the resident remains.
+4. Repeat and confirm the deletion.
+   Expected: the resident is removed.
+
+</div>
+
+--------------------------------------------------------------------------------------------------------------------
+
+<div class = section>
+
+## Appendix: Planned Enhancements
+
+Team size: 5
+
+1. Enable command to be executed by filtered list index instead of Student ID: Hall Ledger currently requires targeting residents by Student ID. We plan to also support targeting by the index shown in the currently displayed resident list, which may be more convenient for some users.
+
+2. Improve robustness when users manually edit `hall-ledger.json`: Hall Ledger currently expects manually edited JSON
+   data to
+   remain logically valid. We plan to detect and explain more invalid manual edits instead of only failing at load time.
+
+3. Refine demerit-table behavior for extremely narrow layouts: The demerit tab currently keeps detailed incident information visible, but very narrow layouts can still feel cramped. We plan to improve the layout behavior further while keeping the incident history readable.
+
+4. Make tag-validation error messages more specific: Hall Ledger currently rejects invalid tag inputs, but some error messages can still be made more precise. We plan to state more clearly which tag field failed validation and why.
+
+5. Improve delete-confirmation feedback: Hall Ledger currently confirms deletion using a modal dialog. We plan to make the feedback around cancellation and confirmation even clearer so users can more easily distinguish between aborted and completed deletion flows.
+
+6. Make repeated-demerit feedback more informative: Hall Ledger currently shows the applied rule, remark, points added, and updated total. We plan to also surface the offence number more prominently in the success feedback for easier verification.
+
+7. Improve messaging for invalid resident targeting: Commands such as `edit`, `remark`, and `demerit` reject 
+   nonexistent Student IDs. We plan to standardize those error messages further so the reason for failure is even 
+   clearer to users.
+
+8. Improve save-failure guidance for write-protected folders: Hall Ledger currently depends on write access to its home folder. We plan to provide clearer user-facing guidance when saving fails due to file-permission issues.
+
+9. Improve documentation alignment for platform-specific behavior: Hall Ledger currently documents known issues such as dialog behavior and write-protected folders. We plan to keep refining the UG/DG wording and screenshots so platform-specific caveats remain easy to understand.
+
+10. Improve handling of very long resident remarks: Hall Ledger currently stores and displays resident remarks, but very long remarks may be less readable in some UI contexts. We plan to improve readability for unusually long remarks without changing the underlying data model.
+
+</div>
+
