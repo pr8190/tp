@@ -21,6 +21,7 @@ import seedu.address.model.person.StudentId;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    private static final int MAX_STUDENT_ID_PREFIXES = 2;
     private final Prefix[] knownPrefixes = {PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
         PREFIX_STUDENT_ID, PREFIX_ROOM_NUMBER, PREFIX_EMERGENCY_CONTACT};
 
@@ -31,7 +32,7 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     public EditCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        //ParserUtil.checkForUnknownPrefixes(args, EditCommand.MESSAGE_USAGE, knownPrefixes);
+
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, knownPrefixes);
 
         validatePrefixes(argMultimap);
@@ -53,7 +54,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         // If there are two student ID prefixes, the second one is the edited student ID
-        if (argMultimap.getAllValues(PREFIX_STUDENT_ID).size() == 2) {
+        if (argMultimap.getAllValues(PREFIX_STUDENT_ID).size() == MAX_STUDENT_ID_PREFIXES) {
             StudentId editedStudentId = ParserUtil.parseStudentId(argMultimap.getAllValues(PREFIX_STUDENT_ID).get(1));
             editPersonDescriptor.setStudentId(editedStudentId);
         }
@@ -86,8 +87,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         // Check for duplicate student ID prefixes (allow up to 2)
-        if (argMultimap.getAllValues(PREFIX_STUDENT_ID).size() > 2) {
-            System.out.println(argMultimap.getAllValues(PREFIX_STUDENT_ID));
+        if (argMultimap.getAllValues(PREFIX_STUDENT_ID).size() > MAX_STUDENT_ID_PREFIXES) {
             throw new ParseException(String.format(EditCommand.MESSAGE_DUPLICATE_STUDENT_ID_PREFIX,
                     EditCommand.MESSAGE_USAGE));
         }
