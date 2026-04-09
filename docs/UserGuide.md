@@ -11,38 +11,38 @@
 ---
 ## **Table of Contents**
 
-1. [Quick Start](#quick-start)  
-   1.1. [Installation Guide](installation-guide)  
-   1.2. [Introduction to the Interface](introduction-to-the-interface)  
-   1.3. [Brief Walkthrough](brief-walkthrough)
-2. [General Command Format](general-command-format)
-3. [Adding a Resident](#3-adding-a-resident)
-4. [Editing a Resident](#4-editing-a-resident)
-5. [Viewing and Finding Residents](#5-viewing-and-retrieving-data)  
-   5.1. [Listing All Residents](#51-listing-all-residents)  
-   5.2. [Finding Residents](#52-searching-residents)  
-   &nbsp;&nbsp;&nbsp;&nbsp;5.2.1. [Using the Command Line](#521-using-the-command-line)  
-   &nbsp;&nbsp;&nbsp;&nbsp;5.2.2. [Using the User Interface](#522-using-the-user-interface)
-6. [Tagging a Resident](#6-tagging-a-resident)  
-   6.1. [Adding or Editing Tags](#61-adding-or-editing-tags)  
-   6.2. [Clearing Tags](#62-clearing-tags)
-7. [Adding a Remark to a Resident](#7-adding-a-remark-remark)  
-   7.1. [Adding or Editing a Remark](#71-adding-or-editing-a-remark)  
-   7.2. [Clearing a Remark](#72-clearing-a-remark)
-8. [Adding a Demerit Record to a Resident](#8-adding-a-demerit-record-to-a-resident)  
-   8.1. [Listing Demerit Rules](#81-listing-demerit-rules)  
-   8.2. [Adding a Demerit Record](#82-adding-a-demerit-record)
-9. [Deleting a Resident](#9-deleting-a-resident)
-10. [Clearing All Residents](#10-clearing-all-entries)
-11. [Viewing Help](#11-viewing-help)
-12. [Exiting the Program](#12-exiting-the-program)
-13. [Saving the Data](#13-saving-the-data)
-14. [Editing the Data File](#14-editing-the-data-file)
-15. [Prefix Table](#15-prefix-table)
-16. [Format Errors](#16-format-errors)
-17. [FAQ](#17-faq)
-18. [Known Issues](#18-known-issues)
-19. [Command Summary](#command-summary)
+1. [Quick Start](#quick-start) <br>
+   1.1. [Installation Guide](installation-guide) <br>
+   1.2. [Introduction to the Interface](introduction-to-the-interface) <br>
+   1.3. [Brief Walkthrough](brief-walkthrough) <br>
+2. [General Command Format](general-command-format) <br>
+3. [Adding a Resident](#3-adding-a-resident) <br>
+4. [Editing a Resident](#4-editing-a-resident) <br>
+5. [Viewing and Finding Residents](#5-viewing-and-retrieving-data) <br>
+   5.1. [Listing All Residents](#51-listing-all-residents) <br>
+   5.2. [Finding Residents](#52-searching-residents) <br> 
+   &nbsp;&nbsp;&nbsp;&nbsp;5.2.1. [Using the Command Line](#521-using-the-command-line) <br> 
+   &nbsp;&nbsp;&nbsp;&nbsp;5.2.2. [Using the User Interface](#522-using-the-user-interface) <br>
+6. [Tagging a Resident](#6-tagging-a-resident) <br>
+   6.1. [Adding or Editing Tags](#61-adding-or-editing-tags) <br> 
+   6.2. [Clearing Tags](#62-clearing-tags) <br>
+7. [Adding a Remark to a Resident](#7-adding-a-remark-remark) <br>
+   7.1. [Adding or Editing a Remark](#71-adding-or-editing-a-remark) <br>  
+   7.2. [Clearing a Remark](#72-clearing-a-remark) <br>
+8. [Adding a Demerit Record to a Resident](#8-adding-a-demerit-record-to-a-resident) <br>
+   8.1. [Listing Demerit Rules](#81-listing-demerit-rules) <br>
+   8.2. [Adding a Demerit Record](#82-adding-a-demerit-record) <br>
+9. [Deleting a Resident](#9-deleting-a-resident) <br>
+10. [Clearing All Residents](#10-clearing-all-entries) <br>
+11. [Viewing Help](#11-viewing-help) <br>
+12. [Exiting the Program](#12-exiting-the-program) <br>
+13. [Saving the Data](#13-saving-the-data) <br>
+14. [Editing the Data File](#14-editing-the-data-file) <br>
+15. [Prefix Table](#15-prefix-table) <br>
+16. [Format Errors](#16-format-errors) <br>
+17. [FAQ](#17-faq) <br>
+18. [Known Issues](#18-known-issues) <br>
+19. [Command Summary](#command-summary) <br>
 
 ---
 
