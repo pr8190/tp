@@ -36,12 +36,10 @@
 12. [Viewing Help](#12-viewing-help)  
 13. [Exiting the Program](#13-exiting-the-program)  
 14. [Saving the Data](#14-saving-the-data)  
-15. [Editing the Data File](#15-editing-the-data-file)  
-16. [Prefix Table](#16-prefix-table)  
-17. [Format Errors](#17-format-errors)  
-18. [FAQ](#18-faq)  
-19. [Known Issues](#19-known-issues)  
-20. [Command Summary](#20-command-summary)  
+15. [Editing the Data File](#15-editing-the-data-file)   
+16. [FAQ](#16-faq)  
+17. [Known Issues](#17-known-issues)  
+18. [Command Summary](#18-command-summary)  
 
 ---
 
@@ -408,14 +406,6 @@ When you exit the program and open it again later, all your data will still be a
 
 HallLedger data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
-***
-
-### 16. Prefix Table
-
-***
-
-### 17. Format Errors
-
 **Caution:**
 If your changes to the data file make its format invalid, HallLedger will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause HallLedger to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
@@ -426,7 +416,7 @@ For more details on editing the JSON file, please refer to our [Developer Guide]
 
 --------------------------------------------------------------------------------------------------------------------
 
-### 18. FAQ
+### 16. FAQ
 
 **Q**: How do I transfer my data to another Computer?  
 **A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HallLedger home folder.
@@ -439,14 +429,14 @@ For more details on editing the JSON file, please refer to our [Developer Guide]
 
 --------------------------------------------------------------------------------------------------------------------
 
-### 19. Known issues
+### 17. Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
-### 20. Command summary
+### 18. Command summary
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
