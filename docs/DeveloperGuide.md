@@ -164,6 +164,50 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### How UI triggers command execution
+
+Hall Ledger uses callback-style dependency injection to keep low-level UI components decoupled from command execution
+details.
+
+`MainWindow` holds the reference to `Logic` and implements small executor interfaces that match what child UI
+components need.
+
+The diagram below shows this flow: `MainWindow` implements `CommandExecutor` and `FilterExecutor`, then injects
+itself into child components through their constructors. As a result, child components can request execution through
+interfaces without knowing about `Logic` internals. For example, `CommandBox` only knows it has a `CommandExecutor` to
+call when the user submits a command, and 'FilterPanel' only knows it has a `FilterExecutor` to call when the user
+updates filter criteria.
+
+<puml src="diagrams/find/UIExecutor.puml" width="700" />
+
+`MainWindow` wires dependencies and defines the execution logic, then passes them into child UI constructors as
+callbacks:
+
+```java
+public class MainWindow extends UiPart<Stage>
+        implements CommandExecutor, FilterExecutor {
+
+    public MainWindow(Logic logic) {
+        commandBox = new CommandBox(this); // 'this' implements CommandExecutor
+        filterPanel = new FilterPanel(logic.getFilterDetails(), this); // 'this' implements FilterExecutor
+    }
+}
+```
+
+Each child component triggers behavior only through these interfaces, without depending on parser or
+`LogicManager` implementation details:
+
+```java
+// In CommandBox
+CommandResult result = commandExecutor.execute(commandText);
+
+// In FilterPanel
+CommandResult result = filterExecutor.executeFilter(updatedFilterDetails);
+```
+
+This separation keeps responsibilities clear: UI components handle user input, while command and filter execution
+remain centralized behind injected callbacks.
+
 ### Demerit point tracking
 
 HallLedger stores demerit incidents as resident-level records instead of storing only a mutable running total.
@@ -606,5 +650,3 @@ testers are expected to do more *exploratory* testing.
 
    1. Edit `data/addressbook.json` into an invalid JSON format, then relaunch the app.<br>
       Expected: HallLedger detects that the data file cannot be loaded and starts safely without using the corrupted data.
-
-
