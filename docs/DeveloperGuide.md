@@ -373,9 +373,8 @@ Use case ends.
   * 1a1. HallLedger shows an error message indicating the correct format.
     Use case resumes from step 1.
 
-* 1b. A student with the exact same details already exists in the system.
-  * 1b1. HallLedger indicates that the student already exists.
-    Use case ends.
+* 1b. A student with a provided unique identifier (Student ID, room) already exists in the system.
+    * 1b1. HallLedger detects the duplicate entry and displays an errors message. Use case ends.
 
 * 1c. RA fails to provide compulsory details (name, phone, email, room number).
   * 1c1. HallLedger shows an error message indicating the compulsory details.
