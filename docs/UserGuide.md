@@ -352,7 +352,9 @@ Command: `clear`
 **Caution:**
 This action **permanently deletes all resident data**. We recommend creating a backup of your data file before running this command. Once cleared, the **deletion cannot be undone**.
 </box>
+
 ***
+
 ### 11. Viewing Help
 
 Opens the HallLedger Help window, which displays the available commands and their usage formats.
@@ -379,11 +381,17 @@ HallLedger automatically saves your data on your device whenever you make change
 
 When you exit the program and open it again later, all your data will still be available.
 ***
-### 13. Editing the Data File
+### 14. Editing the Data File
 
 HallLedger data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
+***
 
+### 15. Prefix Table
+
+***
+
+### 16. Format Errors
 
 **Caution:**
 If your changes to the data file make its format invalid, HallLedger will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
@@ -395,7 +403,7 @@ For more details on editing the JSON file, please refer to our [Developer Guide]
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 17. FAQ
+### 17. FAQ
 
 **Q**: How do I transfer my data to another Computer?  
 **A**: Install the app on the other computer and overwrite the empty data file it creates with the file that contains the data of your previous HallLedger home folder.
@@ -408,14 +416,14 @@ For more details on editing the JSON file, please refer to our [Developer Guide]
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 18. Known issues
+### 18. Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## 19. Command summary
+### 19. Command summary
 
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
