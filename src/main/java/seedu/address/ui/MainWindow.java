@@ -261,9 +261,9 @@ public class MainWindow extends UiPart<Stage> implements CommandExecutor, Filter
     }
 
     /**
-     * Shows a confirmation dialog before deleting/clearing resident(s).
+     * Shows a confirmation dialog before deleting or clearing resident(s).
      *
-     * @return true if the user confirms the deletion
+     * @return true if the user confirms the action
      */
     private boolean showConfirmationDialog() {
         ButtonType confirmButton = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
