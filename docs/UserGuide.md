@@ -163,7 +163,7 @@ Edits an existing resident in the _Hall Ledger_.
 
 **Command:** `edit`
 
-**Usage**: `edit i=STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`
+**Usage**: `edit i=STUDENT_ID [n=NAME] [i=STUDENT_ID] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`
 
 * Edits the resident with the specified `STUDENT_ID`.
 * At least one of the optional fields must be provided.
