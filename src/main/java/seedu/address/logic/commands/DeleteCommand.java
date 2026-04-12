@@ -19,7 +19,7 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes the resident identified by student ID from Hall Ledger.\n"
-            + "Format: " + COMMAND_WORD + " i=STUDENT_ID\n"
+            + "Parameters: i=STUDENT_ID\n"
             + "Example: " + COMMAND_WORD + " i=A1234567X";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted resident: %1$s";
