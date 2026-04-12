@@ -99,9 +99,14 @@ mark {
   }
 }
 
+code {
+color: #1d3c5e!important;
+background-color: #eeeeff!important;
+}
+
 .styled-text code {
-  color: #ff0000;
-  background-color: #f8f8f8; /* Optional: light gray bg */
+  color: #FFBD00;
+  background-color: #e8e8e8;
 }
 
 /* Bootstrap medium(md) responsive breakpoint */
@@ -166,10 +171,28 @@ mark {
   }
 }
 
+h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
   color: #1d3c5e;
+}
+
+.section {
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.table-of-contents li {
+    margin-bottom: 0.5rem;
+}
+
+.yellow{
+    color: #ffb300;
+}
+
+h5{
+margin-top: 2.5rem;
 }

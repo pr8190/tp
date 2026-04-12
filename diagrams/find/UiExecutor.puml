@@ -1,0 +1,77 @@
+@startuml
+!include ../style.puml
+
+skinparam arrowThickness 1.1
+skinparam classBackgroundColor UI_COLOR
+skinparam arrowColor UI_COLOR_T4
+skinparam class {
+    FontColor UI_TEXT_DARK
+}
+skinparam linetype poly
+skinparam classAttributeIconSize 0
+show members
+skinparam classAttributeFontSize 13
+
+    class MainWindow
+    hide MainWindow members
+
+    class ListSection
+    hide ListSection members
+
+    class CommandBox {
+        + CommandBox(CommandExecutor\ncommandExecutor)
+'        - handleCommandEntered\n(commandText: String): void
+    }
+
+    class FilterPanel {
+        + FilterPanel(filterDetails: ReadOnlyFilterDetails,\nfilterExecutor: FilterExecutor)
+'        - applyKeywordsAndExecuteFilter(KeywordSetter,
+'          ObservableSet, Set): List<String>
+    }
+
+    interface "<<interface>>\nFilterExecutor" as FilterExecutor {
+        + executeFilter(filterDetails:\nFilterDetails): CommandResult
+    }
+
+    interface "<<interface>>\nCommandExecutor" as CommandExecutor {
+        + execute(filterDetails:\nFilterDetails): CommandResult
+    }
+
+
+package Logic <<Rectangle>> {
+    interface "<<interface>>\nLogic" as ILogic
+    hide ILogic members
+}
+
+package Model <<Rectangle>> {
+    interface "<<interface>>\nReadOnlyFilterDetails" as ReadOnlyFilterDetails
+    hide ReadOnlyFilterDetails members
+
+    class FilterDetails
+    hide FilterDetails members
+}
+
+
+MainWindow .up.|> FilterExecutor
+MainWindow .up.|> CommandExecutor
+
+CommandBox -> CommandExecutor
+
+MainWindow -down-> CommandBox
+CommandExecutor .[hidden]left.|> FilterExecutor
+
+FilterDetails ..|> ReadOnlyFilterDetails
+
+MainWindow --> ILogic
+MainWindow *--> "1" ListSection
+FilterPanel -[hidden]down-> Model
+
+ListSection --> ILogic
+ListSection --> "1" FilterExecutor
+ListSection *--> "1" FilterPanel
+
+FilterPanel --> "1" ReadOnlyFilterDetails
+FilterPanel --> "1" FilterExecutor
+
+@enduml
+
