@@ -11,9 +11,11 @@ import seedu.address.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_EMPTY_ADDRESS_BOOK = "The Hall Ledger is already empty!";
+    public static final String MESSAGE_SUCCESS = "All %d resident(s) have been removed from the Hall Ledger";
 
     public String getMessageSuccess(int numberOfPersons) {
-        return "All " + numberOfPersons + " resident(s) have been removed from the Hall Ledger";
+        return String.format(MESSAGE_SUCCESS, numberOfPersons);
     }
 
     public int getNumberOfPersons(Model model) {
@@ -27,6 +29,9 @@ public class ClearCommand extends Command {
         requireNonNull(model);
 
         int numberOfPersons = getNumberOfPersons(model);
+        if (numberOfPersons == 0) {
+            return new CommandResult(MESSAGE_EMPTY_ADDRESS_BOOK);
+        }
 
         model.setAddressBook(new AddressBook());
         model.showAllPersons();
