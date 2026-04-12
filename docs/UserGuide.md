@@ -62,7 +62,7 @@
    * To install on Linux, follow this [guide](https://se-education.org/guides/tutorials/javaInstallationLinux.html)
 4. Download the HallLedger application by clicking on this [link](). The download should start immedietely.
 5. On your computer, move the ``hall-ledger.jar`` file into an empty folder.
-6. Using the Terminal (refer to step 1), navigate to the folder where you placed the ``HallLedger.jar`` file. Use the [`cd`](https://www.geeksforgeeks.org/linux-unix/cd-command-in-linux-with-examples/) command for this step.
+6. Using the Terminal (refer to step 1), navigate to the folder where you placed the ``hall-ledger.jar`` file. Use the [`cd`](https://www.geeksforgeeks.org/linux-unix/cd-command-in-linux-with-examples/) command for this step.
 7. Type `java -jar hall-ledger.jar` in the Terminal and enter to start the application. 
 8. A HallLedger window similar to the below should appear in a few seconds. Note that the app will contain some sample data.
 
@@ -87,7 +87,7 @@ When HallLedger is opened, you will see an interface like the image below. The i
 ##### 1.3 Brief Walkthrough
 This section gives a brief walkthrough of how to get started with using HallLedger. You'll learn how to add a resident, edit their details, tag their major and finally delete them from the Ledger.
 
-To start, type the following instructions into the command box (in the given order)and press Enter after each:
+To start, type the following instructions into the command box (in the given order) and press Enter after each:
 1. `add n=Vera Tan i=A1234567X e=vera.tan@gmail.com p=+6598765432 r=1A ec=+6512345678` to add a resident named `Vera Tan` to the ledger.
 2. `edit i=A1234567X p=+6512345678` to edit Vera's phone number to `+6512345678`.
 3. `tag i=A1234567X m=Computer Science` to tag Vera's major as `Computer Science`
@@ -272,11 +272,11 @@ Suppose you want to find residents named "Alex" or "Bernice". You can search for
 criterion by repeating that field:
 
 * Type in the command box: `find n=Alex n=Bernice`
-* The resident list updates to show only residents whose name match either "Alex" **or** Bernice
+* The resident list updates to show only residents whose name match either "Alex" **or** "Bernice"
 
 ##### 7.2 Using the Filter Panel
 
-The Filter Panel supports the same sea behaviour as the typed `find` command.
+The Filter Panel supports the same search behaviour as the typed `find` command.
 
 **Steps:**
 
