@@ -182,7 +182,7 @@ h6 {
 
 .section {
     margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
 }
 
 .table-of-contents li {
@@ -191,4 +191,8 @@ h6 {
 
 .yellow{
     color: #ffb300;
+}
+
+h5{
+margin-top: 2.5rem;
 }

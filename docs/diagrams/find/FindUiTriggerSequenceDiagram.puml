@@ -1,0 +1,55 @@
+@startuml
+!include ../style.puml
+
+'' Make the text not bold
+skinparam ArrowFontStyle plain
+
+actor User
+
+box "UI" UI_COLOR_T1
+participant ":FilterPanelField" as FilterPanelField UI_COLOR
+participant ":FilterPanel" as FilterPanel UI_COLOR
+participant ":MainWindow" as MainWindow UI_COLOR
+end box
+
+box "Logic" LOGIC_COLOR_T1
+participant ":LogicManager" as Logic LOGIC_COLOR
+participant "\nf:FindCommand" as FindCommand LOGIC_COLOR
+end box
+
+User -> FilterPanelField : edits keywords\nvia UI
+activate FilterPanelField
+
+FilterPanelField -> FilterPanelField : update UI's copy\n of keywords
+FilterPanelField -> FilterPanel : handle \nkeywords change
+activate FilterPanel
+
+FilterPanel -> MainWindow: handle filter \ndetails change
+
+activate MainWindow
+
+MainWindow -> Logic : executeFilter\n(filterDetails)
+activate Logic
+
+create FindCommand
+Logic -> FindCommand : FindCommand\n(filterDetails)
+activate FindCommand
+FindCommand --> Logic : f
+Logic -> FindCommand : f.execute(model)
+
+FindCommand --> Logic : commandResult
+
+deactivate FindCommand
+Logic --> MainWindow : commandResult
+
+deactivate Logic
+MainWindow --> FilterPanel : commandResult
+deactivate MainWindow
+
+FilterPanel --> FilterPanelField :
+deactivate FilterPanel
+
+deactivate MainWindow
+deactivate FilterPanelField
+@enduml
+

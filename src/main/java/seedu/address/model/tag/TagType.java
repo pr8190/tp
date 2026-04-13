@@ -36,12 +36,12 @@ public enum TagType {
      * Valid content must satisfy the following rules:
      * <ul>
      *   <li>1 to 100 characters long</li>
-     *   <li>Alphabetic characters and {@code &} only</li>
+     *   <li>Alphabetic characters and special characters {@code &}, {@code ,}  only</li>
      * </ul>
      *
      * <p>Examples: {@code Computer Science}, {@code Philosophy}, {@code Economics & Finance}
      */
-    MAJOR(null, "^(?=.{1,100}$)[A-Za-z&]+( [A-Za-z&]+)*$"),
+    MAJOR(null, "^(?=.{1,100}$)[A-Za-z&]+([ ,]+[A-Za-z&]+)*$"),
 
     /**
      * Tag representing the resident's gender pronouns.

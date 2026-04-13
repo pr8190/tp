@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 
@@ -11,9 +12,11 @@ import seedu.address.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_EMPTY = "The Hall Ledger is already empty!";
+    public static final String MESSAGE_SUCCESS = "All %d resident(s) have been removed from the Hall Ledger";
 
     public String getMessageSuccess(int numberOfPersons) {
-        return "All " + numberOfPersons + " resident(s) have been removed from the Hall Ledger";
+        return String.format(MESSAGE_SUCCESS, numberOfPersons);
     }
 
     public int getNumberOfPersons(Model model) {
@@ -23,10 +26,13 @@ public class ClearCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         int numberOfPersons = getNumberOfPersons(model);
+        if (numberOfPersons == 0) {
+            throw new CommandException(MESSAGE_EMPTY);
+        }
 
         model.setAddressBook(new AddressBook());
         model.showAllPersons();

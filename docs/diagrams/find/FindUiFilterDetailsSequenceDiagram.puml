@@ -1,0 +1,50 @@
+@startuml
+!include ../style.puml
+
+'' Make the text not bold
+skinparam ArrowFontStyle plain
+
+actor User
+
+box "UI" UI_COLOR_T1
+participant ":FilterPanelField" as FilterPanelField UI_COLOR
+participant ":PersonListPanel" as PersonListPanel UI_COLOR
+
+end box
+
+participant ":Logic" as Logic LOGIC_COLOR
+
+participant ":Model" as Model MODEL_COLOR
+
+User -> FilterPanelField : edits keywords\nvia UI
+activate FilterPanelField
+
+FilterPanelField -> FilterPanelField : update UI's copy\n of keywords
+
+FilterPanelField -> Logic : execute filter with updated keywords
+activate Logic
+
+Logic -> Model: setFilterDetails(...)
+activate Model
+
+Model -> FilterPanelField : notify filterDetails changed
+FilterPanelField -> FilterPanelField : refresh displayed\n keywords
+
+Logic -> Model : updateFilteredPersonList(...)
+Model -[hidden]> Logic :
+Model -> PersonListPanel : notify filteredPersonList changed
+activate PersonListPanel
+PersonListPanel -> PersonListPanel : refresh displayed\n filtered person list
+PersonListPanel -[hidden]> Model
+deactivate PersonListPanel
+
+
+Model --> Logic :
+deactivate Model
+
+Logic --> FilterPanelField
+deactivate Logic
+
+deactivate FilterPanelField
+@enduml
+
