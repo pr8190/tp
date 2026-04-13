@@ -16,7 +16,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/ananyaj1515.png" width="200px">
 
 [[github](http://github.com/ananyaj1515)]
-[[portfolio](team/ananyaj1515)]
 
 * Role: Developer
 * Responsibilities: Git Tracker
@@ -26,7 +25,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/pr8190.png" width="200px">
 
 [[github](http://github.com/pr8190)]
-[[portfolio](team/pr8190.md)]
 
 - Role: Developer
 - Responsibilities: Data
@@ -54,7 +52,6 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 <img src="images/dinhcodes.png" width="200px" alt="Hunter">
 
 [[github](http://github.com/dinhcodes)]
-[[portfolio](team/dinhcodes.md)]
 
 * Role: Developer
 * Responsibilities: Full stack + UI
