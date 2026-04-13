@@ -76,7 +76,7 @@ public class DemeritCommandParserTest {
 
     @Test
     public void parse_duplicateStudentIdAndDemeritIndexPrefixes_throwsParseException() {
-        assertThrows(ParseException.class,
-                () -> parser.parse(" i=A1234567X i=A7654321X di=18 di=1"));
+        assertThrows(ParseException.class, () ->
+                parser.parse(" i=A1234567X i=A7654321X di=18 di=1"));
     }
 }
