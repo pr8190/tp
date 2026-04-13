@@ -29,7 +29,7 @@ public class HelpWindow extends UiPart<Stage> {
                     + "• EDIT \t\t\t edit i=STUDENT_ID [n=NEW_NAME] [i=NEW_ID] [p=NEW_PHONE] "
                     + "[e=NEW_EMAIL] [r=NEW_ROOM_NUMBER] [ec=NEW_E_CONTACT]\n\n"
                     + "• FIND \t\t\t find [n=NAME] [i=STUDENT_ID] [r=ROOM_NUMBER] [p=PHONE] "
-                    + "[e=EMAIL] [t=TAG]\n\n"
+                    + "[e=EMAIL]\n\n"
                     + "• TAG \t\t\t tag i=STUDENT_ID [y=YEAR] [m=MAJOR] [g=GENDER]\n\n"
                     + "• REMARK \t\t\t remark i=STUDENT_ID rm=REMARK\n\n"
                     + "• DEMERIT \t\t\t demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]\n\n"
