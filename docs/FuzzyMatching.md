@@ -43,17 +43,17 @@ Examples:
 
 ## 2. Which fields use which matching style?
 
-| Prefix | Field             | Matching style           | Example                                                                 |
-|--------|-------------------|--------------------------|-------------------------------------------------------------------------|
-| `n=`   | Name              | Fuzzy                    | `n=alex` can match `Alex Tan`.                                          |
-| `p=`   | Phone             | Fuzzy                    | `p=9123` can match `+65 91234567`.                                      |
-| `e=`   | Email             | Fuzzy                    | `e=@gmail` can match `alex@gmail.com`.                                  |
-| `i=`   | Student ID        | Exact (case-insensitive) | `i=A1234567X` matches `A1234567X`; `i=1234` does not match `A1234567X`. |
-| `ec=`  | Emergency contact | Fuzzy                    | `ec=9876` can match `+65 98765432`.                                     |
-| `r=`   | Room number       | Fuzzy                    | `r=12` can match `12A`.                                                 |
-| `y=`   | Year tag          | Fuzzy                    | `y=1` can match `Y1`.                                                   |
-| `m=`   | Major tag         | Fuzzy                    | `m=computer sci` can match `Computer Science`.                          |
-| `g=`   | Gender tag        | Exact (case-insensitive) | `g=male` matches `Male`; `g=ma` does not.                               |
+| Prefix | Field             | Matching style           | Example                                                                               |
+|--------|-------------------|--------------------------|---------------------------------------------------------------------------------------|
+| `n=`   | Name              | Fuzzy                    | `n=alex` can match `Alex Tan`.                                                        |
+| `p=`   | Phone             | Fuzzy                    | `p=9123` can match `+65 91234567`.                                                    |
+| `e=`   | Email             | Fuzzy                    | `e=@gmail` can match `alex@gmail.com`.                                                |
+| `i=`   | Student ID        | Exact (case-insensitive) | `i=A1234567X` matches `A1234567X`; `i=1234` does not match `A1234567X`.               |
+| `ec=`  | Emergency contact | Fuzzy                    | `ec=9876` can match `+65 98765432`.                                                   |
+| `r=`   | Room number       | Fuzzy                    | `r=12` can match `12A`.                                                               |
+| `y=`   | Year tag          | Fuzzy                    | `y=1` can match `Y1`.                                                                 |
+| `m=`   | Major tag         | Fuzzy                    | `m=computer sci` can match `Computer Science`.                                        |
+| `g=`   | Gender tag        | Special                  | `g=he` matches `he/him`; `g=her` matches `she/her`, `g=they/them` matches `they/them` |
 
 ## 3. How multiple filters combine
 
