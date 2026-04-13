@@ -3,10 +3,12 @@ package seedu.address.ui;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
@@ -261,9 +263,9 @@ public class MainWindow extends UiPart<Stage> implements CommandExecutor, Filter
     }
 
     /**
-     * Shows a confirmation dialog before deleting or clearing resident(s).
+     * Shows a confirmation dialog before deleting a resident.
      *
-     * @return true if the user confirms the action
+     * @return true if the user confirms deletion, false otherwise
      */
     private boolean showConfirmationDialog() {
         ButtonType confirmButton = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
@@ -271,10 +273,18 @@ public class MainWindow extends UiPart<Stage> implements CommandExecutor, Filter
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initOwner(primaryStage);
-        alert.setTitle("Confirm Action");
-        alert.setHeaderText("Are you sure you want to perform this action?");
-        alert.setContentText("Alternatively, press 'Enter' to confirm or 'Escape' to cancel.");
+        alert.setTitle("Confirm Delete");
+        alert.setHeaderText("Delete resident?");
+        alert.setContentText("Are you sure you want to delete this resident entry?");
         alert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+        Button confirm = (Button) alert.getDialogPane().lookupButton(confirmButton);
+        Button cancel = (Button) alert.getDialogPane().lookupButton(cancelButton);
+
+        confirm.setDefaultButton(true);
+        cancel.setCancelButton(true);
+
+        Platform.runLater(confirm::requestFocus);
 
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == confirmButton;
