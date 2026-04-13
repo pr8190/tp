@@ -65,7 +65,7 @@ irrelevant target values such as `Jon`, `AJ` or `Ben`, which would make the find
 | `i=`   | Student ID        | Exact*              | `i=a1234567x` matches `A1234567X`; `i=1234` does **not** match `A1234567X`.            |
 | `ec=`  | Emergency contact | Fuzzy               | `ec=9876` matches `+65 98765432`.                                                      |
 | `r=`   | Room number       | Fuzzy               | `r=12` matches `12A`.                                                                  |
-| `y=`   | Year tag          | Exact (normalised)* | `y=1` matches residents tagged with year `1`.                                          |
+| `y=`   | Year tag          | Exact*              | `y=1` matches residents tagged with year `1`.                                          |
 | `m=`   | Major tag         | Fuzzy               | `m=computer sci` matches `Computer Science`.                                           |
 | `g=`   | Gender tag        | Exact (normalised)* | `g=he` matches `he/him`; `g=her` matches `she/her`; `g=they/them` matches `they/them`. |
 
@@ -84,8 +84,8 @@ exactly one resident. This is a quick way to pull up a specific resident's profi
 </box>
 
 - **Year** and **Gender** only accepts a fixed set of valid values. Therefore, these fields are also exact-match,
-  but with an extra normalisation step to convert user input into the standardised form.
-See [Section 4](#4-note-on-year-and-gender-keywords) for details.
+  but **Gender** has an extra normalisation step to convert user input into the standardised form.
+  See [Section 4](#4-note-on-year-and-gender) for details.
 
 ------
 
@@ -105,9 +105,6 @@ uses selection boxes instead of text inputs for these two fields.
 
 **How normalisation works:**
 
-When you use `find` on the command line, Hall Ledger normalises your input before matching:
-
-- **Year** — must be exactly `1`, `2`, `3`, `4`, `5` or `6`. Any other value (e.g. `Y1`, `7`, `01`) is invalid.
 - **Gender** — shorthand forms such as `he`, `him`, `she`, `her`, `they`, or `them` are automatically expanded to
   their full pronoun form (`he/him`, `she/her`, `they/them`). Any other value (e.g. `male`, `female`) is invalid.
 
@@ -131,6 +128,10 @@ If you enter an invalid year or gender keyword, Hall Ledger will not throw an er
 - **Repeating the same prefix** widens that filter — a resident only needs to match **any one** of those keywords.
     - `find y=2 y=3` → year is `2` **or** `3`.
     - `find n=Alice n=Bob` → name matches `Alice` **or** `Bob`.
+
+- Combining both of the above rules, **multiple filters with repeated prefixes** combine in a way that is best
+  described as "AND of ORs" — a resident must match **all** fields, but for each field, they can match **any one** of
+  the specified keywords.
     - `find n=Alice n=Bob y=2 y=3` → (name matches `Alice` **or** `Bob`) **and** (year is `2` **or** `3`).
 
 </box>
