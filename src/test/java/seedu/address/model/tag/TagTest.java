@@ -22,9 +22,14 @@ public class TagTest {
 
     @Test
     public void constructor_invalidYearTag_throwsIllegalArgumentException() {
-        // Year must be 1-6
-        assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.YEAR, "0"));
-        assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.YEAR, "7"));
+
+        // EP: zero
+        assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.YEAR, "0")); // boundary value
+
+        // EP: non zero invalid input
+        assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.YEAR, "7")); // boundary value
+
+        // EP: Not a number
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.YEAR, "abc"));
     }
 
