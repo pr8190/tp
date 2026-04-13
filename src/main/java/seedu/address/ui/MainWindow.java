@@ -233,7 +233,7 @@ public class MainWindow extends UiPart<Stage> implements CommandExecutor, Filter
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         try {
-            if (logic.requiresDeleteConfirmation(commandText) && !showDeleteConfirmationDialog()) {
+            if (logic.requiresConfirmation(commandText) && !showConfirmationDialog()) {
                 CommandResult cancelResult = new CommandResult(MESSAGE_DELETE_CANCELLED);
                 logger.info("Result: " + cancelResult.getFeedbackToUser());
                 resultDisplay.setFeedbackToUser(cancelResult.getFeedbackToUser());
@@ -261,19 +261,19 @@ public class MainWindow extends UiPart<Stage> implements CommandExecutor, Filter
     }
 
     /**
-     * Shows a confirmation dialog before deleting a resident.
+     * Shows a confirmation dialog before deleting or clearing resident(s).
      *
-     * @return true if the user confirms the deletion
+     * @return true if the user confirms the action
      */
-    private boolean showDeleteConfirmationDialog() {
+    private boolean showConfirmationDialog() {
         ButtonType confirmButton = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initOwner(primaryStage);
-        alert.setTitle("Confirm Delete");
-        alert.setHeaderText("Delete resident?");
-        alert.setContentText("Are you sure you want to delete this resident entry?");
+        alert.setTitle("Confirm Action");
+        alert.setHeaderText("Are you sure you want to perform this action?");
+        alert.setContentText("Alternatively, press 'Enter' to confirm or 'Escape' to cancel.");
         alert.getButtonTypes().setAll(confirmButton, cancelButton);
 
         Optional<ButtonType> result = alert.showAndWait();

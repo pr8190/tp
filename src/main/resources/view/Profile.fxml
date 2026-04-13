@@ -3,10 +3,9 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
+<ScrollPane fx:id="profile" fitToWidth="true" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
 <VBox prefHeight="528.0" prefWidth="476.0" spacing="10" styleClass="panel-container" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
-    <TextField fx:id="nameField" editable="false" focusTraversable="false" styleClass="panel-heading" />
-
+    <TextArea fx:id="nameField" prefHeight="45" minHeight="40" editable="false" focusTraversable="false" styleClass="panel-heading" />
     <FlowPane fx:id="tags">
         <VBox.margin>
             <Insets bottom="2.0" />
@@ -48,3 +47,4 @@
       </rowConstraints>
     </GridPane>
 </VBox>
+</ScrollPane>

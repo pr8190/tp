@@ -9,6 +9,7 @@ import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
@@ -98,20 +99,18 @@ public class LogicManager implements Logic {
         return command.execute(model);
     }
 
-    /**
-     * Returns true if the given command is a valid delete command targeting an existing resident,
-     * and therefore should trigger a delete confirmation dialog.
-     */
     @Override
-    public boolean requiresDeleteConfirmation(String commandText) {
+    public boolean requiresConfirmation(String commandText) {
         try {
             Command command = addressBookParser.parseCommand(commandText);
-            if (!(command instanceof DeleteCommand deleteCommand)) {
-                return false;
+            if (command instanceof DeleteCommand deleteCommand) {
+                return model.getAddressBook().getPersonList().stream()
+                        .anyMatch(person -> person.getStudentId().equals(deleteCommand.getTargetStudentId()));
             }
-
-            return model.getAddressBook().getPersonList().stream()
-                    .anyMatch(person -> person.getStudentId().equals(deleteCommand.getTargetStudentId()));
+            if (command instanceof ClearCommand) {
+                return !model.getAddressBook().getPersonList().isEmpty();
+            }
+            return false;
         } catch (ParseException e) {
             return false;
         }
