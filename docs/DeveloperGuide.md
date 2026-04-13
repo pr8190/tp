@@ -668,28 +668,6 @@ Use case ends.
 
 ### Glossary
 
-* **Hall** : A residential building on campus that houses students. Each hall is made up of multiple blocks, and each block is made up of multiple rooms.
-* **RA** : Resident Assistant, a student leader who is responsible for managing a block of rooms in a hall and the students living in those rooms.
-* **CCA** : Co-Curricular Activities, which are activities that students participate in outside of their academic curriculum.
-* **DPS** : Demerit Point Structure used as the source reference for Hall Ledger’s demerit rule catalogue.
-* **Mainstream OS** : Windows, Linux, Unix, macOS.
---------------------------------------------------------------------------------------------------------------------
-
-
-### Non-Functional Requirements
-
-1. Hall Ledger should work on mainstream desktop operating systems that support Java 17.
-2. Hall Ledger should remain usable for a typical hall-level resident dataset.
-3. A fast typist should be able to complete common administrative tasks efficiently through commands.
-4. Hall Ledger should store data locally in a human-editable file.
-5. Hall Ledger should work without requiring internet access during normal usage.
-6. Hall Ledger should remain a single-user application.
-7. Hall Ledger should be able to comfortably perform with 200 residents, which is a typical hall population size.
-8. Hall Ledger should be able to provide feedback in less than 3 seconds.
----
-
-### Glossary
-
 * **Resident**: A hall resident stored in Hall Ledger.
 * **RA**: Resident Assistant.
 * **Student ID**: The identifier used by Hall Ledger to target a resident.
