@@ -23,7 +23,7 @@ public class FindCommand extends Command {
             + " specified prefixes.\n"
             + "Parameters: [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] "
             + "[m=MAJOR] [g=GENDER]\n"
-            + "Example: " + COMMAND_WORD + " n=Alice p=91234567 y=Y1";
+            + "Example: " + COMMAND_WORD + " n=Alice p=91234567 y=1";
 
     private final FilterDetails filterDetails;
     private final PersonMatchesDetailsPredicate predicate;
