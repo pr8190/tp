@@ -61,4 +61,18 @@ public class Messages {
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code person} for display to the user without optional fields such as remark and tags.
+     */
+    public static String formatNoOptionalFields(Person person) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append(person.getName())
+                .append("; Phone: ").append(person.getPhone())
+                .append("; Email: ").append(person.getEmail())
+                .append("; Student ID: ").append(person.getStudentId())
+                .append("; Room Number: ").append(person.getRoomNumber())
+                .append("; Emergency Contact: ").append(person.getEmergencyContact());
+        return builder.toString();
+    }
+
 }

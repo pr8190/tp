@@ -1,6 +1,8 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -31,5 +33,11 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_invalidStudentId_throwsParseException() {
         assertParseFailure(parser, " i=", StudentId.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_duplicateStudentIdPrefix_throwsParseException() {
+        assertParseFailure(parser, " i=A1234567X i=A7654321X",
+                getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
     }
 }

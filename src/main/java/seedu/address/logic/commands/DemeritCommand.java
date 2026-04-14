@@ -25,7 +25,7 @@ public class DemeritCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Applies an indexed demerit rule to a resident.\n"
-            + "Format: " + COMMAND_WORD + " i=STUDENT_ID di=RULE_INDEX [rm=REMARK]\n"
+            + "Parameters: i=STUDENT_ID di=RULE_INDEX [rm=REMARK]\n"
             + "Example: " + COMMAND_WORD + " i=A1234567X di=18 rm=Visitor stayed during quiet hours";
 
     public static final String MESSAGE_STUDENT_NOT_FOUND =

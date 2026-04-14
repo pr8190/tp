@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -86,6 +88,21 @@ public class PersonMatchesDetailsPredicateTest {
     }
 
     @Test
+    public void test_studentIdKeyword_requiresExactMatchIgnoringCase() {
+        // Exact match (case-insensitive) should succeed
+        FilterDetails exactIdDetails = new FilterDetails();
+        exactIdDetails.setStudentIdKeywords(Set.of(VALID_STUDENTID_AMY));
+        PersonMatchesDetailsPredicate exactIdPredicate = new PersonMatchesDetailsPredicate(exactIdDetails);
+        assertTrue(exactIdPredicate.test(AMY));
+
+        // Partial/substring match should fail
+        FilterDetails partialIdDetails = new FilterDetails();
+        partialIdDetails.setStudentIdKeywords(Set.of("1234"));
+        PersonMatchesDetailsPredicate partialIdPredicate = new PersonMatchesDetailsPredicate(partialIdDetails);
+        assertFalse(partialIdPredicate.test(AMY));
+    }
+
+    @Test
     public void test_tagGenderKeyword_requiresExactMatchIgnoringCase() {
         FilterDetails exactGenderDetails = new FilterDetails();
         exactGenderDetails.setTagGenderKeywords(Set.of("she/her"));
@@ -147,9 +164,9 @@ public class PersonMatchesDetailsPredicateTest {
         secondDetails.setNameKeywords(Set.of("amy"));
         PersonMatchesDetailsPredicate secondPredicate = new PersonMatchesDetailsPredicate(secondDetails);
 
-        assertTrue(firstPredicate.equals(firstPredicate));
-        assertTrue(firstPredicate.equals(secondPredicate));
-        assertFalse(firstPredicate.equals(null));
-        assertFalse(firstPredicate.equals(1));
+        assertEquals(firstPredicate, firstPredicate);
+        assertEquals(firstPredicate, secondPredicate);
+        assertNotEquals(null, firstPredicate);
+        assertNotEquals(1, firstPredicate);
     }
 }

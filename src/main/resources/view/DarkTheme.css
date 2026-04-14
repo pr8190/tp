@@ -207,6 +207,9 @@
     -fx-icon-color: white;
 }
 
+#profile {
+    -fx-background-color: transparent;
+}
 /* Table properties */
 .table-view {
     -fx-base: dark-grey;
@@ -621,9 +624,14 @@
     -fx-border-width: 0 0 2 0;
     -fx-padding: 0 0 8 0;
     -fx-font-weight: bold;
+    -fx-wrap-text: true;
     -fx-background-color: transparent; /* Makes the background transparent */
 }
 
+.panel-heading .scroll-pane, .panel-heading .scroll-pane .viewport, .panel-heading .scroll-pane .content {
+    -fx-background-color: transparent;
+    -fx-padding:0;
+}
 .panel-heading:focused {
     -fx-text-fill: primary-yellow;
     -fx-highlight-fill: primary-yellow;
