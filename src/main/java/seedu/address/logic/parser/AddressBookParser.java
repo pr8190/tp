@@ -89,7 +89,7 @@ public class AddressBookParser {
             return new RemarkCommandParser().parse(arguments);
 
         case DemeritListCommand.COMMAND_WORD:
-            return new DemeritListCommand();
+            return new DemeritListCommandParser().parse(arguments);
 
         case DemeritCommand.COMMAND_WORD:
             return new DemeritCommandParser().parse(arguments);

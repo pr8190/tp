@@ -34,7 +34,7 @@ skinparam classAttributeFontSize 13
     }
 
     interface "<<interface>>\nCommandExecutor" as CommandExecutor {
-        + execute(filterDetails:\nFilterDetails): CommandResult
+        + execute(String:commandText):\nCommandResult
     }
 
 

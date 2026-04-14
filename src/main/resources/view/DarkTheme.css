@@ -499,6 +499,20 @@
     -fx-padding: 8 1 8 1;
 }
 
+.dashboard-scroll-pane:focused{
+    -fx-background-insets: 0;
+}
+
+.dashboard-scroll-pane{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+    -fx-padding: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
 #commandTypeLabel {
     -fx-font-size: 11px;
     -fx-text-fill: #F70D1A;

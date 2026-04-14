@@ -38,7 +38,9 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
 
         ArgumentMultimap argumentMultimap = ArgumentTokenizer.tokenize(args, ALL_PREFIXES);
 
-        if (argumentMultimap.getValue(PREFIX_STUDENT_ID).isEmpty() || !argumentMultimap.getPreamble().isEmpty()) {
+        boolean isStudentIdMissing = argumentMultimap.getValue(PREFIX_STUDENT_ID).isEmpty();
+        boolean areAllPrefixesPresent = argumentMultimap.arePrefixesPresent(ALL_PREFIXES);
+        if (!areAllPrefixesPresent || !argumentMultimap.getPreamble().isEmpty() || isStudentIdMissing) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MESSAGE_USAGE));
         }
 

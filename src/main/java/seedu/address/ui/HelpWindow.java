@@ -23,21 +23,21 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String USERGUIDE_URL = "https://ay2526s2-cs2103t-t15-1.github.io/tp/";
 
     private static final String HELP_CONTENT =
-            "• ADD \t\t\t add n=NAME i=STUDENT_ID r=ROOM_NUMBER p=PHONE_NUMBER "
+            "• ADD \nadd n=NAME i=STUDENT_ID r=ROOM_NUMBER p=PHONE_NUMBER "
                     + "e=EMAIL ec=EMERGENCY_CONTACT\n\n"
-                    + "• DELETE \t\t\t delete i=STUDENT_ID\n\n"
-                    + "• EDIT \t\t\t edit i=STUDENT_ID [n=NEW_NAME] [i=NEW_ID] [p=NEW_PHONE] "
-                    + "[e=NEW_EMAIL] [r=NEW_ROOM_NUMBER] [ec=NEW_E_CONTACT]\n\n"
-                    + "• FIND \t\t\t find [n=NAME] [i=STUDENT_ID] [r=ROOM_NUMBER] [p=PHONE] "
-                    + "[e=EMAIL] [t=TAG]\n\n"
-                    + "• TAG \t\t\t tag i=STUDENT_ID [y=YEAR] [m=MAJOR] [g=GENDER]\n\n"
-                    + "• REMARK \t\t\t remark i=STUDENT_ID rm=REMARK\n\n"
-                    + "• DEMERIT \t\t\t demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]\n\n"
-                    + "• DEMERIT LIST\t\t demeritlist \n\n"
-                    + "• LIST \t\t\t\t list\n\n"
-                    + "• CLEAR \t\t\t clear\n\n"
-                    + "• HELP \t\t\t help\n\n"
-                    + "• EXIT \t\t\t exit";
+                    + "• DELETE \ndelete i=STUDENT_ID\n\n"
+                    + "• EDIT \nedit i=STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [r=ROOM_NUMBER] "
+                    + "[ec=EMERGENCY_CONTACT]\n\n"
+                    + "• FIND \nfind [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] "
+                    + "[ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]\n\n"
+                    + "• TAG \ntag i=STUDENT_ID [y=YEAR] [m=MAJOR] [g=GENDER]\n\n"
+                    + "• REMARK \nremark i=STUDENT_ID rm=REMARK\n\n"
+                    + "• DEMERIT \ndemerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]\n\n"
+                    + "• DEMERIT LIST\ndemeritlist \n\n"
+                    + "• LIST \nlist\n\n"
+                    + "• CLEAR \nclear\n\n"
+                    + "• HELP \nhelp\n\n"
+                    + "• EXIT \nexit";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";

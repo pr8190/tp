@@ -63,4 +63,20 @@ public class DemeritCommandParserTest {
     public void parse_withPreamble_throwsParseException() {
         assertThrows(ParseException.class, () -> parser.parse(" hello i=A1234567X di=18"));
     }
+
+    @Test
+    public void parse_duplicateStudentIdPrefix_throwsParseException() {
+        assertThrows(ParseException.class, () -> parser.parse(" i=A1234567X i=A7654321X di=18"));
+    }
+
+    @Test
+    public void parse_duplicateDemeritIndexPrefix_throwsParseException() {
+        assertThrows(ParseException.class, () -> parser.parse(" i=A1234567X di=18 di=1"));
+    }
+
+    @Test
+    public void parse_duplicateStudentIdAndDemeritIndexPrefixes_throwsParseException() {
+        assertThrows(ParseException.class, () ->
+                parser.parse(" i=A1234567X i=A7654321X di=18 di=1"));
+    }
 }

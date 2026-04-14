@@ -49,7 +49,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_ROOM_NUMBER + "ROOM] "
             + "[" + PREFIX_EMERGENCY_CONTACT + "EMERGENCY_CONTACT] \n"
             + "Example: " + COMMAND_WORD + " i=A0123456X "
-            + PREFIX_PHONE + "91234567 "
+            + PREFIX_PHONE + "+65 91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
 
     public static final String MESSAGE_DUPLICATE_PERSON = "The edit details cause duplicated resident details "

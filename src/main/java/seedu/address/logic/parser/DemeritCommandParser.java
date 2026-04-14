@@ -24,6 +24,8 @@ public class DemeritCommandParser implements Parser<DemeritCommand> {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_STUDENT_ID, PREFIX_DEMERIT_INDEX, PREFIX_REMARK);
 
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_STUDENT_ID, PREFIX_DEMERIT_INDEX);
+
         if (!argMultimap.getValue(PREFIX_STUDENT_ID).isPresent()
                 || !argMultimap.getValue(PREFIX_DEMERIT_INDEX).isPresent()
                 || !argMultimap.getPreamble().isEmpty()) {

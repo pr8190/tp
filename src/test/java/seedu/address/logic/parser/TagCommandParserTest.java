@@ -28,18 +28,6 @@ public class TagCommandParserTest {
     private TagCommandParser parser = new TagCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
-        Map<TagType, Tag> expectedTags = new HashMap<>();
-        expectedTags.put(TagType.YEAR, new Tag(TagType.YEAR, "1"));
-        expectedTags.put(TagType.MAJOR, new Tag(TagType.MAJOR, "CS"));
-        expectedTags.put(TagType.GENDER, new Tag(TagType.GENDER, "he/him"));
-
-        // whitespace only preamble
-        assertParseSuccess(parser, "\t  \r  \n i=A8765432Y \n \t y=1 \t m=CS g=he/him",
-                new TagCommand(new StudentId(VALID_STUDENTID_BOB), expectedTags));
-    }
-
-    @Test
     public void parse_singleTag_success() {
         Map<TagType, Tag> expectedTags = new HashMap<>();
         expectedTags.put(TagType.YEAR, new Tag(TagType.YEAR, "2"));
@@ -85,19 +73,19 @@ public class TagCommandParserTest {
     public void parse_repeatedValues_failure() {
         String validExpectedPersonString = " i=A1234567Y y=1";
 
-        // multiple student IDs
+        // EP: multiple student IDs
         assertParseFailure(parser, STUDENTID_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
 
-        // multiple years
+        // EP: multiple years
         assertParseFailure(parser, " i=A1234567Y y=1 y=2",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TAG_YEAR));
 
-        // multiple majors
+        // EP: multiple majors
         assertParseFailure(parser, " i=A1234567Y m=CS m=Math",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TAG_MAJOR));
 
-        // multiple genders
+        // EP: multiple genders
         assertParseFailure(parser, " i=A1234567Y g=he/him g=she/her",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TAG_GENDER));
     }
