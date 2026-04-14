@@ -8,6 +8,8 @@ pageNav: 3
 
 <page-nav-print />
 
+<!-- * Table of Contents -->
+
 [//]: # (---)
 
 [//]: # ()
@@ -19,7 +21,6 @@ pageNav: 3
 [//]: # (### **Table of Contents**)
 
 [//]: # ()
-<!-- * Table of Contents -->
 
 [//]: # (1. [Acknowledgements]&#40;#acknowledgements&#41;)
 
