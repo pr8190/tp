@@ -41,7 +41,6 @@
       "title": "Developer Guide",
       "headings": {
         "hall-ledger-developer-guide": "Hall Ledger Developer Guide",
-        "table-of-contents": "Table of Contents",
         "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
@@ -64,6 +63,8 @@
         "use-cases": "Use cases",
         "non-functional-requirements": "Non-Functional Requirements",
         "glossary": "Glossary",
+        "non-functional-requirements-2": "Non-Functional Requirements",
+        "glossary-2": "Glossary",
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for Manual Testing",
         "launch-and-shutdown": "Launch and shutdown",
         "adding-a-resident": "Adding a resident",
@@ -85,22 +86,23 @@
       "headingKeywords": {}
     },
     {
-      "src": "FuzzyMatching.md",
-      "title": "Fuzzy Matching Details",
-      "headings": {
-        "fuzzy-matching-details": "Fuzzy Matching Details",
-        "1-quick-idea": "1. Quick idea",
-        "2-which-fields-use-which-matching-style": "2. Which fields use which matching style?",
-        "3-how-multiple-filters-combine": "3. How multiple filters combine",
-        "4-case-sensitivity": "4. Case sensitivity"
-      },
-      "headingKeywords": {}
-    },
-    {
       "src": "Logging.md",
       "title": "Logging guide",
       "headings": {
         "logging-guide": "Logging guide"
+      },
+      "headingKeywords": {}
+    },
+    {
+      "src": "MoreDetailsOnFind.md",
+      "title": "Fuzzy Matching Details",
+      "headings": {
+        "more-details-on-matching": "More Details on Matching",
+        "1-types-of-matching": "1. Types of matching",
+        "2-which-fields-use-which-matching-style": "2. Which fields use which matching style?",
+        "3-notes-on-exact-match-fields": "3. Notes on exact-match fields",
+        "4-note-on-year-and-gender": "4. Note on Year and Gender",
+        "5-how-multiple-filters-combine": "5. How multiple filters combine"
       },
       "headingKeywords": {}
     },
@@ -137,7 +139,7 @@
         "5-tagging-a-resident": "5. Tagging a Resident",
         "6-viewing-residents": "6. Viewing Residents",
         "7-finding-residents": "7. Finding Residents",
-        "8-managing-resident-remarks": "8. Managing Resident Remarks:",
+        "8-managing-resident-remarks": "8. Managing Resident Remarks",
         "9-adding-a-demerit-record-to-a-resident": "9. Adding a Demerit Record to a Resident",
         "10-deleting-a-resident": "10. Deleting a Resident",
         "11-clearing-all-residents": "11. Clearing all Residents",
@@ -156,30 +158,6 @@
       "title": "",
       "headings": {
         "hall-ledger": "Hall Ledger"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "team/ananyaj1515.md",
-      "title": "John Doe's Project Portfolio Page",
-      "headings": {
-        "project-addressbook-level-3": "Project: AddressBook Level 3"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "team/dinhcodes.md",
-      "title": "John Doe's Project Portfolio Page",
-      "headings": {
-        "project-addressbook-level-3": "Project: AddressBook Level 3"
-      },
-      "headingKeywords": {}
-    },
-    {
-      "src": "team/pr8190.md",
-      "title": "Pooja Rajus's Project Portfolio Page",
-      "headings": {
-        "project-addressbook-level-3": "Project: AddressBook Level 3"
       },
       "headingKeywords": {}
     }
