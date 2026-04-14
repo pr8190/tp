@@ -33,7 +33,7 @@ deactivate ListCommand
 AddressBookParser --> LogicManager : l
 deactivate AddressBookParser
 
-LogicManager -> ListCommand : execute(model)
+LogicManager -> ListCommand : execute(m)
 activate ListCommand
 
 ListCommand -> Model : showAllPersons()
