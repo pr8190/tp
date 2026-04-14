@@ -596,25 +596,25 @@ or ad hoc note-taking workflows, while keeping hall-specific information such as
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a(n)…        | I want to…                                   | So that I can…                                              |
-|----------|-----------------|----------------------------------------------|-------------------------------------------------------------|
-| `* * *`  | forgetful user  | see usage instructions                       | refer to them when I forget how to use the app              |
-| `* * *`  | RA              | add new residents                            | start tracking and supporting students under my care quickly|
-| `* * *`  | RA              | view all residents at once                   | get a clear overview of all residents assigned to me        |
-| `* * *`  | RA              | search for existing residents                | quickly find a specific resident’s information when needed  |
-| `* * *`  | RA              | delete residents                             | remove residents who no longer stay in hall                 |
-| `* * *`  | RA              | clear all residents                          | reset the system efficiently for a new semester             |
-| `* * *`  | RA              | edit existing residents' information         | correct or update resident details when they change         |
-| `* * *`  | RA              | administer demerit points to residents       | accurately track and record behavioural incidents           |
-| `* * *`  | RA              | filter residents                             | easily view residents based on relevant criteria            |
-| `* * *`  | RA              | add custom tags to residents                 | organise residents based on categories that matter to me    |
+| Priority | As a(n)…        | I want to…                                   | So that I can…                                                 |
+|----------|-----------------|----------------------------------------------|----------------------------------------------------------------|
+| `* * *`  | forgetful user  | see usage instructions                       | refer to them when I forget how to use the app                 |
+| `* * *`  | RA              | add new residents                            | start tracking and supporting residents under my care quickly  |
+| `* * *`  | RA              | view all residents at once                   | get a clear overview of all residents assigned to me           |
+| `* * *`  | RA              | search for existing residents                | quickly find a specific resident’s information when needed     |
+| `* * *`  | RA              | delete residents                             | remove residents who no longer stay in hall                    |
+| `* * *`  | RA              | clear all residents                          | reset the system efficiently for a new semester                |
+| `* * *`  | RA              | edit existing residents' information         | correct or update resident details when they change            |
+| `* * *`  | RA              | administer demerit points to residents       | accurately track and record behavioural incidents              |
+| `* * *`  | RA              | filter residents                             | easily view residents based on relevant criteria               |
+| `* * *`  | RA              | add custom tags to residents                 | organise residents based on categories that matter to me       |
 | `* * *`  | RA              | add notes to residents                       | record important context or conversations for future reference |
-| `* *`    | RA              | administer CCA points to residents           | track resident involvement in hall activities               |
-| `* *`    | RA              | view residents' CCA records                  | review residents' involvement when making retention decisions |
-| `* `     | RA              | rank residents by accumulated CCA points     | compare residents more easily during evaluations            |
-| `* *`    | RA              | view resident demerit records                | understand a resident’s behavioural history at a glance     |
+| `* *`    | RA              | administer CCA points to residents           | track resident involvement in hall activities                  |
+| `* *`    | RA              | view residents' CCA records                  | review residents' involvement when making retention decisions  |
+| `* `     | RA              | rank residents by accumulated CCA points     | compare residents more easily during evaluations               |
+| `* *`    | RA              | view resident demerit records                | understand a resident’s behavioural history at a glance        |
 | `* `     | RA              | generate occupancy reports by floor and room | plan housing allocation more effectively for the next semester |
-| `* `     | RA              | export all data to a downloadable file       | share or analyse resident data externally                   |
+| `* `     | RA              | export all data to a downloadable file       | share or analyse resident data externally                      |
 
 --- 
 
@@ -773,7 +773,7 @@ Use case ends.
 
 1. Should work on any mainstream OS as long as it has Java 17 or above installed.
 
-2. Should be able to store up to 250 students without noticeable sluggishness in performance for typical usage.
+2. Should be able to store up to 250 residents without noticeable sluggishness in performance for typical usage.
 
 3. Should have a response time of < 3 seconds for all instructions.
 
