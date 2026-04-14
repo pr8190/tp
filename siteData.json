@@ -41,6 +41,7 @@
       "title": "Developer Guide",
       "headings": {
         "hall-ledger-developer-guide": "Hall Ledger Developer Guide",
+        "table-of-contents": "Table of Contents",
         "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
@@ -54,8 +55,13 @@
         "how-ui-triggers-command-execution": "How UI triggers command execution",
         "deep-dive-how-editing-keywords-from-the-ui-triggers-a-findcommand": "Deep dive: How editing keywords from the UI triggers a FindCommand",
         "how-the-ui-stays-synced-with-the-model": "How the UI stays synced with the Model",
+        "how-add-feature-works": "How Add feature works",
+        "how-the-list-command-works": "How the list command works",
         "demerit-point-tracking": "Demerit point tracking",
+        "how-demerit-incidents-are-applied": "How demerit incidents are applied",
         "demerit-records-ui": "Demerit records UI",
+        "how-delete-confirmation-flow-works": "How delete confirmation flow works",
+        "how-data-is-stored": "How data is stored",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
         "appendix-requirements": "Appendix: Requirements",
         "product-scope": "Product scope",
@@ -63,8 +69,6 @@
         "use-cases": "Use cases",
         "non-functional-requirements": "Non-Functional Requirements",
         "glossary": "Glossary",
-        "non-functional-requirements-2": "Non-Functional Requirements",
-        "glossary-2": "Glossary",
         "appendix-instructions-for-manual-testing": "Appendix: Instructions for Manual Testing",
         "launch-and-shutdown": "Launch and shutdown",
         "adding-a-resident": "Adding a resident",
@@ -73,6 +77,7 @@
         "adding-a-remark": "Adding a remark",
         "demerit-features": "Demerit features",
         "deleting-a-resident": "Deleting a resident",
+        "appendix-effort": "Appendix: Effort",
         "appendix-planned-enhancements": "Appendix: Planned Enhancements"
       },
       "headingKeywords": {}

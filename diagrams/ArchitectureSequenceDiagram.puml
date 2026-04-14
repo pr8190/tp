@@ -8,13 +8,13 @@ Participant ":Logic" as logic LOGIC_COLOR
 Participant ":Model" as model MODEL_COLOR
 Participant ":Storage" as storage STORAGE_COLOR
 
-user -[USER_COLOR]> ui : "delete\n i=A123456X"
+user -[USER_COLOR]> ui : "add\n n=..."
 activate ui UI_COLOR
 
-ui -[UI_COLOR]> logic : execute\n("delete i=A123456X")
+ui -[UI_COLOR]> logic : execute\n("add n=...")
 activate logic LOGIC_COLOR
 
-logic -[LOGIC_COLOR]> model : deletePerson(p)
+logic -[LOGIC_COLOR]> model : addPerson(p)
 activate model MODEL_COLOR
 
 model -[MODEL_COLOR]-> logic
