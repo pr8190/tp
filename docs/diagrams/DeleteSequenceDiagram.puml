@@ -9,7 +9,8 @@ skinparam ParticipantFontSize 18
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
-participant "l:ListCommand" as ListCommand LOGIC_COLOR
+participant ":DeleteCommandParser" as DeleteCommandParser LOGIC_COLOR
+participant "d:DeleteCommand" as DeleteCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -17,42 +18,55 @@ box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 end box
 
-[-> LogicManager : execute\n("list")
+[-> LogicManager : execute\n("delete i=A123456X")
 activate LogicManager
 
-LogicManager -> AddressBookParser : parseCommand("list")
+LogicManager -> AddressBookParser : parseCommand\n("delete i=A123456X")
 activate AddressBookParser
 
-create ListCommand
-AddressBookParser -> ListCommand
-activate ListCommand
+AddressBookParser -> DeleteCommandParser : parse\n(" i=A1234567X")
+activate DeleteCommandParser
 
-ListCommand --> AddressBookParser
-deactivate ListCommand
+create DeleteCommand
+DeleteCommandParser -> DeleteCommand
+activate DeleteCommand
 
-AddressBookParser --> LogicManager : l
+DeleteCommand --> DeleteCommandParser : d
+deactivate DeleteCommand
+
+DeleteCommandParser --> AddressBookParser : d
+deactivate DeleteCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+DeleteCommandParser -[hidden]-> AddressBookParser
+destroy DeleteCommandParser
+
+AddressBookParser --> LogicManager : d
 deactivate AddressBookParser
 
-LogicManager -> ListCommand : execute(model)
-activate ListCommand
+LogicManager -> DeleteCommand : execute(m)
+activate DeleteCommand
 
-ListCommand -> Model : showAllPersons()
+DeleteCommand -> Model : get resident \nby Student ID
 activate Model
-Model --> ListCommand
+Model --> DeleteCommand : personToDelete
+deactivate Model
+
+DeleteCommand -> Model : deletePerson\n(personToDelete)
+activate Model
+
+Model --> DeleteCommand
 deactivate Model
 
 create CommandResult
-ListCommand -> CommandResult
+DeleteCommand -> CommandResult
 activate CommandResult
 
-CommandResult --> ListCommand:
+CommandResult --> DeleteCommand
 deactivate CommandResult
 
-ListCommand --> LogicManager: r
-deactivate ListCommand
+DeleteCommand --> LogicManager : r
+deactivate DeleteCommand
 
-[<-- LogicManager
+[<--LogicManager
 deactivate LogicManager
-destroy ListCommand
-
 @enduml
