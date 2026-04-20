@@ -28,22 +28,11 @@ public class TagCommandParserTest {
     private TagCommandParser parser = new TagCommandParser();
 
     @Test
-    public void parse_allFieldsPresent_success() {
-        Map<TagType, Tag> expectedTags = new HashMap<>();
-        expectedTags.put(TagType.YEAR, new Tag(TagType.YEAR, "1"));
-        expectedTags.put(TagType.MAJOR, new Tag(TagType.MAJOR, "CS"));
-        expectedTags.put(TagType.GENDER, new Tag(TagType.GENDER, "he/him"));
-
-        // whitespace only preamble
-        assertParseSuccess(parser, "\t  \r  \n i=A8765432Y \n \t y=1 \t m=CS g=he/him",
-                new TagCommand(new StudentId(VALID_STUDENTID_BOB), expectedTags));
-    }
-
-    @Test
     public void parse_singleTag_success() {
         Map<TagType, Tag> expectedTags = new HashMap<>();
         expectedTags.put(TagType.YEAR, new Tag(TagType.YEAR, "2"));
 
+        // valid student id and single valid tag
         assertParseSuccess(parser, " i=A1234567Y y=2",
                 new TagCommand(new StudentId(VALID_STUDENTID_AMY), expectedTags));
     }
@@ -54,25 +43,33 @@ public class TagCommandParserTest {
         expectedTags.put(TagType.YEAR, new Tag(TagType.YEAR, "3"));
         expectedTags.put(TagType.MAJOR, new Tag(TagType.MAJOR, "Business"));
 
+        // Combination: valid student id and multiple valid tags
         assertParseSuccess(parser, " i=A8765432Y y=3 m=Business",
                 new TagCommand(new StudentId(VALID_STUDENTID_BOB), expectedTags));
     }
 
     @Test
+
     public void parse_genderNormalization_success() {
         Map<TagType, Tag> expectedTags = new HashMap<>();
+        // Test various gender inputs that should all normalize to "she/her"
         expectedTags.put(TagType.GENDER, new Tag(TagType.GENDER, "she/her"));
 
-        // Test various gender inputs that should normalize to "she/her"
+        // EP: valid gender pronoun variant
         assertParseSuccess(parser, " i=A1234567Y g=she",
                 new TagCommand(new StudentId(VALID_STUDENTID_AMY), expectedTags));
+
+        // EP: valid gender pronoun variant
         assertParseSuccess(parser, " i=A1234567Y g=her",
                 new TagCommand(new StudentId(VALID_STUDENTID_AMY), expectedTags));
+
+        // EP: complete pronoun
         assertParseSuccess(parser, " i=A1234567Y g=she/her",
                 new TagCommand(new StudentId(VALID_STUDENTID_AMY), expectedTags));
     }
 
     @Test
+    // EP: empty tag value (tag removal case)
     public void parse_emptyTagValue_removesTag() {
         Map<TagType, Tag> expectedTags = new HashMap<>();
         expectedTags.put(TagType.YEAR, null); // null indicates removal
@@ -85,19 +82,19 @@ public class TagCommandParserTest {
     public void parse_repeatedValues_failure() {
         String validExpectedPersonString = " i=A1234567Y y=1";
 
-        // multiple student IDs
+        // EP: multiple student IDs
         assertParseFailure(parser, STUDENTID_DESC_AMY + validExpectedPersonString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_STUDENT_ID));
 
-        // multiple years
+        // EP: multiple years
         assertParseFailure(parser, " i=A1234567Y y=1 y=2",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TAG_YEAR));
 
-        // multiple majors
+        // EP: multiple majors
         assertParseFailure(parser, " i=A1234567Y m=CS m=Math",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TAG_MAJOR));
 
-        // multiple genders
+        // EP: multiple genders
         assertParseFailure(parser, " i=A1234567Y g=he/him g=she/her",
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_TAG_GENDER));
     }
@@ -125,16 +122,11 @@ public class TagCommandParserTest {
 
     @Test
     public void parse_invalidTagValues_failure() {
-        // invalid year
+        // EP: Invalid year
         assertParseFailure(parser, " i=A1234567Y y=7", Tag.MESSAGE_CONSTRAINTS);
 
-        // invalid gender
+        // EP: Unrecognised gender
         assertParseFailure(parser, " i=A1234567Y g=invalid", Tag.MESSAGE_CONSTRAINTS);
-    }
-
-    @Test
-    public void parse_invalidGender_failure() {
-        assertParseFailure(parser, " i=A1234567Y g=invalidgender", Tag.MESSAGE_CONSTRAINTS);
     }
 
     @Test

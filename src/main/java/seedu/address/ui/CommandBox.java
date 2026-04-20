@@ -42,7 +42,7 @@ public class CommandBox extends UiPart<Region> {
         }
 
         try {
-            commandExecutor.execute(commandText.toLowerCase());
+            commandExecutor.execute(commandText);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();

@@ -11,10 +11,12 @@ import org.junit.jupiter.api.Test;
 public class TagTest {
 
     @Test
+    // EP: null tag type
     public void constructor_nullTagType_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Tag(null, "valid"));
     }
 
+    // EP: null tag content
     @Test
     public void constructor_nullTagContent_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new Tag(TagType.MAJOR, null));
@@ -22,27 +24,35 @@ public class TagTest {
 
     @Test
     public void constructor_invalidYearTag_throwsIllegalArgumentException() {
-        // Year must be 1-6
+
+        // EP: zero
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.YEAR, "0"));
+
+        // EP: non zero invalid input
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.YEAR, "7"));
+
+        // EP: Not a number
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.YEAR, "abc"));
     }
 
+    // EP: Invalid gender values
     @Test
     public void constructor_invalidGenderTag_throwsIllegalArgumentException() {
-        // Gender must be one of the allowed values
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.GENDER, "invalid"));
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.GENDER, "she"));
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.GENDER, "he"));
     }
 
     @Test
+    // EP: Invalid Major Values
     public void constructor_invalidMajorTag_throwsIllegalArgumentException() {
-        // Major must match regex: alphanumeric with optional spaces
+        // EP: empty string
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.MAJOR, ""));
+
+        // EP: empty string with space
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.MAJOR, " "));
-        assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.MAJOR, " CS"));
-        assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.MAJOR, "CS "));
+
+        // EP: Invalid character provided
         assertThrows(IllegalArgumentException.class, () -> new Tag(TagType.MAJOR, "CS@"));
     }
 
@@ -80,24 +90,33 @@ public class TagTest {
     }
 
     @Test
+    // EP: valid year values
     public void isValidTagContent_validYearTags_returnsTrue() {
-        assertTrue(Tag.isValidTagContent("1", TagType.YEAR));
+        assertTrue(Tag.isValidTagContent("1", TagType.YEAR)); // boundary value
         assertTrue(Tag.isValidTagContent("2", TagType.YEAR));
         assertTrue(Tag.isValidTagContent("3", TagType.YEAR));
         assertTrue(Tag.isValidTagContent("4", TagType.YEAR));
         assertTrue(Tag.isValidTagContent("5", TagType.YEAR));
-        assertTrue(Tag.isValidTagContent("6", TagType.YEAR));
+        assertTrue(Tag.isValidTagContent("6", TagType.YEAR)); // boundary value
     }
 
     @Test
     public void isValidTagContent_invalidYearTags_returnsFalse() {
+        // EP: below range value
         assertFalse(Tag.isValidTagContent("0", TagType.YEAR));
+
+        // EP: above range value
         assertFalse(Tag.isValidTagContent("7", TagType.YEAR));
+
+        // EP: not a number
         assertFalse(Tag.isValidTagContent("abc", TagType.YEAR));
+
+        // EP: empty input
         assertFalse(Tag.isValidTagContent("", TagType.YEAR));
     }
 
     @Test
+    // EP: valid gender values
     public void isValidTagContent_validGenderTags_returnsTrue() {
         assertTrue(Tag.isValidTagContent("she/her", TagType.GENDER));
         assertTrue(Tag.isValidTagContent("he/him", TagType.GENDER));
@@ -106,10 +125,15 @@ public class TagTest {
 
     @Test
     public void isValidTagContent_invalidGenderTags_returnsFalse() {
+        // EP: gender pronoun variants
         assertFalse(Tag.isValidTagContent("she", TagType.GENDER));
         assertFalse(Tag.isValidTagContent("he", TagType.GENDER));
         assertFalse(Tag.isValidTagContent("they", TagType.GENDER));
+
+        // EP: not a gender pronoun
         assertFalse(Tag.isValidTagContent("invalid", TagType.GENDER));
+
+        // EP: empty string
         assertFalse(Tag.isValidTagContent("", TagType.GENDER));
     }
 

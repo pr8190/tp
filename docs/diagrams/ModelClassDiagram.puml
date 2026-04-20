@@ -53,7 +53,7 @@ Person *--> "1" EmergencyContact
 Person *--> "0..1" Remark
 Person *--> "0..3" Tag
 Person *--> "*" DemeritIncident
-Tag --> TagType
+Tag --> "1" TagType
 
 Person -[hidden]up--> I
 UniquePersonList -[hidden]right-> I

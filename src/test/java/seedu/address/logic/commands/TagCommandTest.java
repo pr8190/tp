@@ -39,12 +39,14 @@ public class TagCommandTest {
 
 
     @Test
+    // EP: null student id
     public void constructor_nullStudentId_throwsNullPointerException() {
         Map<TagType, Tag> tags = new HashMap<>();
         tags.put(TagType.YEAR, new Tag(TagType.YEAR, "2"));
         assertThrows(NullPointerException.class, () -> new TagCommand(null, tags));
     }
 
+    // EP: null tags
     @Test
     public void constructor_nullTags_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new TagCommand(VALID_STUDENT_ID, null));
@@ -54,6 +56,7 @@ public class TagCommandTest {
      * Tests that executing the TagCommand with a valid student ID and a single tag successfully applies the tag.
      */
     @Test
+    // Combination: valid student ID with single tag applied
     public void execute_validStudentIdSingleTag_tagSuccessful() throws Exception {
         Person person = new PersonBuilder().withStudentId(VALID_STUDENT_ID.toString()).build();
         model.addPerson(person);

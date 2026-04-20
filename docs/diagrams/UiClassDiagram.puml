@@ -46,18 +46,18 @@ UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
 
 MainWindow -down-> "0..1" HelpWindow
-MainWindow *-down->  "1" CommandBox
-MainWindow *-down-> "1" ResultDisplay
-MainWindow *-down-> "1" TabSection
-MainWindow *-down-> "1" ListSection
-MainWindow *-down-> "1" StatusBarFooter
+MainWindow -down-> "1" CommandBox
+MainWindow -down-> "1" ResultDisplay
+MainWindow -down-> "1" TabSection
+MainWindow -down-> "1" ListSection
+MainWindow -down-> "1" StatusBarFooter
 
-TabSection *-down-> "1" StudentDetailsTab
-TabSection *-down-> "1" DashboardTab
-TabSection *-down-> "1" DemeritListTab
+TabSection -down-> "1" StudentDetailsTab
+TabSection -down-> "1" DashboardTab
+TabSection -down-> "1" DemeritListTab
 
-ListSection *--> "1" FilterPanel
-ListSection *--> "1" PersonListPanel
+ListSection --> "1" FilterPanel
+ListSection --> "1" PersonListPanel
 
 PersonListPanel -down-> "*" PersonCard
 
@@ -65,6 +65,15 @@ PersonCard --|> UiPart
 DemeritListTab --|> UiPart
 DashboardTab --|> UiPart
 StudentDetailsTab --|> UiPart
+CommandBox --|> UiPart
+TabSection --|> UiPart
+ListSection --|> UiPart
+StatusBarFooter --|> UiPart
+ResultDisplay --|> UiPart
+HelpWindow --|> UiPart
+PersonListPanel --|> UiPart
+FilterPanel --|> UiPart
+MainWindow --|> UiPart
 
 PersonCard .down.> Model
 FilterPanel .down.> Model
