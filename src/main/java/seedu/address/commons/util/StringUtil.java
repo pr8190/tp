@@ -83,7 +83,8 @@ public class StringUtil {
      * <ol>
      *     <li>Exact matches are always true.</li>
      *     <li>If the {@code query} is a substring of the {@code target}, returns true</li>
-     *     <li>If the {@code query} are 4 characters, and its Levenshtein distance to the {@code target} is 2 or less,
+     *     <li>If the {@code query} are 4 characters or more, and its Levenshtein distance to the {@code target} is 2
+     *     or less,
      *     returns true (tolerating small typos).</li>
      * </ol>
      * For short strings (length 3 or less), only exact and substring matches are allowed.

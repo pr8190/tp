@@ -51,7 +51,7 @@ irrelevant target values such as `Jon`, `AJ` or `Ben`, which would make the find
 | `a`      | `alex`       | Yes          | `a` is a substring of `alex`                       |
 | `alez`   | `alex`       | Yes          | Only 1 edit apart (substitute `z` with `x`)        |
 | `alexis` | `alex`       | Yes          | Only 2 edits apart (delete `i` and `s`)            |
-| `ann`    | `ana`        | No           | Your keyword `ana` is too short for typo tolerance |
+| `ann`    | `ana`        | No           | Your keyword `ann` is too short for typo tolerance |
 
 ------
 
